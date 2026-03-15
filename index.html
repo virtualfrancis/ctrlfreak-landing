@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CtrlFreak: Homelab in Your Pocket</title>
   <meta name="description" content="A mobile app for iOS and Android that gives you a real-time view of your homelab and the ability to act on it from anywhere." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -16,6 +19,7 @@
       --muted: #9ca3af;
       --dim: #6b7280;
       --blue: #3b82f6;
+      --orange: #f97316;
       --green: #22c55e;
       --red: #ef4444;
       --amber: #f59e0b;
@@ -54,7 +58,11 @@
       letter-spacing: -0.3px;
     }
 
-    .nav-logo span { color: var(--blue); }
+    .nav-logo .freak-word {
+      color: var(--orange);
+      font-family: 'Permanent Marker', cursive;
+      font-weight: 400;
+    }
 
     .nav-cta {
       background: var(--blue);
@@ -113,7 +121,7 @@
       margin-bottom: 20px;
     }
 
-    .hero h1 span { color: var(--blue); }
+    .hero h1 span { color: var(--orange); }
 
     .hero p {
       font-size: 18px;
@@ -318,28 +326,6 @@
       margin: 0 auto 40px;
     }
 
-    .waitlist-form {
-      display: flex;
-      gap: 10px;
-      max-width: 420px;
-      margin: 0 auto;
-    }
-
-    .waitlist-input {
-      flex: 1;
-      background: var(--bg);
-      border: 1px solid var(--bg3);
-      border-radius: 10px;
-      padding: 12px 16px;
-      color: var(--text);
-      font-size: 15px;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-
-    .waitlist-input:focus { border-color: var(--blue); }
-    .waitlist-input::placeholder { color: var(--dim); }
-
     .waitlist-note {
       font-size: 13px;
       color: var(--dim);
@@ -405,7 +391,6 @@
       }
 
       .waitlist-inner { padding: 60px 20px; }
-      .waitlist-form { flex-direction: column; }
 
       footer {
         flex-direction: column;
@@ -420,7 +405,7 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo">Ctrl<span>Freak</span></div>
+    <div class="nav-logo">Ctrl<span class="freak-word">Freak</span></div>
     <div style="display:flex;align-items:center;gap:28px;">
       <a href="#features" style="font-size:14px;font-weight:500;color:var(--muted);">Features</a>
       <a href="#waitlist" style="font-size:14px;font-weight:500;color:var(--muted);">Waitlist</a>
@@ -433,7 +418,7 @@
     <div>
       <div class="hero-badge">
         <span class="dot"></span>
-        iOS and Android, in development
+        iOS and Android, coming soon
       </div>
       <h1>Your homelab.<br /><span>In your pocket.</span></h1>
       <p>CtrlFreak is a native iOS and Android app that gives you a real-time view of your infrastructure and the ability to act on it from wherever you are.</p>
@@ -456,47 +441,57 @@
 
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon">📊</div>
+        <div class="feature-icon">&#128202;</div>
         <div class="feature-title">Dashboard</div>
         <div class="feature-desc">Node-level CPU and RAM utilization, VM and container counts, and a live down-alerts section. Pull to refresh or let notifications find you first.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">⚙️</div>
+        <div class="feature-icon">&#9881;&#65039;</div>
         <div class="feature-title">Virtual Machines</div>
         <div class="feature-desc">All Proxmox VMs and LXC containers across every node. Start, reboot, and stop with confirmation prompts. Backup status visible at a glance.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🐳</div>
+        <div class="feature-icon">&#128051;</div>
         <div class="feature-title">Docker Containers</div>
         <div class="feature-desc">All containers from your Portainer instance in one list. Start, restart, stop, and recreate with a tap. Live log viewer built in.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🟢</div>
+        <div class="feature-icon">&#128994;</div>
         <div class="feature-title">Services</div>
         <div class="feature-desc">Uptime Kuma monitor status pulled directly from your self-hosted instance. See what's degraded or down without opening another tab.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🖥️</div>
+        <div class="feature-icon">&#128421;&#65039;</div>
         <div class="feature-title">Server Hardware</div>
         <div class="feature-desc">Out-of-band management for bare metal servers. Power state, health status, live temperature sensors, fan speeds, and full power control.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">💻</div>
+        <div class="feature-icon">&#128187;</div>
         <div class="feature-title">SSH Terminal</div>
         <div class="feature-desc">Tap into any machine directly from the app. Full interactive shell without reaching for a laptop.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🛡️</div>
+        <div class="feature-icon">&#128737;&#65039;</div>
         <div class="feature-title">Pi-hole</div>
         <div class="feature-desc">See your query counts, block rate, and blocklist size at a glance. Enable or disable blocking without opening the Pi-hole web UI.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🔒</div>
+        <div class="feature-icon">&#128274;</div>
         <div class="feature-title">Tailscale</div>
         <div class="feature-desc">See which devices on your tailnet are online, their IPs, and last seen times. Know your VPN is healthy before you need it.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🔧</div>
+        <div class="feature-icon">&#128451;&#65039;</div>
+        <div class="feature-title">Unraid</div>
+        <div class="feature-desc">NAS storage array status at a glance. See disk health, array state, and share utilization without opening another browser tab.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#127760;</div>
+        <div class="feature-title">Nginx Proxy Manager</div>
+        <div class="feature-desc">See all your reverse proxy hosts in one view. Active proxies, SSL status, and disabled entries without touching the web UI.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128295;</div>
         <div class="feature-title">Network Tools</div>
         <div class="feature-desc">Ping hosts, check port reachability, test DNS, scan for HTTPS health across your stack, and wake sleeping machines with a tap.</div>
       </div>
@@ -518,6 +513,8 @@
         <span class="integration-pill">Dell iDRAC</span>
         <span class="integration-pill">Pi-hole</span>
         <span class="integration-pill">Tailscale</span>
+        <span class="integration-pill">Unraid</span>
+        <span class="integration-pill">Nginx Proxy Manager</span>
         <span class="integration-pill">SSH</span>
         <span class="integration-pill">Wake on LAN</span>
       </div>
@@ -532,21 +529,21 @@
 
     <div class="privacy-grid">
       <div class="privacy-card">
-        <div class="privacy-icon">🔐</div>
+        <div class="privacy-icon">&#128272;</div>
         <div>
           <div class="privacy-title">Credentials in the secure enclave</div>
           <div class="privacy-desc">All server credentials are stored in the OS keychain and encrypted at rest. They never leave your device.</div>
         </div>
       </div>
       <div class="privacy-card">
-        <div class="privacy-icon">🚫</div>
+        <div class="privacy-icon">&#128683;</div>
         <div>
           <div class="privacy-title">No backend</div>
           <div class="privacy-desc">There is no developer server, no cloud relay, no analytics, no telemetry. The app connects directly to your infrastructure.</div>
         </div>
       </div>
       <div class="privacy-card">
-        <div class="privacy-icon">📡</div>
+        <div class="privacy-icon">&#128225;</div>
         <div>
           <div class="privacy-title">Direct connections only</div>
           <div class="privacy-desc">Every request goes straight from your phone to your servers using credentials you control.</div>
@@ -560,7 +557,7 @@
     <div class="waitlist-inner">
       <div class="section-label" style="text-align:center;">Early Access</div>
       <h2 class="section-title">Get in early</h2>
-      <p class="section-sub">iOS and Android builds are in development. Join the waitlist and be first to know when it's ready.</p>
+      <p class="section-sub">iOS and Android. Join the waitlist and be first to know when it's available.</p>
 
       <iframe data-tally-src="https://tally.so/embed/9q1LW4?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="152" frameborder="0" marginheight="0" marginwidth="0" title="CtrlFreak Early Access"></iframe>
       <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
@@ -570,11 +567,10 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2026 GOW Studios. <a href="https://virtualfrancis.github.io/ctrlfreak-legal/privacy/" style="color:var(--dim);">Privacy Policy</a></p>
+    <p>&#169; 2026 GOW Studios. <a href="https://virtualfrancis.github.io/ctrlfreak-legal/privacy/" style="color:var(--dim);">Privacy Policy</a></p>
     <div class="platform-badges">
-      <span class="platform-badge">Android</span>
       <span class="platform-badge">iOS</span>
-      <span class="platform-badge">Coming Soon</span>
+      <span class="platform-badge">Android</span>
     </div>
   </footer>
 
