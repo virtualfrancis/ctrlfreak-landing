@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CtrlFreak: FAQ and Setup Guide</title>
   <meta name="description" content="How to configure CtrlFreak with your homelab. Setup guides for Proxmox, Portainer, Pi-hole, Tailscale, iDRAC, Uptime Kuma, Unraid, and Nginx Proxy Manager." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -56,7 +59,11 @@
       text-decoration: none;
     }
 
-    .nav-logo span { color: var(--blue); }
+    .nav-logo .freak-word {
+      color: #f97316;
+      font-family: 'Permanent Marker', cursive;
+      font-weight: 400;
+    }
 
     .nav-links {
       display: flex;
@@ -281,7 +288,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="index.html" class="nav-logo">Ctrl<span>Freak</span></a>
+    <a href="index.html" class="nav-logo">Ctrl<span class="freak-word">Freak</span></a>
     <div class="nav-links">
       <a href="index.html#features">Features</a>
       <a href="faq.html" style="color:var(--text);">FAQ</a>
