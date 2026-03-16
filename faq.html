@@ -234,6 +234,53 @@
 
     .faq-body strong { color: var(--text); font-weight: 600; }
 
+    .code-block {
+      background: var(--bg3);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+
+    .code-block-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .code-block-label {
+      font-size: 12px;
+      color: var(--dim);
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    }
+
+    .copy-btn {
+      background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .copy-btn:hover { color: var(--text); border-color: var(--dim); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    .code-block pre {
+      padding: 14px;
+      font-size: 12px;
+      line-height: 1.7;
+      overflow-x: auto;
+      color: #a5f3fc;
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+      white-space: pre;
+      margin: 0;
+    }
+
     .note {
       background: var(--bg3);
       border-left: 3px solid var(--blue);
@@ -343,6 +390,87 @@
           <li>Paste in the JSON and tap <strong>Save</strong></li>
         </ol>
         <p>All credentials are stored encrypted in the OS keychain after import and the raw JSON is discarded.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What does the JSON config template look like?</summary>
+      <div class="faq-body">
+        <p>Copy the template below, fill in your server details, and import it in <strong>Settings &gt; Import JSON</strong>. Remove any integrations you don't use. The <code>id</code> fields can be any unique string.</p>
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-label">ctrlfreak-config.json</span>
+            <button class="copy-btn" onclick="copyTemplate(this)">Copy</button>
+          </div>
+          <pre id="json-template">{
+  "proxmoxServers": [
+    {
+      "id": "proxmox-1",
+      "label": "My Proxmox",
+      "host": "https://192.168.1.38:8006",
+      "token": "user@pam!tokenname=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "verifySSL": false
+    }
+  ],
+  "portainerHost": "http://192.168.1.73:9000",
+  "portainerToken": "your-portainer-api-token",
+  "uptimeKumaHost": "http://192.168.1.73:3001",
+  "uptimeKumaUser": "",
+  "uptimeKumaPass": "",
+  "idracServers": [
+    {
+      "id": "idrac-1",
+      "label": "My Server",
+      "host": "https://192.168.1.51",
+      "username": "root",
+      "password": "your-idrac-password"
+    }
+  ],
+  "piholeHost": "http://192.168.1.100",
+  "piholeToken": "your-pihole-api-token",
+  "tailscaleTailnet": "your-tailnet-name",
+  "tailscaleApiKey": "tskey-api-xxxxxxxxxxxx",
+  "tailscaleApiUrl": "",
+  "unraidServers": [
+    {
+      "id": "unraid-1",
+      "label": "Unraid Tower",
+      "host": "http://192.168.1.52",
+      "apiKey": "your-unraid-api-key"
+    }
+  ],
+  "npmServers": [
+    {
+      "id": "npm-1",
+      "label": "Nginx Proxy Manager",
+      "host": "http://192.168.1.73:81",
+      "email": "admin@example.com",
+      "password": "your-npm-password"
+    }
+  ],
+  "wolDevices": [
+    {
+      "id": "wol-1",
+      "name": "My Server",
+      "mac": "AA:BB:CC:DD:EE:FF",
+      "broadcastIp": "192.168.1.255"
+    }
+  ],
+  "wolRelayUrl": "",
+  "enabledIntegrations": {
+    "proxmox": true,
+    "portainer": true,
+    "uptimeKuma": true,
+    "idrac": true,
+    "pihole": true,
+    "tailscale": true,
+    "unraid": true,
+    "nginxProxyManager": true
+  },
+  "demoMode": false
+}</pre>
+        </div>
+        <div class="note" style="margin-top:12px;">Leave <code>tailscaleApiUrl</code> and <code>wolRelayUrl</code> as empty strings unless you have a custom setup. Arrays like <code>proxmoxServers</code> support multiple entries.</div>
       </div>
     </details>
 
@@ -585,6 +713,20 @@
       <span class="platform-badge">Coming Soon</span>
     </div>
   </footer>
+
+  <script>
+    function copyTemplate(btn) {
+      const text = document.getElementById('json-template').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
 
 </body>
 </html>
