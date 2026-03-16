@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CtrlFreak: FAQ and Setup Guide</title>
+  <meta name="description" content="How to configure CtrlFreak with your homelab. Setup guides for Proxmox, Portainer, Pi-hole, Tailscale, iDRAC, Uptime Kuma, Unraid, and Nginx Proxy Manager." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111827;
+      --bg3: #1f2937;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --dim: #6b7280;
+      --blue: #3b82f6;
+      --green: #22c55e;
+      --red: #ef4444;
+      --amber: #f59e0b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--bg3);
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,15,0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--blue); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .nav-cta {
+      background: var(--blue);
+      color: #fff !important;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 20px;
+      border-radius: 8px;
+      transition: opacity 0.15s;
+    }
+
+    .nav-cta:hover { opacity: 0.85; text-decoration: none; }
+
+    /* PAGE HEADER */
+    .page-header {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 40px 48px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .page-header h1 {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+
+    .page-header p {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* TOC */
+    .toc {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 40px 48px;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .toc-link {
+      background: var(--bg2);
+      border: 1px solid var(--bg3);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: border-color 0.15s, color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toc-link:hover { border-color: var(--blue); color: var(--text); text-decoration: none; }
+
+    /* SECTIONS */
+    .faq-section {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 40px 64px;
+    }
+
+    .faq-section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--bg3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ACCORDION */
+    details {
+      background: var(--bg2);
+      border: 1px solid var(--bg3);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+
+    details[open] { border-color: var(--blue); }
+
+    summary {
+      padding: 16px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      content: '+';
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--dim);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    details[open] summary::after {
+      content: '+';
+      transform: rotate(45deg);
+    }
+
+    .faq-body {
+      padding: 0 20px 20px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .faq-body p { margin-bottom: 12px; }
+    .faq-body p:last-child { margin-bottom: 0; }
+
+    .faq-body ol, .faq-body ul {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    .faq-body li { margin-bottom: 6px; }
+
+    .faq-body code {
+      background: var(--bg3);
+      color: var(--text);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+    }
+
+    .faq-body strong { color: var(--text); font-weight: 600; }
+
+    .note {
+      background: var(--bg3);
+      border-left: 3px solid var(--blue);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    .note.warning {
+      border-left-color: var(--amber);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--bg3);
+      padding: 32px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    footer p { font-size: 13px; color: var(--dim); }
+
+    .platform-badges { display: flex; gap: 10px; }
+
+    .platform-badge {
+      background: var(--bg2);
+      border: 1px solid var(--bg3);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .page-header { padding: 48px 20px 32px; }
+      .page-header h1 { font-size: 30px; }
+      .toc { padding: 0 20px 36px; }
+      .toc-grid { grid-template-columns: 1fr; }
+      .faq-section { padding: 0 20px 48px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Ctrl<span>Freak</span></a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="faq.html" style="color:var(--text);">FAQ</a>
+      <a href="index.html#waitlist" class="nav-cta">Get Early Access</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="section-label">Help</div>
+    <h1>FAQ and Setup Guide</h1>
+    <p>How to configure CtrlFreak with your homelab. Setup instructions for each integration, answers to common questions, and tips for getting connected.</p>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-grid">
+      <a href="#general" class="toc-link">General</a>
+      <a href="#proxmox" class="toc-link">Proxmox VE</a>
+      <a href="#portainer" class="toc-link">Portainer</a>
+      <a href="#uptimekuma" class="toc-link">Uptime Kuma</a>
+      <a href="#idrac" class="toc-link">Dell iDRAC</a>
+      <a href="#pihole" class="toc-link">Pi-hole</a>
+      <a href="#tailscale" class="toc-link">Tailscale</a>
+      <a href="#unraid" class="toc-link">Unraid</a>
+      <a href="#npm" class="toc-link">Nginx Proxy Manager</a>
+      <a href="#ssl" class="toc-link">SSL and Certificates</a>
+    </div>
+  </div>
+
+  <!-- GENERAL -->
+  <div class="faq-section" id="general">
+    <div class="faq-section-title">General</div>
+
+    <details>
+      <summary>What is demo mode?</summary>
+      <div class="faq-body">
+        <p>Demo mode lets you explore the full app without connecting to any real servers. It populates every screen with realistic mock data so you can see exactly what CtrlFreak looks like with a working homelab.</p>
+        <p>To enable it: open the app for the first time and tap <strong>Try Demo</strong>, or go to <strong>Settings</strong> and toggle <strong>Demo Mode</strong> on.</p>
+        <p>Demo mode is read-only. Actions like starting a VM or restarting a container are simulated locally and have no effect on real infrastructure.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I import my server configuration?</summary>
+      <div class="faq-body">
+        <p>CtrlFreak supports importing a JSON configuration file so you don't have to enter API tokens and addresses one field at a time on your phone keyboard.</p>
+        <ol>
+          <li>Create a JSON file with your server details (see the format in Settings under <strong>Import JSON</strong>)</li>
+          <li>Go to <strong>Settings</strong> and tap <strong>Import JSON</strong></li>
+          <li>Paste in the JSON and tap <strong>Save</strong></li>
+        </ol>
+        <p>All credentials are stored encrypted in the OS keychain after import and the raw JSON is discarded.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What is included in the free tier vs Pro?</summary>
+      <div class="faq-body">
+        <p><strong>Free:</strong> Dashboard, Proxmox VMs and containers, Uptime Kuma, Unraid basic status.</p>
+        <p><strong>Pro ($7.99 one-time):</strong> Dell iDRAC, SSH terminal, Pi-hole, Tailscale, Nginx Proxy Manager, network topology, Wake on LAN, diagnostics, and notifications.</p>
+        <p>Pro is a one-time purchase with no subscription.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Where are my credentials stored?</summary>
+      <div class="faq-body">
+        <p>All server credentials, API tokens, and passwords are stored in the OS secure keychain (iOS Keychain / Android Keystore). They are encrypted at rest and never leave your device.</p>
+        <p>CtrlFreak has no backend server. There is no developer cloud, no relay, no telemetry. Every request goes directly from your phone to your servers.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- PROXMOX -->
+  <div class="faq-section" id="proxmox">
+    <div class="faq-section-title">Proxmox VE</div>
+
+    <details open>
+      <summary>How do I create a Proxmox API token?</summary>
+      <div class="faq-body">
+        <ol>
+          <li>Log into your Proxmox web UI</li>
+          <li>Go to <strong>Datacenter &gt; Permissions &gt; API Tokens</strong></li>
+          <li>Click <strong>Add</strong></li>
+          <li>Select a user (e.g. <code>root@pam</code>) or create a dedicated user</li>
+          <li>Give the token a name (e.g. <code>ctrlfreak</code>)</li>
+          <li>Uncheck <strong>Privilege Separation</strong> if you want the token to inherit full permissions, or leave it on and assign specific roles</li>
+          <li>Click <strong>Add</strong> and copy the token immediately. It will only be shown once.</li>
+        </ol>
+        <p>The token format is: <code>user@realm!tokenname=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code></p>
+        <div class="note">The host field should be your Proxmox URL including port, e.g. <code>https://192.168.1.38:8006</code></div>
+      </div>
+    </details>
+
+    <details>
+      <summary>What permissions does the Proxmox token need?</summary>
+      <div class="faq-body">
+        <p>For read-only access: <strong>PVEAuditor</strong> role on <code>/</code>.</p>
+        <p>For full control (start/stop VMs, etc.): <strong>PVEAdmin</strong> role on <code>/</code>, or <strong>PVEVMAdmin</strong> on <code>/vms</code> if you want to limit scope.</p>
+        <p>To assign roles: <strong>Datacenter &gt; Permissions &gt; Add &gt; API Token Permission</strong>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I connect to multiple Proxmox nodes or clusters?</summary>
+      <div class="faq-body">
+        <p>Yes. You can add multiple Proxmox servers in Settings and the dashboard aggregates data from all of them. Each server entry has its own host, token, and label.</p>
+        <p>If your nodes are in a cluster, you only need to add one node since the API returns data for all nodes in the cluster.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- PORTAINER -->
+  <div class="faq-section" id="portainer">
+    <div class="faq-section-title">Portainer</div>
+
+    <details open>
+      <summary>How do I get a Portainer API token?</summary>
+      <div class="faq-body">
+        <ol>
+          <li>Log into your Portainer instance</li>
+          <li>Click your username in the top right and go to <strong>My account</strong></li>
+          <li>Scroll to <strong>Access tokens</strong></li>
+          <li>Click <strong>Add access token</strong>, give it a name, and copy it</li>
+        </ol>
+        <p>The host should be your Portainer URL without a trailing slash, e.g. <code>http://192.168.1.73:9000</code></p>
+      </div>
+    </details>
+  </div>
+
+  <!-- UPTIME KUMA -->
+  <div class="faq-section" id="uptimekuma">
+    <div class="faq-section-title">Uptime Kuma</div>
+
+    <details open>
+      <summary>How do I find my Uptime Kuma status page slug?</summary>
+      <div class="faq-body">
+        <p>The slug is the short name at the end of your status page URL.</p>
+        <ol>
+          <li>Log into Uptime Kuma</li>
+          <li>Go to <strong>Status Pages</strong></li>
+          <li>Open your status page. The URL will look like <code>http://your-host:3001/status/default</code></li>
+          <li>The slug is the last part: <code>default</code> in that example</li>
+        </ol>
+        <p>Enter the slug in Settings. CtrlFreak uses the public status page API, so no login credentials are needed for Uptime Kuma.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- IDRAC -->
+  <div class="faq-section" id="idrac">
+    <div class="faq-section-title">Dell iDRAC</div>
+
+    <details open>
+      <summary>How do I connect to iDRAC?</summary>
+      <div class="faq-body">
+        <p>CtrlFreak connects to iDRAC8 via the Redfish API using Basic authentication. Enter the iDRAC IP address, your username, and password in Settings.</p>
+        <div class="note warning">iDRAC8 requires TLS 1.2. Before connecting, go to your iDRAC web UI: <strong>iDRAC Settings &gt; Services &gt; Web Server</strong> and set <strong>TLS Protocol</strong> to <strong>TLS 1.2 and Higher</strong>. Without this the connection will fail.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why does my iDRAC connection keep failing?</summary>
+      <div class="faq-body">
+        <p>The most common cause is the TLS protocol setting. iDRAC8 defaults to TLS 1.0 in some firmware versions and the app requires TLS 1.2.</p>
+        <p>Fix: iDRAC web UI &gt; <strong>iDRAC Settings &gt; Services &gt; Web Server &gt; TLS Protocol: TLS 1.2 and Higher</strong>.</p>
+        <p>Other things to check:</p>
+        <ul>
+          <li>Confirm the IP is reachable from your phone (same network or via VPN)</li>
+          <li>Confirm the username and password are correct for the iDRAC interface specifically (not the host OS)</li>
+          <li>iDRAC9 is not tested. Redfish endpoints may differ.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <!-- PI-HOLE -->
+  <div class="faq-section" id="pihole">
+    <div class="faq-section-title">Pi-hole</div>
+
+    <details open>
+      <summary>How do I get my Pi-hole API token?</summary>
+      <div class="faq-body">
+        <ol>
+          <li>Log into your Pi-hole web UI</li>
+          <li>Go to <strong>Settings &gt; API / Web interface</strong></li>
+          <li>Your API token is shown under <strong>API Token</strong></li>
+          <li>Copy the token and paste it into CtrlFreak Settings</li>
+        </ol>
+        <p>The host should be the URL to your Pi-hole admin panel, e.g. <code>http://192.168.1.100</code></p>
+      </div>
+    </details>
+  </div>
+
+  <!-- TAILSCALE -->
+  <div class="faq-section" id="tailscale">
+    <div class="faq-section-title">Tailscale</div>
+
+    <details open>
+      <summary>How do I get a Tailscale API key?</summary>
+      <div class="faq-body">
+        <ol>
+          <li>Go to the Tailscale admin console at <a href="https://login.tailscale.com/admin" target="_blank">login.tailscale.com/admin</a></li>
+          <li>Go to <strong>Settings &gt; Keys</strong></li>
+          <li>Click <strong>Generate access token</strong></li>
+          <li>Give it a description and set an expiry</li>
+          <li>Copy the token (starts with <code>tskey-api-</code>)</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>Where do I find my tailnet name?</summary>
+      <div class="faq-body">
+        <p>Your tailnet name is visible in the Tailscale admin console URL and on the DNS settings page.</p>
+        <p>It is either your organization name (e.g. <code>example.com</code>) or the email domain you signed up with (e.g. <code>gmail.com</code> becomes <code>youremail.gmail.com.beta.tailscale.net</code>).</p>
+        <p>The easiest way: go to <strong>admin console &gt; DNS</strong> and your tailnet name is shown at the top under <strong>Tailnet name</strong>.</p>
+        <div class="note">Tailscale is the only integration that contacts an external cloud API (api.tailscale.com). All other integrations connect directly to your local servers.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- UNRAID -->
+  <div class="faq-section" id="unraid">
+    <div class="faq-section-title">Unraid</div>
+
+    <details open>
+      <summary>How do I get an Unraid API key?</summary>
+      <div class="faq-body">
+        <ol>
+          <li>Log into your Unraid web UI</li>
+          <li>Go to <strong>Settings &gt; Management Access</strong></li>
+          <li>Under <strong>API Keys</strong>, click <strong>Add</strong></li>
+          <li>Give it a name and copy the key</li>
+        </ol>
+        <p>The host should be your Unraid server IP or hostname, e.g. <code>http://192.168.1.52</code></p>
+        <div class="note">The Unraid API requires the Unraid API plugin or Unraid 6.12+ which includes the API natively.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- NPM -->
+  <div class="faq-section" id="npm">
+    <div class="faq-section-title">Nginx Proxy Manager</div>
+
+    <details open>
+      <summary>How do I connect to Nginx Proxy Manager?</summary>
+      <div class="faq-body">
+        <p>CtrlFreak connects using your NPM admin email and password. It authenticates via the NPM API and caches the session token for 23 hours.</p>
+        <p>The host should be your NPM instance including the port, e.g. <code>http://192.168.1.73:81</code></p>
+        <p>NPM defaults to port 81 for the admin interface.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- SSL -->
+  <div class="faq-section" id="ssl">
+    <div class="faq-section-title">SSL and Certificates</div>
+
+    <details open>
+      <summary>Does CtrlFreak work with self-signed certificates?</summary>
+      <div class="faq-body">
+        <p>Yes. CtrlFreak accepts self-signed and untrusted SSL certificates by design. Homelab servers commonly run with self-signed certs and the app is built to connect to them directly without requiring a trusted CA chain.</p>
+        <div class="note warning">This means the app does not perform standard SSL certificate validation. Connections are still encrypted, but the identity of the server is not verified against a trusted certificate authority. This is an intentional trade-off for local homelab use where you control and trust your own servers.</div>
+        <p>A per-server SSL verification toggle is on the roadmap for users who want stricter control.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What does the SSL Health screen do?</summary>
+      <div class="faq-body">
+        <p>The SSL Health screen (found in the Network Tools section) checks whether each of your configured servers is reachable over HTTPS. It shows a green dot and latency for hosts that respond, and a red dot for hosts that are unreachable or timing out.</p>
+        <p>It does not validate certificate chains. It only checks reachability.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>My server uses HTTP, not HTTPS. Will CtrlFreak work?</summary>
+      <div class="faq-body">
+        <p>Yes. You can enter HTTP addresses for any integration. There is no requirement to use HTTPS, though it is recommended where possible.</p>
+        <p>iDRAC is an exception: it only supports HTTPS connections via the Redfish API.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 GOW Studios. <a href="https://virtualfrancis.github.io/ctrlfreak-legal/privacy/" style="color:var(--dim);">Privacy Policy</a></p>
+    <div class="platform-badges">
+      <span class="platform-badge">Android</span>
+      <span class="platform-badge">iOS</span>
+      <span class="platform-badge">Coming Soon</span>
+    </div>
+  </footer>
+
+</body>
+</html>
