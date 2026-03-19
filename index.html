@@ -315,10 +315,17 @@
     }
 
     .waitlist-inner {
-      max-width: 560px;
+      max-width: 660px;
       margin: 0 auto;
       text-align: center;
       padding: 80px 40px;
+    }
+
+    .beta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      text-align: left;
     }
 
     .waitlist-inner .section-sub {
@@ -391,6 +398,7 @@
       }
 
       .waitlist-inner { padding: 60px 20px; }
+      .beta-grid { grid-template-columns: 1fr; }
 
       footer {
         flex-direction: column;
@@ -576,15 +584,21 @@
     <div class="waitlist-inner">
       <div class="section-label" style="text-align:center;">Beta</div>
       <h2 class="section-title">Try it now</h2>
-      <p class="section-sub" style="margin: 0 auto 32px;">iOS beta is open on TestFlight. Sign up below to join the Android beta.</p>
-      <div style="margin-bottom:24px;">
-        <a href="https://testflight.apple.com/join/KFxjM2ez" target="_blank" rel="noopener" class="btn-primary">Download for iOS (TestFlight)</a>
+      <p class="section-sub" style="margin: 0 auto 32px;">Beta is live on both platforms.</p>
+      <div class="beta-grid">
+        <!-- iOS -->
+        <div style="background:var(--bg);border:1px solid var(--bg3);border-radius:14px;padding:24px;display:flex;flex-direction:column;">
+          <p style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:10px;">iOS</p>
+          <p style="font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:20px;flex:1;">Beta is open on TestFlight. Download now with any Apple ID.</p>
+          <a href="https://testflight.apple.com/join/KFxjM2ez" target="_blank" rel="noopener" class="btn-primary" style="text-align:center;display:block;">Download on TestFlight</a>
+        </div>
+        <!-- Android -->
+        <div style="background:var(--bg);border:1px solid var(--bg3);border-radius:14px;padding:24px;">
+          <p style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:10px;">Android</p>
+          <iframe data-tally-src="https://tally.so/embed/9q1LW4?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="200" frameborder="0" marginheight="0" marginwidth="0" title="CtrlFreak Android Beta"></iframe>
+        </div>
       </div>
-      <div style="max-width:480px;margin:0 auto;text-align:left;">
-        <p style="font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Android Beta</p>
-        <iframe data-tally-src="https://tally.so/embed/9q1LW4?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="120" frameborder="0" marginheight="0" marginwidth="0" title="CtrlFreak Android Beta"></iframe>
-      </div>
-      <p class="waitlist-note">Free to download. Currently in beta.</p>
+      <p class="waitlist-note">Currently in beta.</p>
     </div>
   </div>
   <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e["src"]=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s);}</script>
