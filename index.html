@@ -163,21 +163,26 @@
     .btn-secondary:hover { border-color: var(--dim); }
 
     .hero-screenshots {
-      display: flex;
-      gap: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
       justify-content: center;
       align-items: flex-start;
     }
 
     .hero-screenshots img {
-      width: 200px;
-      border-radius: 28px;
-      box-shadow: 0 32px 64px rgba(0,0,0,0.6);
+      width: 100%;
+      border-radius: 22px;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.6);
       border: 1px solid var(--bg3);
     }
 
     .hero-screenshots img:nth-child(2) {
-      margin-top: 32px;
+      margin-top: 24px;
+    }
+
+    .hero-screenshots img:nth-child(4) {
+      margin-top: 24px;
     }
 
     /* SECTION */
@@ -440,27 +445,11 @@
     </div>
     <div class="hero-screenshots">
       <img src="images/dashboard.png" alt="CtrlFreak dashboard showing Proxmox nodes, VM status, and alerts" />
-      <img src="images/idrac.png" alt="CtrlFreak iDRAC tab showing server hardware health and temperatures" />
+      <img src="images/vms.png" alt="CtrlFreak virtual machines screen showing Proxmox VMs and LXC containers" />
+      <img src="images/idrac.png" alt="CtrlFreak iDRAC screen showing server temperatures and fan speeds" />
+      <img src="images/containers.png" alt="CtrlFreak containers screen showing Docker container status" />
     </div>
   </div>
-
-  <!-- VIDEO -->
-  <section style="padding: 0 40px 80px;">
-    <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-      <div class="section-label" style="margin-bottom: 12px;">Demo</div>
-      <h2 class="section-title" style="margin-bottom: 40px;">See it in action</h2>
-      <div style="position: relative; padding-bottom: 56.25%; height: 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--bg3); box-shadow: 0 32px 64px rgba(0,0,0,0.5);">
-        <iframe
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-          src="https://www.youtube.com/embed/oaktmapcuGU"
-          title="CtrlFreak Demo"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-    </div>
-  </section>
 
   <!-- FEATURES -->
   <section id="features">
