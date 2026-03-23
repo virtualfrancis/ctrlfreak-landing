@@ -453,191 +453,173 @@
 
   <!-- PHONE DEMO -->
   <section id="demo" style="text-align:center;">
-
-  <style id="cfd-styles">
-    .demo-wrap{display:flex;flex-direction:column;align-items:center;margin-top:48px;}
-    .demo-phone{
-      width:320px;height:652px;
-      background:#1a1a1e;border-radius:48px;
-      border:2px solid #3a3a3c;
-      box-shadow:0 32px 80px rgba(0,0,0,0.8),inset 0 1px 0 rgba(255,255,255,0.08);
-      position:relative;overflow:hidden;flex-shrink:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
-    }
-    .demo-island{
-      position:absolute;top:12px;left:50%;transform:translateX(-50%);
-      width:120px;height:32px;background:#0a0a0a;border-radius:20px;z-index:30;
-      pointer-events:none;
-    }
-    .d-screen{
-      display:none;position:absolute;top:0;left:0;right:0;bottom:62px;
-      background:#0a0a0f;overflow-y:auto;overflow-x:hidden;
-      -webkit-overflow-scrolling:touch;
-    }
-    .d-screen.active{display:block;}
-    .d-screen::-webkit-scrollbar{width:2px;}
-    .d-screen::-webkit-scrollbar-thumb{background:#3a3a3c;border-radius:2px;}
-    .d-screen.term-screen{overflow-y:hidden;}
-    .d-inner{padding-top:56px;padding-bottom:12px;}
-    .d-tabbar{
-      position:absolute;bottom:0;left:0;right:0;height:62px;
-      background:rgba(10,10,15,0.97);border-top:1px solid #1f2937;
-      display:flex;align-items:flex-start;padding-top:8px;z-index:20;
-    }
-    .d-tab{
-      flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
-      cursor:pointer;border:none;background:none;padding:4px 0 0;
-      color:#4b5563;transition:color 0.1s;-webkit-tap-highlight-color:transparent;
-    }
-    .d-tab.active{color:#3b82f6;}
-    .d-tab svg{width:22px;height:22px;}
-    .d-tab-lbl{font-size:9px;font-weight:600;letter-spacing:0.2px;}
-    .d-hdr{padding:12px 16px 8px;display:flex;align-items:flex-start;justify-content:space-between;}
-    .d-hdr-title{color:#f9fafb;font-size:20px;font-weight:700;}
-    .d-hdr-sub{color:#4b5563;font-size:11px;margin-top:2px;}
-    .d-hdr-back{
-      display:flex;align-items:center;gap:4px;cursor:pointer;
-      border:none;background:none;padding:0;color:#3b82f6;
-      font-size:15px;-webkit-tap-highlight-color:transparent;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
-    }
-    .d-hdr-settings{
-      cursor:pointer;border:none;background:none;padding:4px;
-      color:#6b7280;margin-top:2px;-webkit-tap-highlight-color:transparent;
-    }
-    .d-sec{color:#6b7280;font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;padding:10px 16px 6px;}
-    .d-card{margin:0 12px 8px;background:#111827;border-radius:10px;padding:12px;}
-    .d-card-tap{cursor:pointer;-webkit-tap-highlight-color:transparent;}
-    .d-card-tap:active{opacity:0.7;}
-    .d-card-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
-    .d-card-name{color:#f9fafb;font-size:14px;font-weight:600;}
-    .d-card-sub{color:#6b7280;font-size:11px;margin-top:2px;}
-    .d-status{display:flex;align-items:center;gap:5px;}
-    .d-chevron{color:#374151;font-size:16px;margin-left:4px;line-height:1;}
-    .d-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-    .dot-g{background:#22c55e;} .dot-r{background:#ef4444;} .dot-a{background:#f59e0b;} .dot-x{background:#4b5563;}
-    .d-metric{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
-    .d-metric-lbl{color:#9ca3af;font-size:11px;width:36px;flex-shrink:0;}
-    .d-bar{flex:1;height:5px;background:#1f2937;border-radius:3px;overflow:hidden;}
-    .d-bar-fill{height:100%;border-radius:3px;}
-    .d-metric-pct{color:#6b7280;font-size:10px;width:28px;text-align:right;}
-    .d-stats{display:flex;gap:8px;margin-top:8px;}
-    .d-stat{flex:1;background:#1f2937;border-radius:8px;padding:6px 8px;text-align:center;}
-    .d-stat-val{color:#f9fafb;font-size:13px;font-weight:700;}
-    .d-stat-lbl{color:#6b7280;font-size:9px;text-transform:uppercase;letter-spacing:0.5px;margin-top:1px;}
-    .d-row{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #1f2937;cursor:pointer;}
-    .d-row:last-child{border-bottom:none;}
-    .d-row:active{opacity:0.7;}
-    .d-row-name{color:#f9fafb;font-size:13px;font-weight:500;flex:1;}
-    .d-row-sub{color:#6b7280;font-size:10px;margin-top:1px;}
-    .d-row-right{color:#9ca3af;font-size:11px;}
-    .d-tag{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;text-transform:uppercase;}
-    .tag-lxc{background:#1e3a5f;color:#60a5fa;}
-    .tag-vm{background:#1a2e1a;color:#4ade80;}
-    .d-health{margin:0 12px 8px;background:#1a0f0f;border-left:3px solid #ef4444;border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:8px;}
-    .d-health-txt{color:#fca5a5;font-size:12px;font-weight:500;}
-    .d-mono{font-family:"Menlo","Courier New",monospace;}
-    .d-toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1f2937;}
-    .d-toggle-row:last-child{border-bottom:none;}
-    .d-toggle-name{color:#f9fafb;font-size:14px;font-weight:500;}
-    .d-toggle-sub{color:#6b7280;font-size:11px;margin-top:2px;}
-    .d-toggle{width:44px;height:26px;background:#22c55e;border-radius:13px;position:relative;flex-shrink:0;}
-    .d-toggle::after{content:"";position:absolute;top:3px;right:3px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,0.4);}
-    .d-toggle.off{background:#374151;}
-    .d-toggle.off::after{left:3px;right:auto;}
-    .d-btn{border:none;border-radius:8px;padding:10px 16px;font-size:13px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent;}
-    .d-btn-primary{background:#3b82f6;color:#fff;}
-    .d-btn-primary:active{opacity:0.8;}
-    .d-btn-danger{background:#ef4444;color:#fff;}
-    .d-btn-success{background:#22c55e;color:#fff;}
-    .d-btn-success:active{opacity:0.8;}
-    .d-btn-outline{background:none;border:1px solid #374151;color:#9ca3af;}
-    .d-pill{font-size:10px;font-weight:600;padding:2px 7px;border-radius:50px;}
-    .pill-g{background:#052e16;color:#4ade80;}
-    .pill-r{background:#450a0a;color:#f87171;}
-    .pill-a{background:#431407;color:#fb923c;}
-    .pill-x{background:#1f2937;color:#6b7280;}
-    /* Action sheet */
-    .d-sheet-bg{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:50;display:none;}
-    .d-sheet{
-      position:absolute;left:0;right:0;bottom:62px;
-      background:#1f2937;border-radius:12px 12px 0 0;z-index:51;
-      display:none;transform:translateY(100%);transition:transform 0.2s ease;
-    }
-    .d-sheet.open{transform:translateY(0);}
-    .d-sheet-title{color:#6b7280;font-size:11px;font-weight:600;text-align:center;padding:12px 16px 8px;border-bottom:1px solid #374151;}
-    .d-sheet-btn{
-      width:100%;border:none;background:none;color:#f9fafb;font-size:14px;
-      padding:14px 16px;text-align:left;cursor:pointer;border-bottom:1px solid #1f2937;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
-      -webkit-tap-highlight-color:transparent;
-    }
-    .d-sheet-btn:active{background:#374151;}
-    .d-sheet-btn.destructive{color:#ef4444;}
-    .d-sheet-cancel{
-      width:100%;border:none;background:#111827;color:#9ca3af;font-size:14px;
-      padding:14px 16px;text-align:center;cursor:pointer;font-weight:600;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
-      -webkit-tap-highlight-color:transparent;
-    }
-    /* Confirm dialog */
-    .d-confirm-bg{position:absolute;inset:0;background:rgba(0,0,0,0.7);z-index:60;display:none;align-items:center;justify-content:center;}
-    .d-confirm{background:#1f2937;border-radius:14px;margin:24px;padding:20px;text-align:center;}
-    .d-confirm-title{color:#f9fafb;font-size:16px;font-weight:700;margin-bottom:8px;}
-    .d-confirm-msg{color:#9ca3af;font-size:13px;line-height:1.5;margin-bottom:16px;}
-    .d-confirm-btns{display:flex;gap:8px;}
-    .d-confirm-cancel{flex:1;padding:10px;border-radius:8px;border:1px solid #374151;background:none;color:#9ca3af;font-size:14px;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
-    .d-confirm-ok{flex:1;padding:10px;border-radius:8px;border:none;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
-    /* Toast */
-    .d-toast{
-      position:absolute;bottom:72px;left:12px;right:12px;
-      background:#1f2937;border:1px solid #374151;border-radius:10px;
-      padding:10px 14px;font-size:12px;color:#f9fafb;z-index:55;
-      display:none;text-align:center;
-    }
-    /* Tab picker */
-    .d-tabpicker{display:flex;margin:0 12px 8px;background:#111827;border-radius:8px;padding:2px;}
-    .d-tabpicker-btn{flex:1;padding:6px 8px;border:none;border-radius:6px;background:none;color:#6b7280;font-size:12px;font-weight:600;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;transition:all 0.1s;}
-    .d-tabpicker-btn.active{background:#1f2937;color:#f9fafb;}
-    /* Diag test rows */
-    .d-diag-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #1f2937;}
-    .d-diag-row:last-child{border-bottom:none;}
-    .d-diag-name{flex:1;color:#f9fafb;font-size:13px;font-weight:500;}
-    .d-diag-detail{color:#6b7280;font-size:11px;margin-top:2px;}
-    .d-diag-status{font-size:11px;font-weight:600;}
-    /* SSL rows */
-    .d-ssl-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #1f2937;}
-    .d-ssl-row:last-child{border-bottom:none;}
-    /* Terminal */
-    .d-term-wrap{height:100%;display:flex;flex-direction:column;background:#000;}
-    .d-term-topbar{padding:10px 12px;border-bottom:1px solid #1f2937;display:flex;align-items:center;gap:8px;background:#0a0a0f;flex-shrink:0;}
-    .d-term-output{flex:1;overflow-y:auto;padding:8px 10px;font-family:"Menlo","Courier New",monospace;font-size:10.5px;color:#d1fae5;line-height:1.5;}
-    .d-term-output::-webkit-scrollbar{width:2px;}
-    .d-term-output::-webkit-scrollbar-thumb{background:#1f2937;}
-    .d-term-qbar{background:#0f172a;padding:4px 6px;display:flex;gap:4px;overflow-x:auto;border-top:1px solid #1f2937;flex-shrink:0;}
-    .d-term-qbar::-webkit-scrollbar{display:none;}
-    .d-term-kbar{background:#0f172a;padding:4px 6px;display:flex;gap:4px;border-top:1px solid #1f2937;flex-shrink:0;}
-    .d-term-qbtn{border:none;background:#1f2937;color:#9ca3af;font-size:10px;padding:4px 7px;border-radius:4px;cursor:pointer;white-space:nowrap;font-family:"Menlo","Courier New",monospace;flex-shrink:0;}
-    .d-term-qbtn:active{background:#374151;}
-    .d-term-kbtn{border:none;background:#1f2937;color:#9ca3af;font-size:11px;padding:4px 8px;border-radius:4px;cursor:pointer;flex-shrink:0;min-width:32px;text-align:center;}
-    .d-term-kbtn:active{background:#374151;}
-    .d-term-inputrow{display:flex;align-items:center;padding:6px 10px;background:#0a0a0a;border-top:1px solid #1f2937;flex-shrink:0;}
-    .d-term-prompt{color:#86efac;font-family:"Menlo","Courier New",monospace;font-size:10.5px;margin-right:5px;white-space:nowrap;}
-    .d-term-input{flex:1;background:none;border:none;color:#d1fae5;font-family:"Menlo","Courier New",monospace;font-size:10.5px;outline:none;}
-    /* WoL */
-    .d-wol-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid #1f2937;}
-    .d-wol-row:last-child{border-bottom:none;}
-    /* Topology */
-    .d-topo-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #1f2937;}
-    .d-topo-row:last-child{border-bottom:none;}
-    /* Tools grid */
-    .d-tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 12px;}
-    .d-tool-card{background:#111827;border-radius:10px;padding:14px 12px;cursor:pointer;-webkit-tap-highlight-color:transparent;border:1px solid #1f2937;}
-    .d-tool-card:active{opacity:0.7;}
-    .d-tool-icon{font-size:22px;margin-bottom:6px;}
-    .d-tool-name{color:#f9fafb;font-size:13px;font-weight:600;}
-    .d-tool-sub{color:#6b7280;font-size:10px;margin-top:2px;}
-  </style>
+    <style>
+      /* ===== PHONE FRAME ===== */
+      .demo-wrap{display:flex;flex-direction:column;align-items:center;margin-top:48px;}
+      .demo-phone{
+        width:320px;height:652px;
+        background:#1a1a1e;border-radius:48px;
+        border:2px solid #3a3a3c;
+        box-shadow:0 32px 80px rgba(0,0,0,0.8),inset 0 1px 0 rgba(255,255,255,0.08);
+        position:relative;overflow:hidden;flex-shrink:0;
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+        font-size:13px;
+      }
+      .demo-island{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:120px;height:32px;background:#0a0a0a;border-radius:20px;z-index:30;pointer-events:none;}
+      /* ===== SCREENS ===== */
+      .ds{display:none;position:absolute;top:0;left:0;right:0;bottom:58px;background:#0a0a0f;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
+      .ds.active{display:block;}
+      .ds::-webkit-scrollbar{width:2px;}
+      .ds::-webkit-scrollbar-thumb{background:#2d2d2f;border-radius:2px;}
+      .ds.ds-term{overflow-y:hidden;}
+      /* ===== TAB BAR ===== */
+      .dtab-bar{position:absolute;bottom:0;left:0;right:0;height:58px;background:rgba(10,10,15,0.97);border-top:1px solid #1c1c1e;display:flex;align-items:flex-start;padding-top:6px;z-index:20;}
+      .dtab{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;border:none;background:none;padding:3px 0 0;color:#4b5563;-webkit-tap-highlight-color:transparent;transition:color 0.1s;}
+      .dtab.on{color:#3b82f6;}
+      .dtab svg{width:22px;height:22px;}
+      .dtab-lbl{font-size:9px;font-weight:600;letter-spacing:0.2px;}
+      /* ===== TYPOGRAPHY ===== */
+      .dsc-label{font-size:10px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;color:#6b7280;padding:12px 16px 6px;}
+      .dsc-title{color:#f9fafb;font-size:20px;font-weight:700;}
+      .dsc-sub{color:#6b7280;font-size:11px;}
+      /* ===== HEADER ===== */
+      .dhdr{padding:56px 16px 10px;display:flex;align-items:flex-start;justify-content:space-between;}
+      .dhdr-logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;color:#f9fafb;font-family:'Permanent Marker',cursive,'Segoe UI',sans-serif;}
+      .dhdr-logo .freak{color:#f97316;}
+      .dhdr-right{text-align:right;}
+      .dhdr-ts{color:#4b5563;font-size:10px;margin-top:4px;}
+      /* Back header for sub-screens */
+      .dback-hdr{padding:44px 16px 4px;}
+      .dback-btn{display:inline-flex;align-items:center;gap:3px;border:none;background:none;color:#3b82f6;font-size:14px;cursor:pointer;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;-webkit-tap-highlight-color:transparent;}
+      .dback-btn:before{content:"\2039";font-size:20px;line-height:1;margin-top:-2px;}
+      .dscreen-hdr{padding:4px 16px 10px;display:flex;align-items:flex-start;justify-content:space-between;}
+      .dscreen-hdr-right{text-align:right;color:#6b7280;font-size:10px;line-height:1.6;}
+      /* ===== HEALTH BANNER ===== */
+      .dhealth{margin:0 12px 6px;background:#1a0f0f;border:1px solid #3b1515;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;}
+      .dhealth.ok{background:#0a1f0a;border-color:#14532d;}
+      .dhealth-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+      .dhealth-txt{flex:1;color:#fca5a5;font-size:12px;font-weight:500;}
+      .dhealth.ok .dhealth-txt{color:#86efac;}
+      .dhealth-chev{color:#6b7280;font-size:14px;}
+      /* ===== CARDS ===== */
+      .dcard{margin:0 12px 8px;background:#111827;border-radius:10px;padding:12px;}
+      .dcard-row{display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #1f2937;}
+      .dcard-row:last-child{border-bottom:none;}
+      .dcard-row.tap{cursor:pointer;-webkit-tap-highlight-color:transparent;}
+      .dcard-row.tap:active{opacity:0.7;}
+      /* ===== DASHBOARD ROWS ===== */
+      .drow-name{color:#f9fafb;font-size:13px;font-weight:600;}
+      .drow-sub{color:#6b7280;font-size:10px;margin-top:1px;}
+      .drow-right{display:flex;align-items:center;gap:6px;flex-shrink:0;}
+      .drow-count{font-size:13px;font-weight:700;}
+      .drow-chev{color:#374151;font-size:15px;}
+      /* ===== STATUS BADGES ===== */
+      .dbadge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:50px;}
+      .dbadge-g{background:#052e16;color:#4ade80;}
+      .dbadge-r{background:#450a0a;color:#f87171;}
+      .dbadge-a{background:#431407;color:#fb923c;}
+      .dbadge-b{background:#0c1a3b;color:#60a5fa;}
+      .dbadge-x{background:#1f2937;color:#6b7280;}
+      /* Inline ON/OFF toggle badges */
+      .dtoggle-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;cursor:pointer;border:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
+      .dtoggle-on{background:#14532d;color:#4ade80;}
+      .dtoggle-off{background:#1f2937;color:#6b7280;}
+      /* ===== STATUS DOT ===== */
+      .ddot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+      .ddot-g{background:#22c55e;} .ddot-r{background:#ef4444;} .ddot-a{background:#f59e0b;} .ddot-x{background:#4b5563;}
+      /* ===== METRIC BARS ===== */
+      .dbar-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+      .dbar-lbl{color:#6b7280;font-size:10px;width:30px;flex-shrink:0;}
+      .dbar-track{flex:1;height:4px;background:#1f2937;border-radius:2px;overflow:hidden;}
+      .dbar-fill{height:100%;border-radius:2px;}
+      .dbar-pct{color:#6b7280;font-size:10px;width:26px;text-align:right;flex-shrink:0;}
+      /* Node row in dashboard */
+      .dnode-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+      .dnode-name{flex:1;color:#f9fafb;font-size:13px;font-weight:600;}
+      .dnode-uptime{color:#6b7280;font-size:10px;}
+      .dnode-chev{color:#374151;font-size:15px;}
+      /* Unraid storage bar */
+      .dunraid-bar{margin:6px 0 2px;}
+      /* ===== ALERT ROW ===== */
+      .dalert-row{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;background:#1a0f0f;margin:0 12px 6px;}
+      /* ===== VM CARDS ===== */
+      .dvm-card{margin:0 12px 8px;background:#111827;border-radius:10px;padding:12px;}
+      .dvm-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2px;}
+      .dvm-name{color:#f9fafb;font-size:14px;font-weight:700;}
+      .dvm-meta{color:#6b7280;font-size:10px;margin-bottom:4px;}
+      .dvm-backup{font-size:10px;margin-bottom:6px;}
+      .dvm-backup.ok{color:#22c55e;} .dvm-backup.fail{color:#ef4444;}
+      .dvm-bars{margin-bottom:8px;}
+      .dvm-actions{display:flex;gap:6px;flex-wrap:wrap;}
+      /* Action pill buttons */
+      .dpill{font-size:11px;font-weight:600;padding:5px 12px;border-radius:50px;border:1px solid;background:none;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;-webkit-tap-highlight-color:transparent;}
+      .dpill:active{opacity:0.7;}
+      .dpill-b{color:#60a5fa;border-color:#1d4ed8;}
+      .dpill-a{color:#fbbf24;border-color:#b45309;}
+      .dpill-r{color:#f87171;border-color:#b91c1c;}
+      .dpill-g{color:#4ade80;border-color:#15803d;}
+      .dpill-x{color:#9ca3af;border-color:#374151;}
+      /* ===== CONTAINER CARDS ===== */
+      .dctr-card{margin:0 12px 8px;background:#111827;border-radius:10px;padding:12px;}
+      .dctr-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2px;}
+      .dctr-name{color:#f9fafb;font-size:14px;font-weight:700;}
+      .dctr-image{color:#6b7280;font-size:10px;font-family:"Menlo","Courier New",monospace;margin-bottom:2px;}
+      .dctr-uptime{color:#9ca3af;font-size:11px;margin-bottom:8px;}
+      .dctr-actions{display:flex;gap:6px;flex-wrap:wrap;}
+      /* ===== iDRAC ===== */
+      .didrac-card{margin:0 12px 8px;background:#111827;border-radius:10px;padding:12px;}
+      .didrac-badges{display:flex;gap:6px;margin-bottom:8px;}
+      .didrac-model{color:#f9fafb;font-size:15px;font-weight:700;margin-bottom:2px;}
+      .didrac-detail{color:#9ca3af;font-size:11px;margin-bottom:8px;}
+      .didrac-actions{display:flex;gap:6px;margin-top:8px;}
+      .dtemp-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid #1f2937;}
+      .dtemp-row:last-child{border-bottom:none;}
+      .dtemp-lbl{color:#9ca3af;font-size:12px;}
+      .dtemp-val{color:#f9fafb;font-size:12px;font-weight:600;font-family:"Menlo","Courier New",monospace;}
+      /* ===== PIHOLE ===== */
+      .dpihole-stats{display:flex;gap:6px;margin-top:8px;}
+      .dpihole-stat{flex:1;background:#1f2937;border-radius:8px;padding:6px;text-align:center;}
+      .dpihole-val{color:#f9fafb;font-size:12px;font-weight:700;}
+      .dpihole-lbl{color:#6b7280;font-size:9px;text-transform:uppercase;letter-spacing:0.5px;margin-top:1px;}
+      /* ===== SSH TERMINAL ===== */
+      .dterm-wrap{height:100%;display:flex;flex-direction:column;background:#000;}
+      .dterm-topbar{padding:44px 12px 8px;background:#0a0a0f;border-bottom:1px solid #1f2937;display:flex;align-items:center;gap:8px;flex-shrink:0;}
+      .dterm-out{flex:1;overflow-y:auto;padding:8px 10px;font-family:"Menlo","Courier New",monospace;font-size:10px;color:#d1fae5;line-height:1.5;}
+      .dterm-out::-webkit-scrollbar{width:2px;}
+      .dterm-qbar{background:#0f172a;padding:4px 6px;display:flex;gap:4px;overflow-x:auto;border-top:1px solid #1f2937;flex-shrink:0;}
+      .dterm-qbar::-webkit-scrollbar{display:none;}
+      .dterm-kbar{background:#0f172a;padding:3px 6px;display:flex;gap:4px;border-top:1px solid #1f2937;flex-shrink:0;}
+      .dterm-qbtn{border:none;background:#1f2937;color:#9ca3af;font-size:9.5px;padding:3px 7px;border-radius:4px;cursor:pointer;white-space:nowrap;font-family:"Menlo","Courier New",monospace;flex-shrink:0;}
+      .dterm-qbtn:active{background:#374151;}
+      .dterm-kbtn{border:none;background:#1f2937;color:#9ca3af;font-size:11px;padding:3px 7px;border-radius:4px;cursor:pointer;flex-shrink:0;min-width:30px;text-align:center;}
+      .dterm-kbtn:active{background:#374151;}
+      .dterm-irow{display:flex;align-items:center;padding:5px 10px;background:#0a0a0a;border-top:1px solid #1f2937;flex-shrink:0;}
+      .dterm-prompt{color:#86efac;font-family:"Menlo","Courier New",monospace;font-size:10px;margin-right:4px;white-space:nowrap;}
+      .dterm-input{flex:1;background:none;border:none;color:#d1fae5;font-family:"Menlo","Courier New",monospace;font-size:10px;outline:none;}
+      /* ===== TOOLS ===== */
+      .dtools-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px;}
+      .dtool-card{background:#111827;border-radius:10px;padding:14px 12px;cursor:pointer;-webkit-tap-highlight-color:transparent;border:1px solid #1f2937;}
+      .dtool-card:active{opacity:0.7;}
+      .dtool-icon{font-size:20px;margin-bottom:5px;}
+      .dtool-name{color:#f9fafb;font-size:13px;font-weight:600;}
+      .dtool-sub{color:#6b7280;font-size:10px;margin-top:2px;}
+      /* ===== WOL ===== */
+      .dwol-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid #1f2937;}
+      .dwol-row:last-child{border-bottom:none;}
+      /* ===== DIAG ===== */
+      .ddiag-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #1f2937;}
+      .ddiag-row:last-child{border-bottom:none;}
+      /* ===== CONFIRM ===== */
+      .dconfirm-bg{position:absolute;inset:0;background:rgba(0,0,0,0.7);z-index:60;display:none;align-items:center;justify-content:center;}
+      .dconfirm{background:#1f2937;border-radius:14px;margin:24px;padding:20px;text-align:center;width:100%;}
+      .dconfirm-title{color:#f9fafb;font-size:16px;font-weight:700;margin-bottom:8px;}
+      .dconfirm-msg{color:#9ca3af;font-size:13px;line-height:1.5;margin-bottom:16px;}
+      .dconfirm-btns{display:flex;gap:8px;}
+      .dconfirm-cancel{flex:1;padding:10px;border-radius:8px;border:1px solid #374151;background:none;color:#9ca3af;font-size:14px;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
+      .dconfirm-ok{flex:1;padding:10px;border-radius:8px;border:none;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;}
+      /* ===== TOAST ===== */
+      .dtoast{position:absolute;bottom:68px;left:12px;right:12px;background:#1f2937;border:1px solid #374151;border-radius:10px;padding:10px 14px;font-size:12px;color:#f9fafb;z-index:55;display:none;text-align:center;}
+    </style>
 
     <div class="section-label">Interactive Demo</div>
     <h2 class="section-title">Try the app</h2>
@@ -647,962 +629,948 @@
       <div class="demo-phone">
         <div class="demo-island"></div>
 
-        <!-- DASHBOARD -->
-        <div class="d-screen active" id="d-dashboard">
-          <div class="d-inner">
-            <div class="d-hdr">
+        <!-- ===== DASHBOARD ===== -->
+        <div class="ds active" id="ds-dashboard">
+          <div class="dhdr">
+            <div class="dhdr-logo">Ctrl<span class="freak">Freak</span></div>
+            <div class="dhdr-right">
+              <div class="dhdr-ts">4:29 PM &bull; 23s ago</div>
+            </div>
+          </div>
+
+          <div class="dhealth" onclick="cf('dashboard')">
+            <div class="dhealth-dot" style="background:#ef4444;"></div>
+            <div class="dhealth-txt">1 issue detected</div>
+            <div class="dhealth-chev">&#8250;</div>
+          </div>
+
+          <div class="dsc-label">Compute</div>
+          <div class="dcard">
+            <!-- Node row -->
+            <div class="dcard-row tap" onclick="cf('vms')" style="border-bottom:1px solid #1f2937;">
+              <div class="ddot ddot-g"></div>
+              <div style="flex:1;">
+                <div class="drow-name">homelab-pve</div>
+                <div style="margin-top:3px;">
+                  <div class="dbar-row"><div class="dbar-lbl">CPU</div><div class="dbar-track"><div class="dbar-fill" style="width:14%;background:#3b82f6;"></div></div><div class="dbar-pct">14%</div></div>
+                  <div class="dbar-row"><div class="dbar-lbl">RAM</div><div class="dbar-track"><div class="dbar-fill" style="width:41%;background:#8b5cf6;"></div></div><div class="dbar-pct">41%</div></div>
+                  <div class="dbar-row" style="margin-bottom:0;"><div class="dbar-lbl">Disk</div><div class="dbar-track"><div class="dbar-fill" style="width:28%;background:#f97316;"></div></div><div class="dbar-pct">28%</div></div>
+                </div>
+              </div>
+              <div class="drow-right">
+                <div class="drow-sub" style="text-align:right;">13d 0h</div>
+                <div class="drow-chev">&#8250;</div>
+              </div>
+            </div>
+            <!-- VMs row -->
+            <div class="dcard-row tap" onclick="cf('vms')">
+              <div style="width:28px;height:28px;background:#1f2937;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">&#128187;</div>
+              <div style="flex:1;">
+                <div class="drow-name">Virtual Machines</div>
+                <div class="drow-sub">1 stopped</div>
+              </div>
+              <div class="drow-right">
+                <span class="drow-count" style="color:#f9fafb;">7 / 8</span>
+                <div class="drow-chev">&#8250;</div>
+              </div>
+            </div>
+            <!-- Containers row -->
+            <div class="dcard-row tap" onclick="cf('containers')" style="border-bottom:none;">
+              <div style="width:28px;height:28px;background:#1f2937;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">&#128674;</div>
+              <div style="flex:1;">
+                <div class="drow-name">Containers</div>
+                <div class="drow-sub">1 exited</div>
+              </div>
+              <div class="drow-right">
+                <span class="drow-count" style="color:#f9fafb;">8 / 9</span>
+                <div class="drow-chev">&#8250;</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Unraid card -->
+          <div class="dcard tap" onclick="cf('unraid')" style="cursor:pointer;-webkit-tap-highlight-color:transparent;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
               <div>
-                <div class="d-hdr-title">Dashboard</div>
-                <div class="d-hdr-sub">Updated just now</div>
+                <div class="drow-name">Unraid Tower</div>
+                <div class="drow-sub">Array: 7.5 TB / 12.0 TB</div>
               </div>
-              <button class="d-hdr-settings" onclick="demoGo('settings')">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-              </button>
-            </div>
-            <div class="d-health"><div class="d-dot dot-r"></div><div class="d-health-txt">1 issue detected &bull; External DNS is down</div></div>
-            <div class="d-sec">Proxmox</div>
-            <div class="d-card d-card-tap" onclick="demoGo('vms')">
-              <div class="d-card-hdr">
-                <div><div class="d-card-name">homelab-cluster</div><div class="d-card-sub">homelab-pve &bull; 192.168.1.38</div></div>
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <div class="d-status"><div class="d-dot dot-g"></div><span style="color:#22c55e;font-size:11px;font-weight:600;">Online</span></div>
-                  <span class="d-chevron">&#8250;</span>
-                </div>
-              </div>
-              <div class="d-metric"><div class="d-metric-lbl">CPU</div><div class="d-bar"><div class="d-bar-fill" style="width:14%;background:#3b82f6;"></div></div><div class="d-metric-pct">14%</div></div>
-              <div class="d-metric"><div class="d-metric-lbl">RAM</div><div class="d-bar"><div class="d-bar-fill" style="width:41%;background:#8b5cf6;"></div></div><div class="d-metric-pct">41%</div></div>
-              <div class="d-metric" style="margin-bottom:0;"><div class="d-metric-lbl">Swap</div><div class="d-bar"><div class="d-bar-fill" style="width:13%;background:#f59e0b;"></div></div><div class="d-metric-pct">13%</div></div>
-              <div class="d-stats">
-                <div class="d-stat"><div class="d-stat-val">8</div><div class="d-stat-lbl">VMs</div></div>
-                <div class="d-stat"><div class="d-stat-val">7</div><div class="d-stat-lbl">Online</div></div>
-                <div class="d-stat"><div class="d-stat-val">58 GB</div><div class="d-stat-lbl">Free RAM</div></div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span class="dbadge dbadge-g">STARTED</span>
+                <div class="drow-chev">&#8250;</div>
               </div>
             </div>
-            <div class="d-sec">Portainer</div>
-            <div class="d-card d-card-tap" onclick="demoGo('containers')">
-              <div class="d-card-hdr" style="margin-bottom:0;">
-                <div><div class="d-card-name">Portainer</div><div class="d-card-sub">192.168.1.73:9000 &bull; 8 running, 1 exited</div></div>
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <div class="d-status"><div class="d-dot dot-g"></div><span style="color:#22c55e;font-size:11px;font-weight:600;">Online</span></div>
-                  <span class="d-chevron">&#8250;</span>
-                </div>
+            <div class="dbar-row" style="margin:0;"><div class="dbar-track" style="height:5px;"><div class="dbar-fill" style="width:63%;background:#f97316;height:5px;"></div></div><div class="dbar-pct">63%</div></div>
+          </div>
+
+          <div class="dsc-label">Services</div>
+          <div class="dcard">
+            <div class="dcard-row tap" onclick="cf('services')" style="border-bottom:1px solid #1f2937;">
+              <div style="width:28px;height:28px;background:#1f2937;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">&#128200;</div>
+              <div style="flex:1;">
+                <div class="drow-name">Uptime Kuma</div>
+                <div class="drow-sub">1 down</div>
+              </div>
+              <div class="drow-right">
+                <span class="drow-count" style="color:#f59e0b;">7 / 8</span>
+                <div class="drow-chev">&#8250;</div>
               </div>
             </div>
-            <div class="d-sec">Uptime Kuma</div>
-            <div class="d-card d-card-tap" onclick="demoGo('services')">
-              <div class="d-card-hdr" style="margin-bottom:8px;">
-                <div><div class="d-card-name">Uptime Kuma</div><div class="d-card-sub">192.168.1.73:3001</div></div>
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <span style="color:#f59e0b;font-size:11px;font-weight:600;">7/8 Up</span>
-                  <span class="d-chevron">&#8250;</span>
-                </div>
-              </div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">Proxmox</div></div><div class="d-row-right">44 ms</div></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">Portainer</div></div><div class="d-row-right">23 ms</div></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-r"></div><div style="flex:1;"><div class="d-row-name">External DNS</div></div><span style="color:#ef4444;font-size:11px;font-weight:600;">Down</span></div>
+            <div class="dcard-row" style="border-bottom:none;cursor:default;">
+              <div class="ddot ddot-r"></div>
+              <div style="flex:1;color:#fca5a5;font-size:12px;">External DNS is down</div>
             </div>
-            <div class="d-sec">iDRAC</div>
-            <div class="d-card d-card-tap" onclick="demoGo('idrac')">
-              <div class="d-card-hdr" style="margin-bottom:0;">
-                <div><div class="d-card-name">2 Servers</div><div class="d-card-sub">R730 (192.168.1.51) &bull; R720 (192.168.1.50)</div></div>
-                <span class="d-chevron">&#8250;</span>
+          </div>
+
+          <div class="dsc-label">Network</div>
+          <div class="dcard">
+            <div class="dcard-row tap" onclick="cf('pihole')" style="border-bottom:1px solid #1f2937;">
+              <div style="width:28px;height:28px;background:#1f2937;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">&#128737;</div>
+              <div style="flex:1;">
+                <div class="drow-name">Pi-hole</div>
+                <div class="drow-sub">3,821 blocked today</div>
               </div>
-            </div>
-            <div class="d-sec">Pi-hole</div>
-            <div class="d-card d-card-tap" onclick="demoGo('pihole')">
-              <div class="d-card-hdr" style="margin-bottom:0;">
-                <div><div class="d-card-name">2 Servers</div><div class="d-card-sub">Primary &bull; 25.06% blocked &bull; 15.2k queries</div></div>
-                <span class="d-chevron">&#8250;</span>
+              <div class="drow-right">
+                <span class="dbadge dbadge-g">ON</span>
+                <div class="drow-chev">&#8250;</div>
               </div>
             </div>
-            <div class="d-sec">Tailscale</div>
-            <div class="d-card d-card-tap" onclick="demoGo('tailscale')">
-              <div class="d-card-hdr" style="margin-bottom:0;">
-                <div><div class="d-card-name">5 Devices</div><div class="d-card-sub">3 online &bull; 2 offline</div></div>
-                <span class="d-chevron">&#8250;</span>
+            <div class="dcard-row tap" onclick="cf('tailscale')" style="border-bottom:1px solid #1f2937;">
+              <div style="width:28px;height:28px;background:#1f2937;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">&#128279;</div>
+              <div style="flex:1;">
+                <div class="drow-name">Tailscale</div>
+                <div class="drow-sub">2 offline</div>
+              </div>
+              <div class="drow-right">
+                <span class="drow-count" style="color:#f9fafb;">3 / 5</span>
+                <div class="drow-chev">&#8250;</div>
               </div>
             </div>
-            <div class="d-sec">Unraid</div>
-            <div class="d-card d-card-tap" onclick="demoGo('unraid')">
-              <div class="d-card-hdr" style="margin-bottom:8px;">
-                <div><div class="d-card-name">Unraid Tower</div><div class="d-card-sub">Array: Started &bull; 4 disks</div></div>
-                <span class="d-chevron">&#8250;</span>
+            <div class="dcard-row tap" onclick="cf('npm')" style="border-bottom:none;">
+              <div style="width:28px;height:28px;background:#1f2937;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">&#127760;</div>
+              <div style="flex:1;">
+                <div class="drow-name">Nginx Proxy Manager</div>
+                <div class="drow-sub">4 enabled, 1 disabled</div>
               </div>
-              <div class="d-metric" style="margin-bottom:0;"><div class="d-metric-lbl">Storage</div><div class="d-bar"><div class="d-bar-fill" style="width:63%;background:#f97316;"></div></div><div class="d-metric-pct">63%</div></div>
-            </div>
-            <div class="d-sec">Nginx Proxy Manager</div>
-            <div class="d-card d-card-tap" onclick="demoGo('npm')">
-              <div class="d-card-hdr" style="margin-bottom:0;">
-                <div><div class="d-card-name">NPM</div><div class="d-card-sub">5 proxies &bull; 4 enabled</div></div>
-                <span class="d-chevron">&#8250;</span>
+              <div class="drow-right">
+                <div class="drow-chev">&#8250;</div>
               </div>
             </div>
-            <div class="d-sec">Tools</div>
-            <div class="d-card d-card-tap" onclick="demoGo('tools')">
-              <div class="d-card-hdr" style="margin-bottom:0;">
-                <div><div class="d-card-name">SSH, WoL, Diagnostics</div><div class="d-card-sub">and more</div></div>
-                <span class="d-chevron">&#8250;</span>
+          </div>
+
+          <div class="dsc-label">Hardware</div>
+          <div class="dcard">
+            <div class="dcard-row tap" onclick="cf('idrac')" style="border-bottom:none;">
+              <div style="width:28px;height:28px;background:#1f2937;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">&#128421;</div>
+              <div style="flex:1;">
+                <div class="drow-name">iDRAC</div>
+                <div class="drow-sub">R730 (192.168.1.51) &bull; R720 (192.168.1.50)</div>
               </div>
+              <div class="drow-right">
+                <div class="drow-chev">&#8250;</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dsc-label">Tools</div>
+          <div class="dcard" style="cursor:pointer;" onclick="cf('tools')">
+            <div class="dcard-row" style="border-bottom:none;cursor:pointer;">
+              <div style="width:28px;height:28px;background:#1f2937;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">&#128295;</div>
+              <div style="flex:1;">
+                <div class="drow-name">Tools</div>
+                <div class="drow-sub">SSH, WoL, Diagnostics, SSL, Network Map</div>
+              </div>
+              <div class="drow-chev">&#8250;</div>
+            </div>
+          </div>
+
+          <div style="height:16px;"></div>
+        </div>
+
+        <!-- ===== VMs ===== -->
+        <div class="ds" id="ds-vms">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr">
+            <div class="dsc-title">Virtual Machines</div>
+            <div class="dscreen-hdr-right"><div>8 total</div><div>4:30 PM</div></div>
+          </div>
+          <!-- dev-ubuntu: stopped -->
+          <div class="dvm-card" id="vm-dev-ubuntu">
+            <div class="dvm-hdr">
+              <div class="dvm-name">dev-ubuntu</div>
+              <span class="dbadge dbadge-r" id="vm-badge-dev-ubuntu">Stopped</span>
+            </div>
+            <div class="dvm-meta">QEMU 202 &bull; homelab-pve &bull; stopped</div>
+            <div class="dvm-backup fail">&#x26A0; Backup failed 8d ago</div>
+            <div class="dvm-actions" id="vm-actions-dev-ubuntu">
+              <button class="dpill dpill-b" onclick="cfVMStart('dev-ubuntu')">Start</button>
+            </div>
+          </div>
+          <!-- homeassistant: running -->
+          <div class="dvm-card" id="vm-homeassistant">
+            <div class="dvm-hdr">
+              <div class="dvm-name">homeassistant</div>
+              <span class="dbadge dbadge-g" id="vm-badge-homeassistant">Running</span>
+            </div>
+            <div class="dvm-meta">LXC 101 &bull; homelab-pve &bull; 12d 3h</div>
+            <div class="dvm-backup ok">&#10003; Backup yesterday</div>
+            <div class="dvm-bars" id="vm-bars-homeassistant">
+              <div class="dbar-row"><div class="dbar-lbl">CPU</div><div class="dbar-track"><div class="dbar-fill" style="width:4%;background:#3b82f6;"></div></div><div class="dbar-pct">4%</div></div>
+              <div class="dbar-row" style="margin-bottom:0;"><div class="dbar-lbl">RAM</div><div class="dbar-track"><div class="dbar-fill" style="width:44%;background:#8b5cf6;"></div></div><div class="dbar-pct" style="width:auto;font-size:9px;">448MB/1GB</div></div>
+            </div>
+            <div class="dvm-actions" id="vm-actions-homeassistant">
+              <button class="dpill dpill-b" onclick="cfVMAction('homeassistant','reboot')">Reboot</button>
+              <button class="dpill dpill-a" onclick="cfVMConfirm('homeassistant','shutdown')">Shutdown</button>
+              <button class="dpill dpill-r" onclick="cfVMConfirm('homeassistant','stop')">Stop</button>
+              <button class="dpill dpill-g" onclick="cf('ssh')">SSH</button>
+            </div>
+          </div>
+          <!-- jellyfin: running -->
+          <div class="dvm-card" id="vm-jellyfin">
+            <div class="dvm-hdr">
+              <div class="dvm-name">jellyfin</div>
+              <span class="dbadge dbadge-g" id="vm-badge-jellyfin">Running</span>
+            </div>
+            <div class="dvm-meta">QEMU 203 &bull; homelab-pve &bull; 9d 0h</div>
+            <div class="dvm-backup ok">&#10003; Backup yesterday</div>
+            <div class="dvm-bars" id="vm-bars-jellyfin">
+              <div class="dbar-row"><div class="dbar-lbl">CPU</div><div class="dbar-track"><div class="dbar-fill" style="width:8%;background:#3b82f6;"></div></div><div class="dbar-pct">8%</div></div>
+              <div class="dbar-row" style="margin-bottom:0;"><div class="dbar-lbl">RAM</div><div class="dbar-track"><div class="dbar-fill" style="width:38%;background:#8b5cf6;"></div></div><div class="dbar-pct" style="width:auto;font-size:9px;">1.5GB/4GB</div></div>
+            </div>
+            <div class="dvm-actions" id="vm-actions-jellyfin">
+              <button class="dpill dpill-b" onclick="cfVMAction('jellyfin','reboot')">Reboot</button>
+              <button class="dpill dpill-a" onclick="cfVMConfirm('jellyfin','shutdown')">Shutdown</button>
+              <button class="dpill dpill-r" onclick="cfVMConfirm('jellyfin','stop')">Stop</button>
+              <button class="dpill dpill-g" onclick="cf('ssh')">SSH</button>
+            </div>
+          </div>
+          <!-- nextcloud: running -->
+          <div class="dvm-card" id="vm-nextcloud">
+            <div class="dvm-hdr">
+              <div class="dvm-name">nextcloud</div>
+              <span class="dbadge dbadge-g" id="vm-badge-nextcloud">Running</span>
+            </div>
+            <div class="dvm-meta">QEMU 201 &bull; homelab-pve &bull; 11d 0h</div>
+            <div class="dvm-backup ok">&#10003; Backup yesterday</div>
+            <div class="dvm-bars" id="vm-bars-nextcloud">
+              <div class="dbar-row"><div class="dbar-lbl">CPU</div><div class="dbar-track"><div class="dbar-fill" style="width:6%;background:#3b82f6;"></div></div><div class="dbar-pct">6%</div></div>
+              <div class="dbar-row" style="margin-bottom:0;"><div class="dbar-lbl">RAM</div><div class="dbar-track"><div class="dbar-fill" style="width:50%;background:#8b5cf6;"></div></div><div class="dbar-pct" style="width:auto;font-size:9px;">2.0GB/4GB</div></div>
+            </div>
+            <div class="dvm-actions" id="vm-actions-nextcloud">
+              <button class="dpill dpill-b" onclick="cfVMAction('nextcloud','reboot')">Reboot</button>
+              <button class="dpill dpill-a" onclick="cfVMConfirm('nextcloud','shutdown')">Shutdown</button>
+              <button class="dpill dpill-r" onclick="cfVMConfirm('nextcloud','stop')">Stop</button>
+              <button class="dpill dpill-g" onclick="cf('ssh')">SSH</button>
+            </div>
+          </div>
+          <!-- plex: running -->
+          <div class="dvm-card" id="vm-plex">
+            <div class="dvm-hdr">
+              <div class="dvm-name">plex</div>
+              <span class="dbadge dbadge-g" id="vm-badge-plex">Running</span>
+            </div>
+            <div class="dvm-meta">QEMU 200 &bull; homelab-pve &bull; 14d 2h</div>
+            <div class="dvm-backup ok">&#10003; Backup 2d ago</div>
+            <div class="dvm-bars" id="vm-bars-plex">
+              <div class="dbar-row"><div class="dbar-lbl">CPU</div><div class="dbar-track"><div class="dbar-fill" style="width:22%;background:#3b82f6;"></div></div><div class="dbar-pct">22%</div></div>
+              <div class="dbar-row" style="margin-bottom:0;"><div class="dbar-lbl">RAM</div><div class="dbar-track"><div class="dbar-fill" style="width:60%;background:#8b5cf6;"></div></div><div class="dbar-pct" style="width:auto;font-size:9px;">3.8GB/6GB</div></div>
+            </div>
+            <div class="dvm-actions" id="vm-actions-plex">
+              <button class="dpill dpill-b" onclick="cfVMAction('plex','reboot')">Reboot</button>
+              <button class="dpill dpill-a" onclick="cfVMConfirm('plex','shutdown')">Shutdown</button>
+              <button class="dpill dpill-r" onclick="cfVMConfirm('plex','stop')">Stop</button>
+              <button class="dpill dpill-g" onclick="cf('ssh')">SSH</button>
+            </div>
+          </div>
+          <div style="height:12px;"></div>
+        </div>
+
+        <!-- ===== CONTAINERS ===== -->
+        <div class="ds" id="ds-containers">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr">
+            <div class="dsc-title">Containers</div>
+            <div class="dscreen-hdr-right"><div>8 / 9 running</div><div>4:30 PM</div></div>
+          </div>
+          <div class="dsc-label">Local</div>
+          <!-- code-server -->
+          <div class="dctr-card" id="ctr-code-server">
+            <div class="dctr-hdr"><div class="dctr-name">code-server</div><span class="dbadge dbadge-g" id="ctr-badge-code-server">Running</span></div>
+            <div class="dctr-image">lscr.io/linuxserver/code-server:latest</div>
+            <div class="dctr-uptime" id="ctr-uptime-code-server">Up 10 days</div>
+            <div class="dctr-actions" id="ctr-actions-code-server">
+              <button class="dpill dpill-b" onclick="cfCtrAction('code-server','restart')">Restart</button>
+              <button class="dpill dpill-a" onclick="cfCtrConfirm('code-server','recreate')">Recreate</button>
+              <button class="dpill dpill-r" onclick="cfCtrConfirm('code-server','stop')">Stop</button>
+              <button class="dpill dpill-x" onclick="cfShowToast('Logs: container running normally')">Logs</button>
+            </div>
+          </div>
+          <!-- grafana -->
+          <div class="dctr-card" id="ctr-grafana">
+            <div class="dctr-hdr"><div class="dctr-name">grafana</div><span class="dbadge dbadge-g" id="ctr-badge-grafana">Running</span></div>
+            <div class="dctr-image">grafana/grafana:latest</div>
+            <div class="dctr-uptime" id="ctr-uptime-grafana">Up 10 days</div>
+            <div class="dctr-actions" id="ctr-actions-grafana">
+              <button class="dpill dpill-b" onclick="cfCtrAction('grafana','restart')">Restart</button>
+              <button class="dpill dpill-a" onclick="cfCtrConfirm('grafana','recreate')">Recreate</button>
+              <button class="dpill dpill-r" onclick="cfCtrConfirm('grafana','stop')">Stop</button>
+              <button class="dpill dpill-x" onclick="cfShowToast('Logs: container running normally')">Logs</button>
+            </div>
+          </div>
+          <!-- paperless-ngx: exited -->
+          <div class="dctr-card" id="ctr-paperless-ngx">
+            <div class="dctr-hdr"><div class="dctr-name">paperless-ngx</div><span class="dbadge dbadge-r" id="ctr-badge-paperless-ngx">Exited</span></div>
+            <div class="dctr-image">paperlessngx/paperless-ngx:latest</div>
+            <div class="dctr-uptime" id="ctr-uptime-paperless-ngx" style="color:#ef4444;">Exited (1) 2 days ago</div>
+            <div class="dctr-actions" id="ctr-actions-paperless-ngx">
+              <button class="dpill dpill-b" onclick="cfCtrStart('paperless-ngx')">Start</button>
+              <button class="dpill dpill-a" onclick="cfCtrConfirm('paperless-ngx','recreate')">Recreate</button>
+              <button class="dpill dpill-x" onclick="cfShowToast('No recent logs available')">Logs</button>
+            </div>
+          </div>
+          <!-- portainer -->
+          <div class="dctr-card" id="ctr-portainer">
+            <div class="dctr-hdr"><div class="dctr-name">portainer</div><span class="dbadge dbadge-g" id="ctr-badge-portainer">Running</span></div>
+            <div class="dctr-image">portainer/portainer-ce:latest</div>
+            <div class="dctr-uptime" id="ctr-uptime-portainer">Up 10 days</div>
+            <div class="dctr-actions" id="ctr-actions-portainer">
+              <button class="dpill dpill-b" onclick="cfCtrAction('portainer','restart')">Restart</button>
+              <button class="dpill dpill-a" onclick="cfCtrConfirm('portainer','recreate')">Recreate</button>
+              <button class="dpill dpill-r" onclick="cfCtrConfirm('portainer','stop')">Stop</button>
+              <button class="dpill dpill-x" onclick="cfShowToast('Portainer logs: container running normally')">Logs</button>
+            </div>
+          </div>
+          <!-- prometheus -->
+          <div class="dctr-card" id="ctr-prometheus">
+            <div class="dctr-hdr"><div class="dctr-name">prometheus</div><span class="dbadge dbadge-g" id="ctr-badge-prometheus">Running</span></div>
+            <div class="dctr-image">prom/prometheus:latest</div>
+            <div class="dctr-uptime" id="ctr-uptime-prometheus">Up 10 days</div>
+            <div class="dctr-actions" id="ctr-actions-prometheus">
+              <button class="dpill dpill-b" onclick="cfCtrAction('prometheus','restart')">Restart</button>
+              <button class="dpill dpill-a" onclick="cfCtrConfirm('prometheus','recreate')">Recreate</button>
+              <button class="dpill dpill-r" onclick="cfCtrConfirm('prometheus','stop')">Stop</button>
+              <button class="dpill dpill-x" onclick="cfShowToast('Logs: container running normally')">Logs</button>
+            </div>
+          </div>
+          <div style="height:12px;"></div>
+        </div>
+
+        <!-- ===== SERVICES ===== -->
+        <div class="ds" id="ds-services">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr">
+            <div class="dsc-title">Services</div>
+            <div class="dscreen-hdr-right"><div>7 / 8 up</div><div>4:30 PM</div></div>
+          </div>
+          <div class="dalert-row">
+            <div class="ddot ddot-r"></div>
+            <div style="flex:1;color:#fca5a5;font-size:12px;">External DNS is down</div>
+          </div>
+          <div class="dsc-label">Uptime Kuma &bull; 8 Monitors</div>
+          <div class="dcard">
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">Home Network</div><div style="color:#22c55e;font-size:10px;">Up 100%</div></div><div style="color:#9ca3af;font-size:11px;">12 ms</div></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">Proxmox</div><div style="color:#22c55e;font-size:10px;">Up 99.9%</div></div><div style="color:#9ca3af;font-size:11px;">44 ms</div></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">Portainer</div><div style="color:#22c55e;font-size:10px;">Up 100%</div></div><div style="color:#9ca3af;font-size:11px;">23 ms</div></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">Vaultwarden</div><div style="color:#22c55e;font-size:10px;">Up 99.9%</div></div><div style="color:#9ca3af;font-size:11px;">61 ms</div></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">Nextcloud</div><div style="color:#22c55e;font-size:10px;">Up 99.8%</div></div><div style="color:#9ca3af;font-size:11px;">210 ms</div></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">Plex</div><div style="color:#22c55e;font-size:10px;">Up 100%</div></div><div style="color:#9ca3af;font-size:11px;">88 ms</div></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">Grafana</div><div style="color:#22c55e;font-size:10px;">Up 99.7%</div></div><div style="color:#9ca3af;font-size:11px;">55 ms</div></div>
+            <div class="dcard-row" style="cursor:default;border-bottom:none;"><div class="ddot ddot-r"></div><div style="flex:1;"><div class="drow-name">External DNS</div><div style="color:#ef4444;font-size:10px;">Down &bull; 91.2% uptime</div></div><span class="dbadge dbadge-r">Down</span></div>
+          </div>
+        </div>
+
+        <!-- ===== iDRAC ===== -->
+        <div class="ds" id="ds-idrac">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr">
+            <div class="dsc-title">iDRAC</div>
+            <div class="dscreen-hdr-right"><div>2 servers</div><div>4:30 PM</div></div>
+          </div>
+          <div class="dsc-label">Dell R730</div>
+          <div class="didrac-card">
+            <div class="didrac-badges">
+              <span class="dbadge dbadge-g">Powered On</span>
+              <span class="dbadge dbadge-b">OK</span>
+            </div>
+            <div class="didrac-model">PowerEdge R730</div>
+            <div class="didrac-detail">Dell Inc. &bull; SN: F8CKP42<br>2x CPU &bull; Intel Xeon E5-2680 v4 @ 2.40GHz<br>256 GB RAM</div>
+            <div class="didrac-actions">
+              <button class="dpill dpill-a" onclick="cfIdracConfirm('R730','Shut Down')">Shut Down</button>
+              <button class="dpill dpill-b" onclick="cfIdracConfirm('R730','Restart')">Restart</button>
+              <button class="dpill dpill-r" onclick="cfIdracConfirm('R730','Force Off')">Force Off</button>
+            </div>
+          </div>
+          <div class="dsc-label">Temperatures</div>
+          <div class="dcard">
+            <div class="dtemp-row"><div class="dtemp-lbl">Inlet Temp</div><div class="dtemp-val">22&#176;C</div></div>
+            <div class="dtemp-row"><div class="dtemp-lbl">Exhaust Temp</div><div class="dtemp-val">36&#176;C</div></div>
+            <div class="dtemp-row"><div class="dtemp-lbl">CPU1 Temp</div><div class="dtemp-val">51&#176;C</div></div>
+            <div class="dtemp-row"><div class="dtemp-lbl">CPU2 Temp</div><div class="dtemp-val">49&#176;C</div></div>
+          </div>
+          <div class="dsc-label">Fans</div>
+          <div class="dcard">
+            <div class="dtemp-row"><div class="dtemp-lbl">Fan 1A</div><div class="dtemp-val">4560 RPM</div></div>
+            <div class="dtemp-row"><div class="dtemp-lbl">Fan 1B</div><div class="dtemp-val">4680 RPM</div></div>
+            <div class="dtemp-row"><div class="dtemp-lbl">Fan 2A</div><div class="dtemp-val">4440 RPM</div></div>
+            <div class="dtemp-row"><div class="dtemp-lbl">Fan 2B</div><div class="dtemp-val">4560 RPM</div></div>
+          </div>
+          <div class="dsc-label">Alerts</div>
+          <div class="dcard">
+            <div style="display:flex;align-items:flex-start;gap:8px;">
+              <span class="dbadge dbadge-a" style="margin-top:1px;flex-shrink:0;">Warning</span>
+              <div>
+                <div style="color:#f9fafb;font-size:12px;font-weight:500;">The coin cell battery in the system is low.</div>
+                <div style="color:#6b7280;font-size:10px;margin-top:2px;">Mar 19 at 4:28 PM</div>
+              </div>
+            </div>
+          </div>
+          <div class="dsc-label">Dell R720</div>
+          <div class="didrac-card">
+            <div class="didrac-badges">
+              <span class="dbadge dbadge-g">Powered On</span>
+              <span class="dbadge dbadge-b">OK</span>
+            </div>
+            <div class="didrac-model">PowerEdge R720</div>
+            <div class="didrac-detail">Dell Inc. &bull; SN: DM0CX42<br>2x CPU &bull; Intel Xeon E5-2660 v2 @ 2.20GHz<br>128 GB RAM</div>
+            <div class="didrac-actions">
+              <button class="dpill dpill-a" onclick="cfIdracConfirm('R720','Shut Down')">Shut Down</button>
+              <button class="dpill dpill-b" onclick="cfIdracConfirm('R720','Restart')">Restart</button>
+              <button class="dpill dpill-r" onclick="cfIdracConfirm('R720','Force Off')">Force Off</button>
+            </div>
+          </div>
+          <div style="height:12px;"></div>
+        </div>
+
+        <!-- ===== PI-HOLE ===== -->
+        <div class="ds" id="ds-pihole">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr">
+            <div class="dsc-title">Pi-hole</div>
+            <div class="dscreen-hdr-right"><div>2 servers</div><div>4:30 PM</div></div>
+          </div>
+          <div class="dsc-label">Primary &bull; 192.168.1.53</div>
+          <div class="dcard">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <div style="color:#f9fafb;font-size:14px;font-weight:600;">Pi-hole Primary</div>
+              <button id="ph-toggle-0" class="dtoggle-badge dtoggle-on" onclick="cfPiholeToggle(0)">ON</button>
+            </div>
+            <div class="dpihole-stats">
+              <div class="dpihole-stat"><div class="dpihole-val">15,243</div><div class="dpihole-lbl">Queries</div></div>
+              <div class="dpihole-stat"><div class="dpihole-val">3,821</div><div class="dpihole-lbl">Blocked</div></div>
+              <div class="dpihole-stat"><div class="dpihole-val">25.1%</div><div class="dpihole-lbl">Block rate</div></div>
+            </div>
+          </div>
+          <div class="dsc-label" style="margin-top:4px;">Blocklists</div>
+          <div class="dcard">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div style="color:#9ca3af;font-size:12px;">Domains blocked</div>
+              <div style="color:#f9fafb;font-size:13px;font-weight:700;">142,053</div>
+            </div>
+          </div>
+          <div class="dsc-label" style="margin-top:4px;">Secondary &bull; 192.168.1.54</div>
+          <div class="dcard">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <div style="color:#f9fafb;font-size:14px;font-weight:600;">Pi-hole Secondary</div>
+              <button id="ph-toggle-1" class="dtoggle-badge dtoggle-on" onclick="cfPiholeToggle(1)">ON</button>
+            </div>
+            <div class="dpihole-stats">
+              <div class="dpihole-stat"><div class="dpihole-val">4,821</div><div class="dpihole-lbl">Queries</div></div>
+              <div class="dpihole-stat"><div class="dpihole-val">1,204</div><div class="dpihole-lbl">Blocked</div></div>
+              <div class="dpihole-stat"><div class="dpihole-val">25.0%</div><div class="dpihole-lbl">Block rate</div></div>
             </div>
           </div>
         </div>
 
-        <!-- VMs -->
-        <div class="d-screen" id="d-vms">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Dashboard</span></button>
-              <button class="d-hdr-settings" style="color:#3b82f6;font-size:12px;font-weight:600;background:none;border:none;cursor:pointer;" onclick="demoShowToast('Pull to refresh')">&#8635;</button>
-            </div>
-            <div style="padding:0 16px 10px;"><div class="d-hdr-title">Virtual Machines</div></div>
-            <div class="d-sec">homelab-pve &bull; 7 online / 8 total</div>
-            <div class="d-card" id="d-vm-list">
-              <div class="d-row" onclick="demoVMSheet('pihole','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">pihole</div><div class="d-row-sub">LXC 100 &bull; 0.1% CPU</div></div><span class="d-tag tag-lxc">LXC</span></div>
-              <div class="d-row" onclick="demoVMSheet('homeassistant','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">homeassistant</div><div class="d-row-sub">LXC 101 &bull; 0.3% CPU</div></div><span class="d-tag tag-lxc">LXC</span></div>
-              <div class="d-row" onclick="demoVMSheet('nginx-proxy','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">nginx-proxy</div><div class="d-row-sub">LXC 102 &bull; 0.2% CPU</div></div><span class="d-tag tag-lxc">LXC</span></div>
-              <div class="d-row" onclick="demoVMSheet('wireguard','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">wireguard</div><div class="d-row-sub">LXC 103 &bull; 0.1% CPU</div></div><span class="d-tag tag-lxc">LXC</span></div>
-              <div class="d-row" onclick="demoVMSheet('plex','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">plex</div><div class="d-row-sub">QEMU 200 &bull; 22% CPU</div></div><span class="d-tag tag-vm">VM</span></div>
-              <div class="d-row" onclick="demoVMSheet('nextcloud','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">nextcloud</div><div class="d-row-sub">QEMU 201 &bull; 1.8% CPU</div></div><span class="d-tag tag-vm">VM</span></div>
-              <div class="d-row" onclick="demoVMSheet('dev-ubuntu','stopped')"><div class="d-dot dot-x"></div><div style="flex:1;"><div class="d-row-name" style="color:#6b7280;">dev-ubuntu</div><div class="d-row-sub">QEMU 202 &bull; Stopped</div></div><span class="d-tag tag-vm">VM</span></div>
-              <div class="d-row" onclick="demoVMSheet('jellyfin','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">jellyfin</div><div class="d-row-sub">QEMU 203 &bull; 0.9% CPU</div></div><span class="d-tag tag-vm">VM</span></div>
-            </div>
+        <!-- ===== TAILSCALE ===== -->
+        <div class="ds" id="ds-tailscale">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr">
+            <div class="dsc-title">Tailscale</div>
+            <div class="dscreen-hdr-right"><div>3 / 5 online</div><div>4:30 PM</div></div>
+          </div>
+          <div class="dsc-label">Devices</div>
+          <div class="dcard">
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">homelab-pve</div><div class="drow-sub" style="font-family:monospace;">100.64.0.1</div></div><span class="dbadge dbadge-g">Online</span></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">portainer-vm</div><div class="drow-sub" style="font-family:monospace;">100.64.0.2</div></div><span class="dbadge dbadge-g">Online</span></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">macbook-air</div><div class="drow-sub" style="font-family:monospace;">100.64.0.10</div></div><span class="dbadge dbadge-g">Online</span></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-x"></div><div style="flex:1;"><div class="drow-name" style="color:#6b7280;">iphone</div><div class="drow-sub" style="font-family:monospace;">100.64.0.11 &bull; 1h ago</div></div><span class="dbadge dbadge-x">Offline</span></div>
+            <div class="dcard-row" style="cursor:default;border-bottom:none;"><div class="ddot ddot-x"></div><div style="flex:1;"><div class="drow-name" style="color:#6b7280;">dev-ubuntu</div><div class="drow-sub" style="font-family:monospace;">100.64.0.3 &bull; 72h ago</div></div><span class="dbadge dbadge-x">Offline</span></div>
           </div>
         </div>
 
-        <!-- Containers -->
-        <div class="d-screen" id="d-containers">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Dashboard</span></button>
+        <!-- ===== UNRAID ===== -->
+        <div class="ds" id="ds-unraid">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr">
+            <div class="dsc-title">Unraid</div>
+            <div class="dscreen-hdr-right"><div>1 server</div><div>4:30 PM</div></div>
+          </div>
+          <div class="dsc-label">Unraid Tower</div>
+          <div class="dcard" style="margin-bottom:6px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+              <div style="color:#f9fafb;font-size:14px;font-weight:600;">Array</div>
+              <span class="dbadge dbadge-g">STARTED</span>
             </div>
-            <div style="padding:0 16px 10px;"><div class="d-hdr-title">Containers</div></div>
-            <div class="d-sec">Portainer &bull; 192.168.1.73</div>
-            <div class="d-card">
-              <div class="d-row" onclick="demoCtrSheet('portainer','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">portainer</div><div class="d-row-sub d-mono">portainer/portainer-ce</div></div><span class="d-pill pill-g">running</span></div>
-              <div class="d-row" onclick="demoCtrSheet('traefik','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">traefik</div><div class="d-row-sub d-mono">traefik:latest</div></div><span class="d-pill pill-g">running</span></div>
-              <div class="d-row" onclick="demoCtrSheet('vaultwarden','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">vaultwarden</div><div class="d-row-sub d-mono">vaultwarden/server</div></div><span class="d-pill pill-g">running</span></div>
-              <div class="d-row" onclick="demoCtrSheet('grafana','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">grafana</div><div class="d-row-sub d-mono">grafana/grafana:latest</div></div><span class="d-pill pill-g">running</span></div>
-              <div class="d-row" onclick="demoCtrSheet('prometheus','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">prometheus</div><div class="d-row-sub d-mono">prom/prometheus:latest</div></div><span class="d-pill pill-g">running</span></div>
-              <div class="d-row" onclick="demoCtrSheet('uptime-kuma','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">uptime-kuma</div><div class="d-row-sub d-mono">louislam/uptime-kuma</div></div><span class="d-pill pill-g">running</span></div>
-              <div class="d-row" onclick="demoCtrSheet('code-server','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">code-server</div><div class="d-row-sub d-mono">linuxserver/code-server</div></div><span class="d-pill pill-g">running</span></div>
-              <div class="d-row" onclick="demoCtrSheet('watchtower','running')"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">watchtower</div><div class="d-row-sub d-mono">containrrr/watchtower</div></div><span class="d-pill pill-g">running</span></div>
-              <div class="d-row" onclick="demoCtrSheet('paperless-ngx','exited')"><div class="d-dot dot-x"></div><div style="flex:1;"><div class="d-row-name" style="color:#6b7280;">paperless-ngx</div><div class="d-row-sub d-mono">paperlessngx/paperless-ngx</div></div><span class="d-pill pill-x">exited</span></div>
-            </div>
+            <div style="color:#9ca3af;font-size:11px;margin-bottom:6px;">7.5 TB used of 12.0 TB &bull; 4 disks</div>
+            <div class="dbar-row" style="margin-bottom:0;"><div class="dbar-track" style="height:5px;"><div class="dbar-fill" style="width:63%;background:#f97316;height:5px;"></div></div><div class="dbar-pct">63%</div></div>
+          </div>
+          <div class="dsc-label">Shares</div>
+          <div class="dcard">
+            <div class="dcard-row" style="cursor:default;"><div style="flex:1;"><div class="drow-name">media</div></div><div style="color:#9ca3af;font-size:11px;">5.4 / 8 TB</div></div>
+            <div class="dcard-row" style="cursor:default;"><div style="flex:1;"><div class="drow-name">backups</div></div><div style="color:#9ca3af;font-size:11px;">1.6 / 2 TB</div></div>
+            <div class="dcard-row" style="cursor:default;"><div style="flex:1;"><div class="drow-name">appdata</div></div><div style="color:#9ca3af;font-size:11px;">430 / 1000 GB</div></div>
+            <div class="dcard-row" style="cursor:default;border-bottom:none;"><div style="flex:1;"><div class="drow-name">isos</div></div><div style="color:#9ca3af;font-size:11px;">107 / 1000 GB</div></div>
           </div>
         </div>
 
-        <!-- Services -->
-        <div class="d-screen" id="d-services">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Dashboard</span></button>
-            </div>
-            <div style="padding:0 16px 10px;"><div class="d-hdr-title">Services</div></div>
-            <div class="d-health"><div class="d-dot dot-r"></div><div class="d-health-txt">1 issue &bull; External DNS is down</div></div>
-            <div class="d-sec">Uptime Kuma &bull; 8 monitors</div>
-            <div class="d-card">
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">Home Network</div><div style="color:#22c55e;font-size:10px;">Up 100%</div></div><div class="d-row-right">12 ms</div></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">Proxmox</div><div style="color:#22c55e;font-size:10px;">Up 99.9%</div></div><div class="d-row-right">44 ms</div></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">Portainer</div><div style="color:#22c55e;font-size:10px;">Up 100%</div></div><div class="d-row-right">23 ms</div></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">Vaultwarden</div><div style="color:#22c55e;font-size:10px;">Up 99.9%</div></div><div class="d-row-right">61 ms</div></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">Nextcloud</div><div style="color:#22c55e;font-size:10px;">Up 99.8%</div></div><div class="d-row-right">210 ms</div></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">Plex</div><div style="color:#22c55e;font-size:10px;">Up 100%</div></div><div class="d-row-right">88 ms</div></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">Grafana</div><div style="color:#22c55e;font-size:10px;">Up 99.7%</div></div><div class="d-row-right">55 ms</div></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-r"></div><div style="flex:1;"><div class="d-row-name">External DNS</div><div style="color:#ef4444;font-size:10px;">Down &bull; 91.2% uptime</div></div><span style="color:#ef4444;font-size:11px;font-weight:600;">Down</span></div>
-            </div>
+        <!-- ===== NPM ===== -->
+        <div class="ds" id="ds-npm">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr">
+            <div class="dsc-title">Nginx Proxy Manager</div>
+            <div class="dscreen-hdr-right"><div>4 / 5 active</div><div>4:30 PM</div></div>
+          </div>
+          <div class="dsc-label">Proxy Hosts</div>
+          <div class="dcard">
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">plex.home.arpa</div><div class="drow-sub">192.168.1.73:32400</div></div><span class="dbadge dbadge-b">SSL</span></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">nextcloud.home.arpa</div><div class="drow-sub">192.168.1.73:8080</div></div><span class="dbadge dbadge-b">SSL</span></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">vault.home.arpa</div><div class="drow-sub">192.168.1.73:8443</div></div><span class="dbadge dbadge-b">SSL</span></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">grafana.home.arpa</div><div class="drow-sub">192.168.1.73:3000</div></div><span class="dbadge dbadge-x">HTTP</span></div>
+            <div class="dcard-row" style="cursor:default;border-bottom:none;"><div class="ddot ddot-x"></div><div style="flex:1;"><div class="drow-name" style="color:#6b7280;">old-service.home.arpa</div><div class="drow-sub">192.168.1.73:8088</div></div><span class="dbadge dbadge-x">Disabled</span></div>
           </div>
         </div>
 
-        <!-- iDRAC -->
-        <div class="d-screen" id="d-idrac">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Dashboard</span></button>
-            </div>
-            <div style="padding:0 16px 10px;"><div class="d-hdr-title">iDRAC</div></div>
-            <div class="d-tabpicker">
-              <button class="d-tabpicker-btn active" id="idrac-t0" onclick="demoIdracTab(0)">R730</button>
-              <button class="d-tabpicker-btn" id="idrac-t1" onclick="demoIdracTab(1)">R720</button>
-            </div>
-            <div id="idrac-content-0">
-              <div class="d-sec">Dell PowerEdge R730</div>
-              <div class="d-card" style="margin-bottom:8px;">
-                <div class="d-card-hdr">
-                  <div><div class="d-card-name">iDRAC R730</div><div class="d-card-sub">192.168.1.51 &bull; SN: F8CKP42</div></div>
-                  <div class="d-status"><div class="d-dot dot-g"></div><span style="color:#22c55e;font-size:11px;font-weight:600;">Online</span></div>
-                </div>
-                <div style="display:flex;gap:16px;">
-                  <div><div style="color:#9ca3af;font-size:10px;">Model</div><div style="color:#f9fafb;font-size:12px;font-weight:600;">PowerEdge R730</div></div>
-                  <div><div style="color:#9ca3af;font-size:10px;">RAM</div><div style="color:#f9fafb;font-size:12px;font-weight:600;">256 GB</div></div>
-                  <div><div style="color:#9ca3af;font-size:10px;">CPUs</div><div style="color:#f9fafb;font-size:12px;font-weight:600;">2x E5-2680v4</div></div>
-                </div>
-              </div>
-              <div class="d-health" style="background:#1a1200;border-color:#f59e0b;"><div class="d-dot dot-a"></div><div style="color:#fcd34d;font-size:12px;font-weight:500;">Warning &bull; Coin cell battery low</div></div>
-              <div class="d-sec">Thermals</div>
-              <div class="d-card">
-                <div class="d-row" style="cursor:default;"><div style="flex:1;color:#9ca3af;font-size:12px;">Inlet Temp</div><div class="d-mono" style="color:#f9fafb;font-size:12px;font-weight:600;">22 C</div></div>
-                <div class="d-row" style="cursor:default;"><div style="flex:1;color:#9ca3af;font-size:12px;">Exhaust Temp</div><div class="d-mono" style="color:#f9fafb;font-size:12px;font-weight:600;">36 C</div></div>
-                <div class="d-row" style="cursor:default;"><div style="flex:1;color:#9ca3af;font-size:12px;">CPU 1 Temp</div><div class="d-mono" style="color:#f9fafb;font-size:12px;font-weight:600;">51 C</div></div>
-                <div class="d-row" style="cursor:default;"><div style="flex:1;color:#9ca3af;font-size:12px;">CPU 2 Temp</div><div class="d-mono" style="color:#f9fafb;font-size:12px;font-weight:600;">49 C</div></div>
-                <div class="d-row" style="cursor:default;"><div style="flex:1;color:#9ca3af;font-size:12px;">Fan 1</div><div class="d-mono" style="color:#f9fafb;font-size:12px;font-weight:600;">4440 RPM</div></div>
-                <div class="d-row" style="cursor:default;"><div style="flex:1;color:#9ca3af;font-size:12px;">Fan 2</div><div class="d-mono" style="color:#f9fafb;font-size:12px;font-weight:600;">4680 RPM</div></div>
-                <div class="d-row" style="cursor:default;"><div style="flex:1;color:#9ca3af;font-size:12px;">Fan 3</div><div class="d-mono" style="color:#f9fafb;font-size:12px;font-weight:600;">4560 RPM</div></div>
-                <div class="d-row" style="cursor:default;"><div style="flex:1;color:#9ca3af;font-size:12px;">Fan 4</div><div class="d-mono" style="color:#f9fafb;font-size:12px;font-weight:600;">4440 RPM</div></div>
-              </div>
-            </div>
-            <div id="idrac-content-1" style="display:none;">
-              <div class="d-sec">Dell PowerEdge R720</div>
-              <div class="d-card" style="margin-bottom:8px;">
-                <div class="d-card-hdr">
-                  <div><div class="d-card-name">iDRAC R720</div><div class="d-card-sub">192.168.1.50 &bull; SN: DM0CX42</div></div>
-                  <div class="d-status"><div class="d-dot dot-g"></div><span style="color:#22c55e;font-size:11px;font-weight:600;">Online</span></div>
-                </div>
-                <div style="display:flex;gap:16px;">
-                  <div><div style="color:#9ca3af;font-size:10px;">Model</div><div style="color:#f9fafb;font-size:12px;font-weight:600;">PowerEdge R720</div></div>
-                  <div><div style="color:#9ca3af;font-size:10px;">RAM</div><div style="color:#f9fafb;font-size:12px;font-weight:600;">128 GB</div></div>
-                  <div><div style="color:#9ca3af;font-size:10px;">CPUs</div><div style="color:#f9fafb;font-size:12px;font-weight:600;">2x E5-2660v2</div></div>
-                </div>
-              </div>
-              <div class="d-sec">Thermals</div>
-              <div class="d-card">
-                <div class="d-row" style="cursor:default;"><div style="flex:1;color:#9ca3af;font-size:12px;">Inlet Temp</div><div class="d-mono" style="color:#f9fafb;font-size:12px;font-weight:600;">21 C</div></div>
-                <div class="d-row" style="cursor:default;"><div style="flex:1;color:#9ca3af;font-size:12px;">Exhaust Temp</div><div class="d-mono" style="color:#f9fafb;font-size:12px;font-weight:600;">34 C</div></div>
-                <div class="d-row" style="cursor:default;"><div style="flex:1;color:#9ca3af;font-size:12px;">CPU 1 Temp</div><div class="d-mono" style="color:#f9fafb;font-size:12px;font-weight:600;">48 C</div></div>
-                <div class="d-row" style="cursor:default;"><div style="flex:1;color:#9ca3af;font-size:12px;">CPU 2 Temp</div><div class="d-mono" style="color:#f9fafb;font-size:12px;font-weight:600;">47 C</div></div>
-              </div>
-            </div>
+        <!-- ===== TOOLS ===== -->
+        <div class="ds" id="ds-tools">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr"><div class="dsc-title">Tools</div></div>
+          <div class="dtools-grid">
+            <div class="dtool-card" onclick="cf('ssh')"><div class="dtool-icon">&#128187;</div><div class="dtool-name">SSH Terminal</div><div class="dtool-sub">Connect to servers</div></div>
+            <div class="dtool-card" onclick="cf('wol')"><div class="dtool-icon">&#9889;</div><div class="dtool-name">Wake on LAN</div><div class="dtool-sub">Wake sleeping machines</div></div>
+            <div class="dtool-card" onclick="cf('diagnostics')"><div class="dtool-icon">&#128270;</div><div class="dtool-name">Diagnostics</div><div class="dtool-sub">Ping, DNS, port checks</div></div>
+            <div class="dtool-card" onclick="cf('ssl')"><div class="dtool-icon">&#128274;</div><div class="dtool-name">SSL Checker</div><div class="dtool-sub">Cert expiry and validity</div></div>
+            <div class="dtool-card" onclick="cf('topology')"><div class="dtool-icon">&#127760;</div><div class="dtool-name">Network Map</div><div class="dtool-sub">Scan your LAN</div></div>
           </div>
         </div>
 
-        <!-- Pi-hole -->
-        <div class="d-screen" id="d-pihole">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Dashboard</span></button>
-            </div>
-            <div style="padding:0 16px 10px;"><div class="d-hdr-title">Pi-hole</div></div>
-            <div class="d-tabpicker">
-              <button class="d-tabpicker-btn active" id="pihole-t0" onclick="demoPiholeTab(0)">Primary</button>
-              <button class="d-tabpicker-btn" id="pihole-t1" onclick="demoPiholeTab(1)">Secondary</button>
-            </div>
-            <div id="pihole-content-0">
-              <div class="d-sec">192.168.1.53</div>
-              <div class="d-card" style="margin-bottom:8px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                  <div><div class="d-card-name">Pi-hole Primary</div></div>
-                  <button id="pihole-toggle-0" class="d-btn d-btn-danger" onclick="demoPiholeToggle(0)" style="padding:6px 12px;font-size:11px;">Disable</button>
-                </div>
-                <div class="d-stats">
-                  <div class="d-stat"><div class="d-stat-val">15,243</div><div class="d-stat-lbl">Queries</div></div>
-                  <div class="d-stat"><div class="d-stat-val">3,821</div><div class="d-stat-lbl">Blocked</div></div>
-                  <div class="d-stat"><div class="d-stat-val">25.06%</div><div class="d-stat-lbl">Block Rate</div></div>
-                </div>
-              </div>
-              <div class="d-sec">Blocklists</div>
-              <div class="d-card">
-                <div style="display:flex;justify-content:space-between;align-items:center;">
-                  <div style="color:#9ca3af;font-size:12px;">Domains blocked</div>
-                  <div style="color:#f9fafb;font-size:13px;font-weight:700;">142,053</div>
-                </div>
-              </div>
-            </div>
-            <div id="pihole-content-1" style="display:none;">
-              <div class="d-sec">192.168.1.54</div>
-              <div class="d-card" style="margin-bottom:8px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                  <div><div class="d-card-name">Pi-hole Secondary</div></div>
-                  <button id="pihole-toggle-1" class="d-btn d-btn-danger" onclick="demoPiholeToggle(1)" style="padding:6px 12px;font-size:11px;">Disable</button>
-                </div>
-                <div class="d-stats">
-                  <div class="d-stat"><div class="d-stat-val">4,821</div><div class="d-stat-lbl">Queries</div></div>
-                  <div class="d-stat"><div class="d-stat-val">1,204</div><div class="d-stat-lbl">Blocked</div></div>
-                  <div class="d-stat"><div class="d-stat-val">24.97%</div><div class="d-stat-lbl">Block Rate</div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tailscale -->
-        <div class="d-screen" id="d-tailscale">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Dashboard</span></button>
-            </div>
-            <div style="padding:0 16px 10px;"><div class="d-hdr-title">Tailscale</div></div>
-            <div class="d-sec">5 Devices &bull; 3 Online</div>
-            <div class="d-card">
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">homelab-pve</div><div class="d-row-sub d-mono">100.64.0.1</div></div><span style="color:#22c55e;font-size:10px;font-weight:600;">Online</span></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">portainer-vm</div><div class="d-row-sub d-mono">100.64.0.2</div></div><span style="color:#22c55e;font-size:10px;font-weight:600;">Online</span></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">macbook-air</div><div class="d-row-sub d-mono">100.64.0.10</div></div><span style="color:#22c55e;font-size:10px;font-weight:600;">Online</span></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-x"></div><div style="flex:1;"><div class="d-row-name" style="color:#6b7280;">iphone</div><div class="d-row-sub d-mono">100.64.0.11 &bull; 1h ago</div></div><span style="color:#6b7280;font-size:10px;">Offline</span></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-x"></div><div style="flex:1;"><div class="d-row-name" style="color:#6b7280;">dev-ubuntu</div><div class="d-row-sub d-mono">100.64.0.3 &bull; 72h ago</div></div><span style="color:#6b7280;font-size:10px;">Offline</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Unraid -->
-        <div class="d-screen" id="d-unraid">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Dashboard</span></button>
-            </div>
-            <div style="padding:0 16px 10px;"><div class="d-hdr-title">Unraid</div></div>
-            <div class="d-sec">Array Status</div>
-            <div class="d-card" style="margin-bottom:8px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <div class="d-card-name">Unraid Tower</div>
-                <span class="d-pill pill-g">Started</span>
-              </div>
-              <div class="d-metric"><div class="d-metric-lbl">Storage</div><div class="d-bar"><div class="d-bar-fill" style="width:63%;background:#f97316;"></div></div><div class="d-metric-pct">7.5/12 TB</div></div>
-              <div style="display:flex;gap:16px;margin-top:8px;">
-                <div><div style="color:#9ca3af;font-size:10px;">Disks</div><div style="color:#f9fafb;font-size:13px;font-weight:700;">4</div></div>
-                <div><div style="color:#9ca3af;font-size:10px;">Free</div><div style="color:#f9fafb;font-size:13px;font-weight:700;">4.5 TB</div></div>
-                <div><div style="color:#9ca3af;font-size:10px;">Used</div><div style="color:#f9fafb;font-size:13px;font-weight:700;">7.5 TB</div></div>
-              </div>
-            </div>
-            <div class="d-sec">Shares</div>
-            <div class="d-card">
-              <div class="d-row" style="cursor:default;"><div style="flex:1;"><div class="d-row-name">media</div></div><div class="d-metric-pct" style="width:auto;">5.4 / 8 TB</div></div>
-              <div class="d-row" style="cursor:default;"><div style="flex:1;"><div class="d-row-name">backups</div></div><div class="d-metric-pct" style="width:auto;">1.6 / 2 TB</div></div>
-              <div class="d-row" style="cursor:default;"><div style="flex:1;"><div class="d-row-name">appdata</div></div><div class="d-metric-pct" style="width:auto;">430 / 1000 GB</div></div>
-              <div class="d-row" style="cursor:default;"><div style="flex:1;"><div class="d-row-name">isos</div></div><div class="d-metric-pct" style="width:auto;">107 / 1000 GB</div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- NPM -->
-        <div class="d-screen" id="d-npm">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Dashboard</span></button>
-            </div>
-            <div style="padding:0 16px 10px;"><div class="d-hdr-title">Nginx Proxy Manager</div></div>
-            <div class="d-sec">5 Proxies &bull; 4 Active</div>
-            <div class="d-card">
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">plex.home.arpa</div><div class="d-row-sub d-mono">192.168.1.73:32400</div></div><span class="d-pill pill-g">SSL</span></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">nextcloud.home.arpa</div><div class="d-row-sub d-mono">192.168.1.73:8080</div></div><span class="d-pill pill-g">SSL</span></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">vault.home.arpa</div><div class="d-row-sub d-mono">192.168.1.73:8443</div></div><span class="d-pill pill-g">SSL</span></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-g"></div><div style="flex:1;"><div class="d-row-name">grafana.home.arpa</div><div class="d-row-sub d-mono">192.168.1.73:3000</div></div><span class="d-pill pill-x">HTTP</span></div>
-              <div class="d-row" style="cursor:default;"><div class="d-dot dot-x"></div><div style="flex:1;"><div class="d-row-name" style="color:#6b7280;">old-service.home.arpa</div><div class="d-row-sub d-mono">192.168.1.73:8088</div></div><span class="d-pill pill-x">Disabled</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tools -->
-        <div class="d-screen" id="d-tools">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Dashboard</span></button>
-            </div>
-            <div style="padding:0 16px 10px;"><div class="d-hdr-title">Tools</div></div>
-            <div class="d-tools-grid">
-              <div class="d-tool-card" onclick="demoGo('ssh')">
-                <div class="d-tool-icon">&#128187;</div>
-                <div class="d-tool-name">SSH Terminal</div>
-                <div class="d-tool-sub">Connect to servers</div>
-              </div>
-              <div class="d-tool-card" onclick="demoGo('wol')">
-                <div class="d-tool-icon">&#9889;</div>
-                <div class="d-tool-name">Wake on LAN</div>
-                <div class="d-tool-sub">Wake sleeping machines</div>
-              </div>
-              <div class="d-tool-card" onclick="demoGo('diagnostics')">
-                <div class="d-tool-icon">&#128270;</div>
-                <div class="d-tool-name">Diagnostics</div>
-                <div class="d-tool-sub">Ping, DNS, port checks</div>
-              </div>
-              <div class="d-tool-card" onclick="demoGo('ssl')">
-                <div class="d-tool-icon">&#128274;</div>
-                <div class="d-tool-name">SSL Checker</div>
-                <div class="d-tool-sub">Cert expiry and validity</div>
-              </div>
-              <div class="d-tool-card" onclick="demoGo('topology')">
-                <div class="d-tool-icon">&#127760;</div>
-                <div class="d-tool-name">Network Map</div>
-                <div class="d-tool-sub">Scan your LAN</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SSH Terminal -->
-        <div class="d-screen term-screen" id="d-ssh">
-          <div class="d-term-wrap">
-            <div class="d-term-topbar">
-              <button class="d-hdr-back" onclick="demoBack()" style="font-size:13px;"><span style="font-size:18px;line-height:1;margin-top:-1px;">&#8249;</span><span>Tools</span></button>
+        <!-- ===== SSH TERMINAL ===== -->
+        <div class="ds ds-term" id="ds-ssh">
+          <div class="dterm-wrap">
+            <div class="dterm-topbar">
+              <button class="dback-btn" onclick="cb()">Back</button>
               <span style="color:#9ca3af;font-size:12px;font-weight:600;flex:1;text-align:center;">homelab-vm &bull; root</span>
             </div>
-            <div class="d-term-output" id="d-term-output">
+            <div class="dterm-out" id="dt-out">
               <div style="color:#6b7280;">Connected to homelab-vm (192.168.1.38) as root</div>
-              <div style="color:#6b7280;margin-bottom:6px;">Type a command or tap a quick command below.</div>
+              <div style="color:#6b7280;margin-bottom:6px;">Type a command or use quick commands below.</div>
             </div>
-            <div class="d-term-qbar">
-              <button class="d-term-qbtn" onclick="demoSSHRun('ls')">ls</button>
-              <button class="d-term-qbtn" onclick="demoSSHRun('ls -la')">ls -la</button>
-              <button class="d-term-qbtn" onclick="demoSSHRun('pwd')">pwd</button>
-              <button class="d-term-qbtn" onclick="demoSSHRun('df -h')">df -h</button>
-              <button class="d-term-qbtn" onclick="demoSSHRun('free -h')">free -h</button>
-              <button class="d-term-qbtn" onclick="demoSSHRun('uptime')">uptime</button>
-              <button class="d-term-qbtn" onclick="demoSSHRun('docker ps')">docker ps</button>
-              <button class="d-term-qbtn" onclick="demoSSHRun('ps aux')">ps aux</button>
-              <button class="d-term-qbtn" onclick="demoSSHRun('ip addr')">ip addr</button>
+            <div class="dterm-qbar">
+              <button class="dterm-qbtn" onclick="dtRun('ls')">ls</button>
+              <button class="dterm-qbtn" onclick="dtRun('ls -la')">ls -la</button>
+              <button class="dterm-qbtn" onclick="dtRun('pwd')">pwd</button>
+              <button class="dterm-qbtn" onclick="dtRun('df -h')">df -h</button>
+              <button class="dterm-qbtn" onclick="dtRun('free -h')">free -h</button>
+              <button class="dterm-qbtn" onclick="dtRun('uptime')">uptime</button>
+              <button class="dterm-qbtn" onclick="dtRun('docker ps')">docker ps</button>
+              <button class="dterm-qbtn" onclick="dtRun('ip addr')">ip addr</button>
+              <button class="dterm-qbtn" onclick="dtRun('ps aux')">ps aux</button>
             </div>
-            <div class="d-term-kbar">
-              <button class="d-term-kbtn" onclick="demoSSHKey('Tab')">Tab</button>
-              <button class="d-term-kbtn" onclick="demoSSHArrow('up')">&#8593;</button>
-              <button class="d-term-kbtn" onclick="demoSSHArrow('down')">&#8595;</button>
-              <button class="d-term-kbtn" onclick="demoSSHKey('Ctrl+C')">^C</button>
-              <button class="d-term-kbtn" onclick="demoSSHKey('Esc')">Esc</button>
-              <button class="d-term-kbtn" style="flex:1;" onclick="document.getElementById('d-term-input').focus()">Focus</button>
+            <div class="dterm-kbar">
+              <button class="dterm-kbtn" onclick="dtKey('Tab')">Tab</button>
+              <button class="dterm-kbtn" onclick="dtArrow('up')">&#8593;</button>
+              <button class="dterm-kbtn" onclick="dtArrow('down')">&#8595;</button>
+              <button class="dterm-kbtn" onclick="dtCtrlC()">^C</button>
+              <button class="dterm-kbtn" style="flex:1;" onclick="document.getElementById('dt-input').focus()">Keyboard</button>
             </div>
-            <div class="d-term-inputrow">
-              <span class="d-term-prompt" id="d-term-prompt">root@homelab-vm:~#</span>
-              <input class="d-term-input" id="d-term-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="demoSSHKey(event)" />
-            </div>
-          </div>
-        </div>
-
-        <!-- Wake on LAN -->
-        <div class="d-screen" id="d-wol">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Tools</span></button>
-            </div>
-            <div style="padding:0 16px 10px;"><div class="d-hdr-title">Wake on LAN</div></div>
-            <div class="d-sec">Devices</div>
-            <div class="d-card">
-              <div class="d-wol-row">
-                <div style="flex:1;"><div class="d-row-name">Dell R730</div><div class="d-row-sub d-mono">B8:CA:3A:F1:2D:44</div></div>
-                <button id="wol-btn-0" class="d-btn d-btn-success" style="padding:6px 12px;font-size:11px;" onclick="demoWolWake(0,'Dell R730')">Wake</button>
-              </div>
-              <div class="d-wol-row">
-                <div style="flex:1;"><div class="d-row-name">Dell R720</div><div class="d-row-sub d-mono">B8:CA:3A:F1:2D:45</div></div>
-                <button id="wol-btn-1" class="d-btn d-btn-success" style="padding:6px 12px;font-size:11px;" onclick="demoWolWake(1,'Dell R720')">Wake</button>
-              </div>
-              <div class="d-wol-row">
-                <div style="flex:1;"><div class="d-row-name">NAS Tower</div><div class="d-row-sub d-mono">E4:1D:2D:AB:CD:EF</div></div>
-                <button id="wol-btn-2" class="d-btn d-btn-success" style="padding:6px 12px;font-size:11px;" onclick="demoWolWake(2,'NAS Tower')">Wake</button>
-              </div>
-              <div class="d-wol-row">
-                <div style="flex:1;"><div class="d-row-name">Gaming PC</div><div class="d-row-sub d-mono">A4:AE:11:CC:DD:EE</div></div>
-                <button id="wol-btn-3" class="d-btn d-btn-success" style="padding:6px 12px;font-size:11px;" onclick="demoWolWake(3,'Gaming PC')">Wake</button>
-              </div>
+            <div class="dterm-irow">
+              <span class="dterm-prompt" id="dt-prompt">root@homelab-vm:~#</span>
+              <input class="dterm-input" id="dt-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="dtKeyDown(event)" />
             </div>
           </div>
         </div>
 
-        <!-- Diagnostics -->
-        <div class="d-screen" id="d-diagnostics">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Tools</span></button>
+        <!-- ===== WOL ===== -->
+        <div class="ds" id="ds-wol">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr"><div class="dsc-title">Wake on LAN</div></div>
+          <div class="dsc-label">Devices</div>
+          <div class="dcard">
+            <div class="dwol-row"><div style="flex:1;"><div class="drow-name">Dell R730</div><div class="drow-sub" style="font-family:monospace;">B8:CA:3A:F1:2D:44</div></div><button id="wol-0" class="dpill dpill-g" onclick="cfWolWake(0,'Dell R730')">Wake</button></div>
+            <div class="dwol-row"><div style="flex:1;"><div class="drow-name">Dell R720</div><div class="drow-sub" style="font-family:monospace;">B8:CA:3A:F1:2D:45</div></div><button id="wol-1" class="dpill dpill-g" onclick="cfWolWake(1,'Dell R720')">Wake</button></div>
+            <div class="dwol-row"><div style="flex:1;"><div class="drow-name">NAS Tower</div><div class="drow-sub" style="font-family:monospace;">E4:1D:2D:AB:CD:EF</div></div><button id="wol-2" class="dpill dpill-g" onclick="cfWolWake(2,'NAS Tower')">Wake</button></div>
+            <div class="dwol-row" style="border-bottom:none;"><div style="flex:1;"><div class="drow-name">Gaming PC</div><div class="drow-sub" style="font-family:monospace;">A4:AE:11:CC:DD:EE</div></div><button id="wol-3" class="dpill dpill-g" onclick="cfWolWake(3,'Gaming PC')">Wake</button></div>
+          </div>
+        </div>
+
+        <!-- ===== DIAGNOSTICS ===== -->
+        <div class="ds" id="ds-diagnostics">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr">
+            <div class="dsc-title">Diagnostics</div>
+            <button class="dpill dpill-b" id="diag-btn" onclick="cfDiagRun()" style="padding:7px 16px;font-size:12px;">Run</button>
+          </div>
+          <div class="dsc-label">Target: homelab-pve (192.168.1.38)</div>
+          <div class="dcard">
+            <div class="ddiag-row" id="diag-0">
+              <div style="width:26px;height:26px;border-radius:50%;background:#1f2937;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;" id="diag-icon-0">&#9711;</div>
+              <div style="flex:1;"><div style="color:#f9fafb;font-size:13px;font-weight:500;">Ping</div><div style="color:#6b7280;font-size:10px;margin-top:1px;" id="diag-detail-0">Tap Run to start</div></div>
+              <div style="font-size:11px;font-weight:600;color:#6b7280;" id="diag-status-0">Idle</div>
             </div>
-            <div style="padding:0 16px 10px;display:flex;justify-content:space-between;align-items:center;">
-              <div class="d-hdr-title">Diagnostics</div>
-              <button class="d-btn d-btn-primary" id="diag-run-btn" onclick="demoDiagRun()" style="padding:8px 14px;font-size:12px;">Run</button>
+            <div class="ddiag-row" id="diag-1">
+              <div style="width:26px;height:26px;border-radius:50%;background:#1f2937;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;" id="diag-icon-1">&#9711;</div>
+              <div style="flex:1;"><div style="color:#f9fafb;font-size:13px;font-weight:500;">DNS Lookup</div><div style="color:#6b7280;font-size:10px;margin-top:1px;" id="diag-detail-1">homelab-pve.local</div></div>
+              <div style="font-size:11px;font-weight:600;color:#6b7280;" id="diag-status-1">Idle</div>
             </div>
-            <div class="d-sec">Test Target: homelab-pve (192.168.1.38)</div>
-            <div class="d-card">
-              <div class="d-diag-row" id="diag-row-0">
-                <div style="width:28px;height:28px;border-radius:50%;background:#1f2937;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;">&#128308;</div>
-                <div style="flex:1;"><div class="d-diag-name">Ping</div><div class="d-diag-detail" id="diag-detail-0">Tap Run to start</div></div>
-                <div class="d-diag-status" id="diag-status-0" style="color:#6b7280;">Idle</div>
-              </div>
-              <div class="d-diag-row" id="diag-row-1">
-                <div style="width:28px;height:28px;border-radius:50%;background:#1f2937;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;">&#128308;</div>
-                <div style="flex:1;"><div class="d-diag-name">DNS Lookup</div><div class="d-diag-detail" id="diag-detail-1">homelab-pve.local</div></div>
-                <div class="d-diag-status" id="diag-status-1" style="color:#6b7280;">Idle</div>
-              </div>
-              <div class="d-diag-row" id="diag-row-2">
-                <div style="width:28px;height:28px;border-radius:50%;background:#1f2937;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;">&#128308;</div>
-                <div style="flex:1;"><div class="d-diag-name">Port 8006 (HTTPS)</div><div class="d-diag-detail" id="diag-detail-2">Proxmox Web UI</div></div>
-                <div class="d-diag-status" id="diag-status-2" style="color:#6b7280;">Idle</div>
-              </div>
+            <div class="ddiag-row" id="diag-2" style="border-bottom:none;">
+              <div style="width:26px;height:26px;border-radius:50%;background:#1f2937;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;" id="diag-icon-2">&#9711;</div>
+              <div style="flex:1;"><div style="color:#f9fafb;font-size:13px;font-weight:500;">Port 8006</div><div style="color:#6b7280;font-size:10px;margin-top:1px;" id="diag-detail-2">Proxmox HTTPS</div></div>
+              <div style="font-size:11px;font-weight:600;color:#6b7280;" id="diag-status-2">Idle</div>
             </div>
           </div>
         </div>
 
-        <!-- SSL Checker -->
-        <div class="d-screen" id="d-ssl">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Tools</span></button>
-            </div>
-            <div style="padding:0 16px 10px;"><div class="d-hdr-title">SSL Checker</div></div>
-            <div class="d-sec">Configured Servers</div>
-            <div class="d-card">
-              <div class="d-ssl-row">
-                <div class="d-dot dot-g"></div>
-                <div style="flex:1;"><div class="d-row-name">Proxmox</div><div class="d-row-sub">192.168.1.38:8006 &bull; 44 ms</div></div>
-                <span class="d-pill pill-g">Valid</span>
-              </div>
-              <div class="d-ssl-row">
-                <div class="d-dot dot-g"></div>
-                <div style="flex:1;"><div class="d-row-name">Nextcloud</div><div class="d-row-sub">192.168.1.73:8080 &bull; 210 ms</div></div>
-                <span class="d-pill pill-g">Valid</span>
-              </div>
-              <div class="d-ssl-row">
-                <div class="d-dot dot-g"></div>
-                <div style="flex:1;"><div class="d-row-name">Vaultwarden</div><div class="d-row-sub">192.168.1.73:8443 &bull; 61 ms</div></div>
-                <span class="d-pill pill-g">Valid</span>
-              </div>
-              <div class="d-ssl-row">
-                <div class="d-dot dot-r"></div>
-                <div style="flex:1;"><div class="d-row-name" style="color:#ef4444;">Grafana</div><div class="d-row-sub">192.168.1.73:3000</div></div>
-                <span class="d-pill pill-r">Failed</span>
-              </div>
-            </div>
+        <!-- ===== SSL ===== -->
+        <div class="ds" id="ds-ssl">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr"><div class="dsc-title">SSL Checker</div><div class="dscreen-hdr-right"><div>4:30 PM</div></div></div>
+          <div class="dsc-label">Configured Servers</div>
+          <div class="dcard">
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">Proxmox</div><div class="drow-sub">192.168.1.38:8006 &bull; 44 ms</div></div><span class="dbadge dbadge-g">Valid</span></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">Nextcloud</div><div class="drow-sub">192.168.1.73:8080 &bull; 210 ms</div></div><span class="dbadge dbadge-g">Valid</span></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">Vaultwarden</div><div class="drow-sub">192.168.1.73:8443 &bull; 61 ms</div></div><span class="dbadge dbadge-g">Valid</span></div>
+            <div class="dcard-row" style="cursor:default;border-bottom:none;"><div class="ddot ddot-r"></div><div style="flex:1;"><div class="drow-name" style="color:#ef4444;">Grafana</div><div class="drow-sub">192.168.1.73:3000</div></div><span class="dbadge dbadge-r">Failed</span></div>
           </div>
         </div>
 
-        <!-- Topology -->
-        <div class="d-screen" id="d-topology">
-          <div class="d-inner">
-            <div class="d-hdr">
-              <button class="d-hdr-back" onclick="demoBack()"><span style="font-size:20px;line-height:1;margin-top:-1px;">&#8249;</span><span>Tools</span></button>
-            </div>
-            <div style="padding:0 16px 10px;"><div class="d-hdr-title">Network Map</div></div>
-            <div class="d-sec">192.168.1.0/24 &bull; Last scanned just now</div>
-            <div class="d-card">
-              <div class="d-topo-row">
-                <div class="d-dot dot-g"></div>
-                <div style="flex:1;"><div class="d-row-name">Gateway</div><div class="d-row-sub d-mono">192.168.1.1</div></div>
-                <span style="color:#6b7280;font-size:10px;">router</span>
-              </div>
-              <div class="d-topo-row">
-                <div class="d-dot dot-g"></div>
-                <div style="flex:1;"><div class="d-row-name">homelab-pve</div><div class="d-row-sub d-mono">192.168.1.38</div></div>
-                <span style="color:#6b7280;font-size:10px;">proxmox</span>
-              </div>
-              <div class="d-topo-row">
-                <div class="d-dot dot-g"></div>
-                <div style="flex:1;"><div class="d-row-name">docker-host</div><div class="d-row-sub d-mono">192.168.1.73 &bull; 3 services</div></div>
-                <span style="color:#6b7280;font-size:10px;">linux</span>
-              </div>
-              <div class="d-topo-row">
-                <div class="d-dot dot-g"></div>
-                <div style="flex:1;"><div class="d-row-name">idrac-r730</div><div class="d-row-sub d-mono">192.168.1.51</div></div>
-                <span style="color:#6b7280;font-size:10px;">idrac8</span>
-              </div>
-              <div class="d-topo-row">
-                <div class="d-dot dot-g"></div>
-                <div style="flex:1;"><div class="d-row-name">unraid-tower</div><div class="d-row-sub d-mono">192.168.1.52</div></div>
-                <span style="color:#6b7280;font-size:10px;">unraid</span>
-              </div>
-              <div class="d-topo-row">
-                <div class="d-dot dot-g"></div>
-                <div style="flex:1;"><div class="d-row-name">pihole</div><div class="d-row-sub d-mono">192.168.1.53</div></div>
-                <span style="color:#6b7280;font-size:10px;">linux</span>
-              </div>
-            </div>
+        <!-- ===== TOPOLOGY ===== -->
+        <div class="ds" id="ds-topology">
+          <div class="dback-hdr"><button class="dback-btn" onclick="cb()">Back</button></div>
+          <div class="dscreen-hdr"><div class="dsc-title">Network Map</div><div class="dscreen-hdr-right"><div>4:30 PM</div></div></div>
+          <div class="dsc-label">192.168.1.0/24 &bull; Last scan: just now</div>
+          <div class="dcard">
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">Gateway</div><div class="drow-sub" style="font-family:monospace;">192.168.1.1</div></div><span style="color:#6b7280;font-size:10px;">router</span></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">homelab-pve</div><div class="drow-sub" style="font-family:monospace;">192.168.1.38</div></div><span style="color:#6b7280;font-size:10px;">proxmox</span></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">docker-host</div><div class="drow-sub" style="font-family:monospace;">192.168.1.73 &bull; 3 services</div></div><span style="color:#6b7280;font-size:10px;">linux</span></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">idrac-r730</div><div class="drow-sub" style="font-family:monospace;">192.168.1.51</div></div><span style="color:#6b7280;font-size:10px;">idrac8</span></div>
+            <div class="dcard-row" style="cursor:default;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">unraid-tower</div><div class="drow-sub" style="font-family:monospace;">192.168.1.52</div></div><span style="color:#6b7280;font-size:10px;">unraid</span></div>
+            <div class="dcard-row" style="cursor:default;border-bottom:none;"><div class="ddot ddot-g"></div><div style="flex:1;"><div class="drow-name">pihole</div><div class="drow-sub" style="font-family:monospace;">192.168.1.53</div></div><span style="color:#6b7280;font-size:10px;">linux</span></div>
           </div>
         </div>
 
-        <!-- Settings -->
-        <div class="d-screen" id="d-settings">
-          <div class="d-inner">
-            <div class="d-hdr"><div class="d-hdr-title">Settings</div></div>
-            <div class="d-sec">Proxmox</div>
-            <div class="d-card">
-              <div class="d-toggle-row"><div><div class="d-toggle-name">homelab-pve</div><div class="d-toggle-sub">192.168.1.38:8006</div></div><div class="d-toggle"></div></div>
+        <!-- ===== SETTINGS ===== -->
+        <div class="ds" id="ds-settings">
+          <div class="dhdr"><div class="dhdr-logo">Ctrl<span class="freak">Freak</span></div></div>
+          <div class="dsc-title" style="padding:0 16px 10px;">Settings</div>
+          <div class="dsc-label">Proxmox</div>
+          <div class="dcard">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div><div class="drow-name">homelab-pve</div><div class="drow-sub">192.168.1.38:8006</div></div>
+              <div style="width:44px;height:26px;background:#3b82f6;border-radius:13px;position:relative;"><div style="position:absolute;top:3px;right:3px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,0.4);"></div></div>
             </div>
-            <div class="d-sec">Portainer</div>
-            <div class="d-card">
-              <div class="d-toggle-row"><div><div class="d-toggle-name">Portainer</div><div class="d-toggle-sub">192.168.1.73:9000</div></div><div class="d-toggle"></div></div>
+          </div>
+          <div class="dsc-label">Portainer</div>
+          <div class="dcard">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div><div class="drow-name">Portainer</div><div class="drow-sub">192.168.1.73:9000</div></div>
+              <div style="width:44px;height:26px;background:#3b82f6;border-radius:13px;position:relative;"><div style="position:absolute;top:3px;right:3px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,0.4);"></div></div>
             </div>
-            <div class="d-sec">Uptime Kuma</div>
-            <div class="d-card">
-              <div class="d-toggle-row"><div><div class="d-toggle-name">Uptime Kuma</div><div class="d-toggle-sub">192.168.1.73:3001</div></div><div class="d-toggle"></div></div>
+          </div>
+          <div class="dsc-label">Uptime Kuma</div>
+          <div class="dcard">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div><div class="drow-name">Uptime Kuma</div><div class="drow-sub">192.168.1.73:3001</div></div>
+              <div style="width:44px;height:26px;background:#3b82f6;border-radius:13px;position:relative;"><div style="position:absolute;top:3px;right:3px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,0.4);"></div></div>
             </div>
-            <div class="d-sec">iDRAC</div>
-            <div class="d-card">
-              <div class="d-toggle-row"><div><div class="d-toggle-name">iDRAC R730</div><div class="d-toggle-sub">192.168.1.51</div></div><div class="d-toggle"></div></div>
-              <div class="d-toggle-row"><div><div class="d-toggle-name">iDRAC R720</div><div class="d-toggle-sub">192.168.1.50</div></div><div class="d-toggle"></div></div>
+          </div>
+          <div class="dsc-label">iDRAC</div>
+          <div class="dcard">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid #1f2937;">
+              <div><div class="drow-name">iDRAC R730</div><div class="drow-sub">192.168.1.51</div></div>
+              <div style="width:44px;height:26px;background:#3b82f6;border-radius:13px;position:relative;"><div style="position:absolute;top:3px;right:3px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,0.4);"></div></div>
             </div>
-            <div class="d-sec">Pi-hole</div>
-            <div class="d-card">
-              <div class="d-toggle-row"><div><div class="d-toggle-name">Primary</div><div class="d-toggle-sub">192.168.1.53</div></div><div class="d-toggle"></div></div>
-              <div class="d-toggle-row"><div><div class="d-toggle-name">Secondary</div><div class="d-toggle-sub">192.168.1.54</div></div><div class="d-toggle"></div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;">
+              <div><div class="drow-name">iDRAC R720</div><div class="drow-sub">192.168.1.50</div></div>
+              <div style="width:44px;height:26px;background:#3b82f6;border-radius:13px;position:relative;"><div style="position:absolute;top:3px;right:3px;width:20px;height:20px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,0.4);"></div></div>
             </div>
-            <div class="d-sec">Tailscale</div>
-            <div class="d-card">
-              <div class="d-toggle-row"><div><div class="d-toggle-name">Tailscale</div><div class="d-toggle-sub">tailscale.com API</div></div><div class="d-toggle"></div></div>
-            </div>
-            <div class="d-sec">Unraid</div>
-            <div class="d-card">
-              <div class="d-toggle-row"><div><div class="d-toggle-name">Unraid Tower</div><div class="d-toggle-sub">192.168.1.52</div></div><div class="d-toggle"></div></div>
-            </div>
-            <div class="d-sec">Nginx Proxy Manager</div>
-            <div class="d-card">
-              <div class="d-toggle-row"><div><div class="d-toggle-name">NPM</div><div class="d-toggle-sub">192.168.1.73:81</div></div><div class="d-toggle"></div></div>
+          </div>
+          <div style="height:16px;"></div>
+        </div>
+
+        <!-- ===== OVERLAYS ===== -->
+        <div class="dconfirm-bg" id="dcfm-bg">
+          <div class="dconfirm">
+            <div class="dconfirm-title" id="dcfm-title">Confirm</div>
+            <div class="dconfirm-msg" id="dcfm-msg"></div>
+            <div class="dconfirm-btns">
+              <button class="dconfirm-cancel" onclick="dcfmClose()">Cancel</button>
+              <button class="dconfirm-ok" id="dcfm-ok">Confirm</button>
             </div>
           </div>
         </div>
+        <div class="dtoast" id="dtoast"></div>
 
-        <!-- Action sheet -->
-        <div class="d-sheet-bg" id="d-sheet-bg" onclick="demoCloseSheet()"></div>
-        <div class="d-sheet" id="d-sheet"></div>
-        <!-- Confirm dialog -->
-        <div class="d-confirm-bg" id="d-confirm-bg">
-          <div class="d-confirm" id="d-confirm">
-            <div class="d-confirm-title" id="d-confirm-title">Confirm</div>
-            <div class="d-confirm-msg" id="d-confirm-msg"></div>
-            <div class="d-confirm-btns">
-              <button class="d-confirm-cancel" onclick="demoCloseConfirm()">Cancel</button>
-              <button class="d-confirm-ok" id="d-confirm-ok">Confirm</button>
-            </div>
-          </div>
-        </div>
-        <!-- Toast -->
-        <div class="d-toast" id="d-toast"></div>
-
-        <!-- Tab bar -->
-        <div class="d-tabbar">
-          <button class="d-tab active" id="d-tab-dashboard" onclick="demoGo('dashboard')">
+        <!-- ===== TAB BAR ===== -->
+        <div class="dtab-bar">
+          <button class="dtab on" id="dtab-dash" onclick="cf('dashboard')">
             <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-            <span class="d-tab-lbl">Dashboard</span>
+            <span class="dtab-lbl">Dashboard</span>
           </button>
-          <button class="d-tab" id="d-tab-settings" onclick="demoGo('settings')">
+          <button class="dtab" id="dtab-set" onclick="cf('settings')">
             <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-            <span class="d-tab-lbl">Settings</span>
+            <span class="dtab-lbl">Settings</span>
           </button>
         </div>
-
       </div>
     </div>
 
     <script>
-      var demoHistory = [];
-      var demoCurrent = 'dashboard';
-      var demoConfirmCallback = null;
-      var demoSSHHistory = [];
-      var demoSSHHistIdx = -1;
-      var demoSSHCwd = '/root';
-      var demoPiholeEnabled = [true, true];
-      var demoToastTimer = null;
+      var dHist=[], dCur='dashboard', dCfmCb=null, dToastT=null;
+      var dtHist=[], dtHistIdx=-1, dtCwd='/root';
 
-      function demoGo(view) {
-        if (view !== demoCurrent) demoHistory.push(demoCurrent);
-        demoShow(view);
-      }
-      function demoBack() {
-        var prev = demoHistory.length ? demoHistory.pop() : 'dashboard';
-        demoShow(prev);
-      }
-      function demoShow(view) {
-        demoCurrent = view;
-        document.querySelectorAll('.d-screen').forEach(function(s) {
-          s.classList.remove('active'); s.scrollTop = 0;
-        });
-        var el = document.getElementById('d-' + view);
-        if (el) el.classList.add('active');
-        document.querySelectorAll('.d-tab').forEach(function(t) { t.classList.remove('active'); });
-        var tabId = view === 'settings' ? 'd-tab-settings' : 'd-tab-dashboard';
-        document.getElementById(tabId).classList.add('active');
-        if (view === 'ssh') { setTimeout(function(){ var i=document.getElementById('d-term-input'); if(i) i.focus(); },50); }
-      }
-
-      /* Action sheet */
-      function demoShowSheet(title, items) {
-        var bg = document.getElementById('d-sheet-bg');
-        var sheet = document.getElementById('d-sheet');
-        bg.style.display = 'block';
-        sheet.style.display = 'block';
-        var html = '<div class="d-sheet-title">'+title+'</div>';
-        items.forEach(function(item) {
-          html += '<button class="d-sheet-btn'+(item.d?' destructive':'')+'" onclick="'+item.fn+'">'+item.label+'</button>';
-        });
-        html += '<button class="d-sheet-cancel" onclick="demoCloseSheet()">Cancel</button>';
-        sheet.innerHTML = html;
-        setTimeout(function(){ sheet.classList.add('open'); }, 10);
-      }
-      function demoCloseSheet() {
-        var sheet = document.getElementById('d-sheet');
-        sheet.classList.remove('open');
-        setTimeout(function(){
-          document.getElementById('d-sheet-bg').style.display='none';
-          sheet.style.display='none';
-        }, 200);
-      }
-
-      /* Confirm */
-      function demoConfirm(title, msg, label, color, cb) {
-        demoConfirmCallback = cb;
-        document.getElementById('d-confirm-title').textContent = title;
-        document.getElementById('d-confirm-msg').textContent = msg;
-        var ok = document.getElementById('d-confirm-ok');
-        ok.textContent = label;
-        ok.style.background = color;
-        ok.onclick = function(){ demoCloseConfirm(); if(demoConfirmCallback) demoConfirmCallback(); };
-        document.getElementById('d-confirm-bg').style.display = 'flex';
-      }
-      function demoCloseConfirm() {
-        document.getElementById('d-confirm-bg').style.display = 'none';
-        demoConfirmCallback = null;
+      function cf(v){if(v!==dCur)dHist.push(dCur);dShow(v);}
+      function cb(){var p=dHist.length?dHist.pop():'dashboard';dShow(p);}
+      function dShow(v){
+        dCur=v;
+        document.querySelectorAll('.ds').forEach(function(s){s.classList.remove('active');s.scrollTop=0;});
+        var el=document.getElementById('ds-'+v);
+        if(el)el.classList.add('active');
+        document.querySelectorAll('.dtab').forEach(function(t){t.classList.remove('on');});
+        document.getElementById(v==='settings'?'dtab-set':'dtab-dash').classList.add('on');
+        if(v==='ssh')setTimeout(function(){var i=document.getElementById('dt-input');if(i)i.focus();},80);
       }
 
       /* Toast */
-      function demoShowToast(msg) {
-        var t = document.getElementById('d-toast');
-        t.textContent = msg; t.style.display = 'block';
-        if (demoToastTimer) clearTimeout(demoToastTimer);
-        demoToastTimer = setTimeout(function(){ t.style.display='none'; }, 2200);
+      function cfShowToast(m){
+        var t=document.getElementById('dtoast');
+        t.textContent=m;t.style.display='block';
+        if(dToastT)clearTimeout(dToastT);
+        dToastT=setTimeout(function(){t.style.display='none';},2400);
       }
 
+      /* Confirm */
+      function dcfmShow(title,msg,label,color,cb){
+        dCfmCb=cb;
+        document.getElementById('dcfm-title').textContent=title;
+        document.getElementById('dcfm-msg').textContent=msg;
+        var ok=document.getElementById('dcfm-ok');
+        ok.textContent=label;ok.style.background=color;
+        ok.onclick=function(){dcfmClose();if(dCfmCb)dCfmCb();};
+        document.getElementById('dcfm-bg').style.display='flex';
+      }
+      function dcfmClose(){document.getElementById('dcfm-bg').style.display='none';dCfmCb=null;}
+
       /* VM actions */
-      function demoVMSheet(name, status) {
-        var items = [];
-        if (status === 'stopped') {
-          items.push({label:'Start', fn:'demoCloseSheet();demoVMAction("'+name+'","start")'});
-        } else {
-          items.push({label:'Stop', fn:'demoCloseSheet();demoVMConfirm("'+name+'","stop")', d:true});
-          items.push({label:'Restart', fn:'demoCloseSheet();demoVMConfirm("'+name+'","restart")', d:false});
-          items.push({label:'Open SSH Terminal', fn:'demoCloseSheet();demoGo("ssh")'});
-        }
-        demoShowSheet(name, items);
-      }
-      function demoVMConfirm(name, action) {
-        var msg = action==='stop' ? 'This will shut down the VM.' : 'This will reboot the VM.';
-        demoConfirm((action==='stop'?'Stop ':'Restart ')+name, msg, action==='stop'?'Stop':'Restart', action==='stop'?'#ef4444':'#f59e0b', function(){ demoVMAction(name,action); });
-      }
-      function demoVMAction(name, action) {
-        demoShowToast(action==='start'?name+' starting...':action==='stop'?name+' stopping...':name+' restarting...');
+      function cfVMStart(name){
+        cfShowToast(name+' starting...');
         setTimeout(function(){
-          var rows = document.querySelectorAll('#d-vm-list .d-row');
-          rows.forEach(function(row){
-            var nameEl = row.querySelector('.d-row-name');
-            if (!nameEl) return;
-            var n = nameEl.textContent.trim();
-            if (n !== name && nameEl.style.color) n = nameEl.closest('.d-row-name')||n;
-            var sub = row.querySelector('.d-row-sub');
-            var dot = row.querySelector('.d-dot');
-            if (nameEl.textContent.trim()===name || (nameEl.style.color && nameEl.textContent.trim()===name)) {
-              if (action==='start') {
-                dot.className='d-dot dot-g';
-                nameEl.style.color='';
-                if(sub) sub.textContent = sub.textContent.replace('Stopped','Running');
-              } else if (action==='stop') {
-                dot.className='d-dot dot-x';
-                nameEl.style.color='#6b7280';
-                if(sub) { var t=sub.textContent; sub.textContent=t.replace(/Running|[0-9.]+% CPU/,'Stopped'); }
-              }
-            }
-          });
-        }, 1000);
+          document.getElementById('vm-badge-'+name).textContent='Running';
+          document.getElementById('vm-badge-'+name).className='dbadge dbadge-g';
+          var bars=document.getElementById('vm-bars-'+name);
+          if(bars)bars.style.display='';
+          document.getElementById('vm-actions-'+name).innerHTML=
+            '<button class="dpill dpill-b" onclick="cfVMAction(''+name+'','reboot')">Reboot</button>'+
+            '<button class="dpill dpill-a" onclick="cfVMConfirm(''+name+'','shutdown')">Shutdown</button>'+
+            '<button class="dpill dpill-r" onclick="cfVMConfirm(''+name+'','stop')">Stop</button>'+
+            '<button class="dpill dpill-g" onclick="cf('ssh')">SSH</button>';
+        },1200);
+      }
+      function cfVMConfirm(name,action){
+        var msgs={stop:'This will forcefully stop the VM.',shutdown:'This will gracefully shut down the VM.'};
+        var colors={stop:'#ef4444',shutdown:'#f59e0b'};
+        dcfmShow((action==='stop'?'Stop ':'Shut Down ')+name,msgs[action],action==='stop'?'Stop':'Shut Down',colors[action],function(){cfVMDoStop(name,action);});
+      }
+      function cfVMDoStop(name,action){
+        cfShowToast(name+(action==='stop'?' stopping...':', shutting down...'));
+        setTimeout(function(){
+          document.getElementById('vm-badge-'+name).textContent='Stopped';
+          document.getElementById('vm-badge-'+name).className='dbadge dbadge-r';
+          var bars=document.getElementById('vm-bars-'+name);
+          if(bars)bars.style.display='none';
+          document.getElementById('vm-actions-'+name).innerHTML='<button class="dpill dpill-b" onclick="cfVMStart(''+name+'')">Start</button>';
+        },1200);
+      }
+      function cfVMAction(name,action){
+        cfShowToast(name+(action==='reboot'?' rebooting...':' '+action+'ing...'));
       }
 
       /* Container actions */
-      function demoCtrSheet(name, status) {
-        var items = [];
-        if (status==='exited'||status==='stopped') {
-          items.push({label:'Start', fn:'demoCloseSheet();demoCtrAction("'+name+'","start")'});
-        } else {
-          items.push({label:'Stop', fn:'demoCloseSheet();demoCtrConfirm("'+name+'","stop")', d:true});
-          items.push({label:'Restart', fn:'demoCloseSheet();demoCtrConfirm("'+name+'","restart")'});
-          items.push({label:'Recreate', fn:'demoCloseSheet();demoCtrConfirm("'+name+'","recreate")', d:true});
-          items.push({label:'View Logs', fn:'demoCloseSheet();demoShowToast("Logs: container running normally")'});
-        }
-        demoShowSheet(name, items);
+      function cfCtrStart(name){
+        cfShowToast(name+' starting...');
+        setTimeout(function(){
+          document.getElementById('ctr-badge-'+name).textContent='Running';
+          document.getElementById('ctr-badge-'+name).className='dbadge dbadge-g';
+          document.getElementById('ctr-uptime-'+name).textContent='Up just now';
+          document.getElementById('ctr-uptime-'+name).style.color='';
+          document.getElementById('ctr-actions-'+name).innerHTML=
+            '<button class="dpill dpill-b" onclick="cfCtrAction(''+name+'','restart')">Restart</button>'+
+            '<button class="dpill dpill-a" onclick="cfCtrConfirm(''+name+'','recreate')">Recreate</button>'+
+            '<button class="dpill dpill-r" onclick="cfCtrConfirm(''+name+'','stop')">Stop</button>'+
+            '<button class="dpill dpill-x" onclick="cfShowToast('Logs: container running normally')">Logs</button>';
+        },1200);
       }
-      function demoCtrConfirm(name, action) {
-        var msgs = {stop:'This will stop the container.',restart:'This will restart the container.',recreate:'This will recreate the container from its image.'};
-        var colors = {stop:'#ef4444',restart:'#f59e0b',recreate:'#ef4444'};
-        demoConfirm(action.charAt(0).toUpperCase()+action.slice(1)+' '+name, msgs[action], action.charAt(0).toUpperCase()+action.slice(1), colors[action], function(){ demoCtrAction(name,action); });
-      }
-      function demoCtrAction(name, action) {
-        demoShowToast(name+' '+action+'...');
-      }
-
-      /* iDRAC tab */
-      function demoIdracTab(idx) {
-        [0,1].forEach(function(i){
-          document.getElementById('idrac-t'+i).classList.toggle('active', i===idx);
-          document.getElementById('idrac-content-'+i).style.display = i===idx?'':'none';
+      function cfCtrConfirm(name,action){
+        var msgs={stop:'This will stop the container.',recreate:'This will destroy and recreate the container from its image.'};
+        var colors={stop:'#ef4444',recreate:'#ef4444'};
+        dcfmShow((action==='stop'?'Stop ':'Recreate ')+name,msgs[action],action==='stop'?'Stop':'Recreate',colors[action],function(){
+          if(action==='stop'){
+            cfShowToast(name+' stopping...');
+            setTimeout(function(){
+              document.getElementById('ctr-badge-'+name).textContent='Exited';
+              document.getElementById('ctr-badge-'+name).className='dbadge dbadge-r';
+              document.getElementById('ctr-uptime-'+name).textContent='Exited (0) just now';
+              document.getElementById('ctr-uptime-'+name).style.color='#ef4444';
+              document.getElementById('ctr-actions-'+name).innerHTML=
+                '<button class="dpill dpill-b" onclick="cfCtrStart(''+name+'')">Start</button>'+
+                '<button class="dpill dpill-a" onclick="cfCtrConfirm(''+name+'','recreate')">Recreate</button>'+
+                '<button class="dpill dpill-x" onclick="cfShowToast('No recent logs')">Logs</button>';
+            },1200);
+          } else {
+            cfShowToast(name+' recreating...');
+          }
         });
       }
+      function cfCtrAction(name,action){cfShowToast(name+' '+action+'ing...');}
 
-      /* Pi-hole tab */
-      function demoPiholeTab(idx) {
-        [0,1].forEach(function(i){
-          document.getElementById('pihole-t'+i).classList.toggle('active', i===idx);
-          document.getElementById('pihole-content-'+i).style.display = i===idx?'':'none';
-        });
+      /* iDRAC confirm */
+      function cfIdracConfirm(server,action){
+        var msgs={'Shut Down':'This will gracefully power off the server.','Restart':'This will reboot the server.','Force Off':'This will immediately cut power to the server.'};
+        var colors={'Shut Down':'#f59e0b','Restart':'#3b82f6','Force Off':'#ef4444'};
+        dcfmShow(action+' '+server+'?',msgs[action],action,colors[action],function(){cfShowToast(server+': '+action+' command sent');});
       }
-      function demoPiholeToggle(idx) {
-        demoPiholeEnabled[idx] = !demoPiholeEnabled[idx];
-        var btn = document.getElementById('pihole-toggle-'+idx);
-        if (demoPiholeEnabled[idx]) {
-          btn.textContent='Disable'; btn.className='d-btn d-btn-danger';
-          demoShowToast('Pi-hole enabled');
-        } else {
-          btn.textContent='Enable'; btn.className='d-btn d-btn-primary';
-          demoShowToast('Pi-hole disabled');
-        }
+
+      /* Pi-hole toggle */
+      var phEnabled=[true,true];
+      function cfPiholeToggle(idx){
+        phEnabled[idx]=!phEnabled[idx];
+        var b=document.getElementById('ph-toggle-'+idx);
+        if(phEnabled[idx]){b.textContent='ON';b.className='dtoggle-badge dtoggle-on';cfShowToast('Pi-hole enabled');}
+        else{b.textContent='OFF';b.className='dtoggle-badge dtoggle-off';cfShowToast('Pi-hole disabled');}
       }
 
       /* WoL */
-      function demoWolWake(idx, name) {
-        var btn = document.getElementById('wol-btn-'+idx);
-        btn.disabled = true; btn.textContent = '...'; btn.style.opacity='0.5';
+      function cfWolWake(idx,name){
+        var b=document.getElementById('wol-'+idx);
+        b.disabled=true;b.textContent='...';b.style.opacity='0.5';
         setTimeout(function(){
-          btn.textContent='Sent!'; btn.style.background='#3b82f6'; btn.style.opacity='1';
-          demoShowToast('Magic packet sent to '+name);
-          setTimeout(function(){ btn.textContent='Wake'; btn.style.background=''; btn.disabled=false; btn.style.background='#22c55e'; }, 3000);
-        }, 1000);
+          b.textContent='Sent!';b.style.opacity='1';b.style.color='#60a5fa';b.style.borderColor='#1d4ed8';
+          cfShowToast('Magic packet sent to '+name);
+          setTimeout(function(){b.textContent='Wake';b.style.color='';b.style.borderColor='';b.disabled=false;},3000);
+        },1000);
       }
 
       /* Diagnostics */
-      function demoDiagRun() {
-        var btn = document.getElementById('diag-run-btn');
-        btn.disabled=true; btn.textContent='Running...'; btn.style.opacity='0.6';
+      function cfDiagRun(){
+        var btn=document.getElementById('diag-btn');
+        btn.disabled=true;btn.textContent='Running...';btn.style.opacity='0.5';
         var tests=[
-          {icon:'&#128309;', detail:'Pinging 192.168.1.38...', okDetail:'4 packets, 0% loss, avg 1.2 ms', status:'Running', okStatus:'Pass', okColor:'#22c55e'},
-          {icon:'&#128309;', detail:'Resolving homelab-pve.local...', okDetail:'192.168.1.38 (2 ms)', status:'Running', okStatus:'Pass', okColor:'#22c55e'},
-          {icon:'&#128309;', detail:'Connecting to :8006...', okDetail:'Port open (TLS handshake OK)', status:'Running', okStatus:'Pass', okColor:'#22c55e'}
+          {running:'Pinging 192.168.1.38...',done:'4 packets, 0% loss, avg 1.2 ms',status:'Pass',color:'#22c55e',icon:'&#10003;'},
+          {running:'Resolving homelab-pve.local...',done:'192.168.1.38 resolved in 2 ms',status:'Pass',color:'#22c55e',icon:'&#10003;'},
+          {running:'Connecting to port 8006...',done:'Port open, TLS handshake OK',status:'Pass',color:'#22c55e',icon:'&#10003;'}
         ];
-        function runTest(i) {
-          if (i >= tests.length) {
-            btn.disabled=false; btn.textContent='Run Again'; btn.style.opacity='1';
-            return;
-          }
-          var t = tests[i];
-          var row = document.getElementById('diag-row-'+i);
-          var icon = row.querySelector('div');
-          var detail = document.getElementById('diag-detail-'+i);
-          var status = document.getElementById('diag-status-'+i);
-          icon.innerHTML = t.icon;
-          detail.textContent = t.detail;
-          status.textContent = t.status; status.style.color='#f59e0b';
+        function run(i){
+          if(i>=tests.length){btn.disabled=false;btn.textContent='Run Again';btn.style.opacity='1';return;}
+          var t=tests[i];
+          document.getElementById('diag-icon-'+i).innerHTML='&#9679;';
+          document.getElementById('diag-icon-'+i).style.color='#f59e0b';
+          document.getElementById('diag-detail-'+i).textContent=t.running;
+          document.getElementById('diag-status-'+i).textContent='Running';
+          document.getElementById('diag-status-'+i).style.color='#f59e0b';
           setTimeout(function(){
-            icon.innerHTML = '&#9989;';
-            detail.textContent = t.okDetail;
-            status.textContent = t.okStatus; status.style.color = t.okColor;
-            runTest(i+1);
-          }, 900);
+            document.getElementById('diag-icon-'+i).innerHTML=t.icon;
+            document.getElementById('diag-icon-'+i).style.color=t.color;
+            document.getElementById('diag-detail-'+i).textContent=t.done;
+            document.getElementById('diag-status-'+i).textContent=t.status;
+            document.getElementById('diag-status-'+i).style.color=t.color;
+            run(i+1);
+          },900);
         }
-        runTest(0);
+        run(0);
       }
 
       /* SSH Terminal */
-      var demoSSHOutput = document.getElementById('d-term-output');
-      function demoSSHAppend(prompt, cmd, output) {
-        var out = document.getElementById('d-term-output');
-        if (!out) return;
-        var line = document.createElement('div');
-        line.style.marginBottom='2px';
-        line.innerHTML = '<span style="color:#86efac;">'+prompt+'</span> <span style="color:#f9fafb;">'+escHTML(cmd)+'</span>';
-        out.appendChild(line);
-        if (output) {
-          var ol = document.createElement('div');
-          ol.style.color='#d1fae5'; ol.style.whiteSpace='pre-wrap';
-          ol.textContent = output;
-          out.appendChild(ol);
-        }
-        out.scrollTop = out.scrollHeight;
+      function dtAppend(prompt,cmd,out){
+        var el=document.getElementById('dt-out');if(!el)return;
+        var l=document.createElement('div');l.style.marginBottom='2px';
+        l.innerHTML='<span style="color:#86efac;">'+prompt+'</span> <span style="color:#f9fafb;">'+cmd.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</span>';
+        el.appendChild(l);
+        if(out!==null&&out!==undefined){var o=document.createElement('div');o.style.cssText='color:#d1fae5;white-space:pre-wrap;';o.textContent=out;el.appendChild(o);}
+        el.scrollTop=el.scrollHeight;
       }
-      function escHTML(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-      function demoSSHRun(cmd) {
-        var input = document.getElementById('d-term-input');
-        var prompt = document.getElementById('d-term-prompt');
-        if (!input || !prompt) return;
-        if (!cmd) { cmd = input.value.trim(); input.value=''; }
-        if (!cmd) return;
-        demoSSHHistory.unshift(cmd); demoSSHHistIdx=-1;
-        var p = prompt.textContent;
-        var output = demoGetSSHOutput(cmd);
-        demoSSHAppend(p, cmd, output);
-        if (cmd.startsWith('cd ')) {
-          var dir = cmd.slice(3).trim();
-          if (dir==='..') {
-            var parts = demoSSHCwd.split('/').filter(Boolean);
-            if (parts.length>0) parts.pop();
-            demoSSHCwd = '/'+parts.join('/') || '/';
-          } else if (dir.startsWith('/')) {
-            demoSSHCwd = dir;
-          } else {
-            demoSSHCwd = (demoSSHCwd==='/'?'':demoSSHCwd)+'/'+dir;
-          }
-          var shortCwd = demoSSHCwd==='/root'?'~':demoSSHCwd;
-          if(prompt) prompt.textContent = 'root@homelab-vm:'+shortCwd+'#';
+      function dtRun(cmd){
+        var inp=document.getElementById('dt-input');
+        var pr=document.getElementById('dt-prompt');
+        if(!cmd){cmd=(inp?inp.value.trim():'');if(inp)inp.value='';}
+        if(!cmd)return;
+        dtHist.unshift(cmd);dtHistIdx=-1;
+        var p=pr?pr.textContent:'root@homelab-vm:~#';
+        var o=dtOutput(cmd);
+        dtAppend(p,cmd,o);
+        if(cmd.startsWith('cd ')){
+          var d=cmd.slice(3).trim();
+          if(d==='..'){var pts=dtCwd.split('/').filter(Boolean);if(pts.length)pts.pop();dtCwd='/'+pts.join('/');}
+          else if(d.startsWith('/'))dtCwd=d;
+          else dtCwd=(dtCwd==='/'?'':dtCwd)+'/'+d;
+          if(pr)pr.textContent='root@homelab-vm:'+(dtCwd==='/root'?'~':dtCwd)+'#';
         }
       }
-      function demoSSHKey(e) {
-        if (typeof e === 'string') {
-          if (e==='Ctrl+C') { demoSSHAppend(document.getElementById('d-term-prompt').textContent,'',''); }
-          return;
-        }
-        if (e.key==='Enter') { e.preventDefault(); demoSSHRun(''); }
-        else if (e.key==='ArrowUp') { e.preventDefault(); demoSSHArrow('up'); }
-        else if (e.key==='ArrowDown') { e.preventDefault(); demoSSHArrow('down'); }
+      function dtKeyDown(e){
+        if(e.key==='Enter'){e.preventDefault();dtRun('');}
+        else if(e.key==='ArrowUp'){e.preventDefault();dtArrow('up');}
+        else if(e.key==='ArrowDown'){e.preventDefault();dtArrow('down');}
       }
-      function demoSSHArrow(dir) {
-        var input = document.getElementById('d-term-input');
-        if (!input) return;
-        if (dir==='up' && demoSSHHistIdx < demoSSHHistory.length-1) {
-          demoSSHHistIdx++; input.value=demoSSHHistory[demoSSHHistIdx];
-        } else if (dir==='down') {
-          if (demoSSHHistIdx > 0) { demoSSHHistIdx--; input.value=demoSSHHistory[demoSSHHistIdx]; }
-          else { demoSSHHistIdx=-1; input.value=''; }
-        }
+      function dtArrow(d){
+        var inp=document.getElementById('dt-input');if(!inp)return;
+        if(d==='up'&&dtHistIdx<dtHist.length-1){dtHistIdx++;inp.value=dtHist[dtHistIdx];}
+        else if(d==='down'){if(dtHistIdx>0){dtHistIdx--;inp.value=dtHist[dtHistIdx];}else{dtHistIdx=-1;inp.value='';}}
       }
-      function demoGetSSHOutput(cmd) {
-        var c = cmd.trim();
-        if (c==='' || c==='clear') {
-          if (c==='clear') {
-            var out=document.getElementById('d-term-output');
-            if(out) out.innerHTML='';
-          }
-          return null;
-        }
-        if (c==='pwd') return demoSSHCwd;
-        if (c==='whoami') return 'root';
-        if (c==='hostname') return 'homelab-vm';
-        if (c==='id') return 'uid=0(root) gid=0(root) groups=0(root)';
-        if (c==='date') return new Date().toString();
-        if (c.startsWith('echo ')) return c.slice(5);
-        if (c==='ls' || c==='ls .') {
-          var cwd=demoSSHCwd;
-          if(cwd==='/'||cwd==='') return 'bin  boot  data  dev  etc  home  lib  media  opt  proc  root  run  srv  sys  tmp  usr  var';
-          if(cwd==='/root'||cwd==='~') return '.bashrc  .ssh  logs';
-          if(cwd==='/etc') return 'apt  cron.d  fstab  hostname  hosts  os-release  resolv.conf  ssh  systemd';
-          if(cwd==='/var'||cwd==='/var/log') return 'auth.log  daemon.log  kern.log  syslog';
-          return '';
-        }
-        if (c==='ls -la' || c==='ls -l') {
-          var cwd=demoSSHCwd;
-          if(cwd==='/'||cwd==='') return 'total 64\ndrwxr-xr-x  18 root root 4096 Mar 22 08:00 .\ndrwxr-xr-x  18 root root 4096 Mar 22 08:00 ..\ndrwxr-xr-x   2 root root 4096 Mar 21 12:00 etc\ndrwxr-xr-x   3 root root 4096 Mar 20 09:00 root\ndrwxr-xr-x   8 root root 4096 Mar 22 08:00 var';
-          if(cwd==='/root'||cwd==='~') return 'total 24\ndrwx------  3 root root 4096 Mar 22 08:00 .\ndrwxr-xr-x 18 root root 4096 Mar 22 08:00 ..\n-rw-r--r--  1 root root 3526 Mar 10 10:00 .bashrc\ndrwx------  2 root root 4096 Mar 22 07:55 .ssh\ndrwxr-xr-x  2 root root 4096 Mar 22 06:00 logs';
-          return 'total 0';
-        }
-        if (c.startsWith('cat ')) {
-          var f=c.slice(4).trim();
-          var files={
-            '/etc/hostname':'homelab-vm',
-            '/etc/os-release':'NAME="Ubuntu"\nVERSION="22.04.3 LTS"\nID=ubuntu',
-            '/etc/hosts':'127.0.0.1 localhost\n127.0.1.1 homelab-vm\n192.168.1.1 gateway\n192.168.1.53 pihole',
-            '/etc/resolv.conf':'nameserver 192.168.1.53\nnameserver 1.1.1.1',
-            '/etc/fstab':'/dev/sda1  /  ext4  defaults  0 1\n/dev/sda2  /boot  ext4  defaults  0 2',
-          };
-          if (files[f]) return files[f];
-          return 'cat: '+f+': No such file or directory';
-        }
-        if (c==='uptime') return ' 08:41:22 up 14 days,  3:22,  1 user,  load average: 0.42, 0.38, 0.35';
-        if (c==='df -h' || c==='df') return 'Filesystem      Size  Used Avail Use% Mounted on\n/dev/sda1        50G   18G   30G  37% /\ntmpfs           7.8G     0  7.8G   0% /dev/shm\n/dev/sdb1       200G  120G   72G  63% /data';
-        if (c==='free -h' || c==='free') return '              total  used  free  shared  buff  available\nMem:           15G   5.2G   8.1G    220M   1.6G   9.4G\nSwap:           2G   256M   1.7G';
-        if (c==='ps aux' || c==='ps') return 'USER       PID %CPU %MEM    VSZ   RSS COMMAND\nroot         1  0.0  0.1  17936  1024 /sbin/init\nroot       412  0.0  0.2  72136  2048 /usr/sbin/sshd\nroot      1204  0.1  1.2 982144 12288 /usr/bin/dockerd\nroot      2891  0.0  0.0  12288   512 bash';
-        if (c==='ip addr' || c==='ip a') return '1: lo: <LOOPBACK> mtu 65536\n    inet 127.0.0.1/8 scope host lo\n2: eth0: <BROADCAST,MULTICAST,UP> mtu 1500\n    inet 192.168.1.73/24 brd 192.168.1.255 scope global eth0\n    inet6 fe80::1/64 scope link';
-        if (c==='docker ps' || c==='docker ps -a') {
-          return 'CONTAINER ID   IMAGE                    COMMAND       STATUS         NAMES\na1b2c3d4e5f6   portainer/portainer-ce   "/portainer"  Up 14 days     portainer\nb2c3d4e5f6a7   traefik:latest           "/traefik"    Up 14 days     traefik\nc3d4e5f6a7b8   vaultwarden/server       "/start.sh"   Up 14 days     vaultwarden\nd4e5f6a7b8c9   grafana/grafana:latest   "/run.sh"     Up 14 days     grafana\ne5f6a7b8c9d0   prom/prometheus:latest   "/bin/prom"   Up 14 days     prometheus';
-        }
-        if (c==='uname' || c==='uname -a') return 'Linux homelab-vm 5.15.0-89-generic #99-Ubuntu SMP Mon Oct 30 20:42:41 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux';
-        if (c.startsWith('systemctl ')) return 'systemctl: command output (use a real SSH session for live output)';
-        if (c.startsWith('journalctl')) return 'Mar 22 08:41:01 homelab-vm systemd[1]: Started Daily apt download activities.\nMar 22 08:41:22 homelab-vm kernel: eth0: renamed from veth8a3b2c';
-        if (c==='history') {
-          if (!demoSSHHistory.length) return '(no history yet)';
-          return demoSSHHistory.slice(0,10).map(function(h,i){ return '  '+(i+1)+'  '+h; }).join('\n');
-        }
-        if (c==='exit' || c==='logout') { demoBack(); return null; }
+      function dtKey(k){if(k==='Tab')cfShowToast('Tab pressed');}
+      function dtCtrlC(){var pr=document.getElementById('dt-prompt');dtAppend(pr?pr.textContent:'root@homelab-vm:~#','','');}
+      function dtOutput(c){
+        c=c.trim();
+        if(c==='clear'){var o=document.getElementById('dt-out');if(o)o.innerHTML='';return null;}
+        if(c==='exit'||c==='logout'){cb();return null;}
+        if(c==='pwd')return dtCwd;
+        if(c==='whoami')return 'root';
+        if(c==='hostname')return 'homelab-vm';
+        if(c==='id')return 'uid=0(root) gid=0(root) groups=0(root)';
+        if(c==='date')return new Date().toString();
+        if(c.startsWith('echo '))return c.slice(5);
+        if(c==='ls'||c==='ls .')return dtCwd==='/root'||dtCwd==='~'?'.bashrc  .ssh  logs':dtCwd==='/'?'bin  etc  home  root  usr  var':'(empty)';
+        if(c==='ls -la'||c==='ls -l')return 'total 24
+drwx------  3 root root 4096 Mar 22 08:00 .
+drwxr-xr-x 18 root root 4096 Mar 22 08:00 ..
+-rw-r--r--  1 root root 3526 Mar 10 10:00 .bashrc
+drwx------  2 root root 4096 Mar 22 07:55 .ssh
+drwxr-xr-x  2 root root 4096 Mar 22 06:00 logs';
+        if(c.startsWith('cat ')){var f=c.slice(4).trim();var fs={'/etc/hostname':'homelab-vm','/etc/os-release':'NAME="Ubuntu"
+VERSION="22.04.3 LTS"
+ID=ubuntu','/etc/hosts':'127.0.0.1 localhost
+127.0.1.1 homelab-vm
+192.168.1.53 pihole','/etc/resolv.conf':'nameserver 192.168.1.53
+nameserver 1.1.1.1'};return fs[f]||'cat: '+f+': No such file or directory';}
+        if(c==='uptime')return ' 08:41:22 up 14 days,  3:22,  1 user,  load average: 0.42, 0.38, 0.35';
+        if(c==='df -h'||c==='df')return 'Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        50G   18G   30G  37% /
+tmpfs           7.8G     0  7.8G   0% /dev/shm
+/dev/sdb1       200G  120G   72G  63% /data';
+        if(c==='free -h'||c==='free')return '              total  used  free
+Mem:            15G  5.2G  8.1G
+Swap:            2G  256M  1.7G';
+        if(c==='ip addr'||c==='ip a')return '1: lo: <LOOPBACK>
+    inet 127.0.0.1/8
+2: eth0: <BROADCAST,UP>
+    inet 192.168.1.73/24';
+        if(c==='docker ps')return 'CONTAINER ID   IMAGE                  STATUS         NAMES
+a1b2c3d4e5f6   portainer/portainer-ce Up 14 days     portainer
+b2c3d4e5f6a7   traefik:latest         Up 14 days     traefik
+c3d4e5f6a7b8   grafana/grafana:latest Up 14 days     grafana';
+        if(c==='ps aux'||c==='ps')return 'USER  PID %CPU %MEM COMMAND
+root    1  0.0  0.1 /sbin/init
+root  412  0.0  0.2 /usr/sbin/sshd
+root 1204  0.1  1.2 /usr/bin/dockerd';
+        if(c==='uname -a'||c==='uname')return 'Linux homelab-vm 5.15.0-89-generic #99-Ubuntu SMP x86_64 GNU/Linux';
+        if(c==='history')return dtHist.length?dtHist.slice(0,10).map(function(h,i){return '  '+(i+1)+'  '+h;}).join('
+'):'(no history)';
         return c.split(' ')[0]+': command not found';
       }
     </script>
