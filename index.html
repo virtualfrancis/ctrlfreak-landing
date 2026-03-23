@@ -454,7 +454,7 @@
   <!-- PHONE DEMO -->
   <section id="demo" style="text-align:center;">
     <style>
-      .demo-phone-wrap { display:flex; flex-direction:column; align-items:center; gap:24px; margin-top:48px; }
+      .demo-wrap { display:flex; flex-direction:column; align-items:center; margin-top:48px; }
       .demo-phone {
         width:320px; height:652px;
         background:#1a1a1e;
@@ -462,36 +462,41 @@
         border:2px solid #3a3a3c;
         box-shadow:0 32px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.08);
         position:relative; overflow:hidden; flex-shrink:0;
+        font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
       }
       .demo-island {
         position:absolute; top:12px; left:50%; transform:translateX(-50%);
-        width:120px; height:32px; background:#0a0a0a; border-radius:20px; z-index:10;
+        width:120px; height:32px; background:#0a0a0a; border-radius:20px; z-index:30;
+        pointer-events:none;
       }
-      .demo-screen {
-        position:absolute; top:0; left:0; right:0; bottom:0;
-        background:#0c0c0c; border-radius:46px; overflow:hidden;
+      /* Scrollable content area: full height minus tab bar (62px) */
+      .demo-slide {
+        display:none; position:absolute; top:0; left:0; right:0; bottom:62px;
+        background:#0c0c0c; overflow-y:auto; overflow-x:hidden;
+        -webkit-overflow-scrolling:touch;
       }
-      .demo-slide { display:none; height:100%; overflow-y:auto; padding-bottom:20px; }
       .demo-slide.active { display:block; }
-      .demo-slide::-webkit-scrollbar { width:3px; }
+      .demo-slide::-webkit-scrollbar { width:2px; }
       .demo-slide::-webkit-scrollbar-thumb { background:#3a3a3c; border-radius:2px; }
-      .demo-slide-inner { padding-top:56px; }
-      .demo-home-bar {
-        position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
-        width:120px; height:5px; background:rgba(255,255,255,0.28); border-radius:3px; z-index:10;
+      .demo-slide-inner { padding-top:56px; padding-bottom:8px; }
+      /* Bottom tab bar inside the phone */
+      .demo-tabbar {
+        position:absolute; bottom:0; left:0; right:0; height:62px;
+        background:rgba(18,18,20,0.97);
+        border-top:1px solid #2c2c2e;
+        display:flex; align-items:flex-start; padding-top:8px;
+        z-index:20;
       }
-      .demo-nav {
-        display:flex; gap:4px; flex-wrap:wrap; justify-content:center;
-        background:#111827; border:1px solid var(--bg3); border-radius:12px; padding:4px;
+      .demo-tab {
+        flex:1; display:flex; flex-direction:column; align-items:center; gap:3px;
+        cursor:pointer; border:none; background:none; padding:0;
+        -webkit-tap-highlight-color:transparent;
       }
-      .demo-nav-btn {
-        background:none; border:none; cursor:pointer;
-        color:#6b7280; font-size:12px; font-weight:600;
-        padding:8px 14px; border-radius:8px; transition:all 0.15s;
-        font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      }
-      .demo-nav-btn:hover { color:#f9fafb; }
-      .demo-nav-btn.active { background:#1f2937; color:#f9fafb; }
+      .demo-tab-icon { font-size:17px; line-height:1; }
+      .demo-tab-lbl { font-size:9px; font-weight:600; color:#52525b; letter-spacing:0.2px; }
+      .demo-tab.active .demo-tab-lbl { color:#a5b4fc; }
+      .demo-tab.active .demo-tab-icon { filter:none; }
+      /* App screen components */
       .a-hdr { padding:12px 16px 8px; display:flex; align-items:center; justify-content:space-between; }
       .a-hdr-title { color:#f4f4f5; font-size:22px; font-weight:700; }
       .a-hdr-sub { color:#52525b; font-size:11px; margin-top:1px; }
@@ -513,8 +518,8 @@
       .a-row-right { color:#a1a1aa; font-size:11px; }
       .a-tag { font-size:9px; font-weight:600; padding:2px 6px; border-radius:4px; text-transform:uppercase; letter-spacing:0.5px; }
       .tag-lxc { background:#1e3a5f; color:#60a5fa; } .tag-vm { background:#1a2e1a; color:#4ade80; }
-      .a-health { margin:8px 12px; background:#14291a; border-left:3px solid #22c55e; border-radius:8px; padding:8px 12px; display:flex; align-items:center; gap:8px; }
-      .a-health-txt { color:#4ade80; font-size:12px; font-weight:500; }
+      .a-health { margin:8px 12px; background:#1a1a10; border-left:3px solid #ef4444; border-radius:8px; padding:8px 12px; display:flex; align-items:center; gap:8px; }
+      .a-health-txt { color:#fca5a5; font-size:12px; font-weight:500; }
       .a-stats-row { display:flex; gap:8px; margin-top:8px; }
       .a-stat { flex:1; background:#2c2c2e; border-radius:8px; padding:6px 8px; text-align:center; }
       .a-stat-val { color:#f4f4f5; font-size:14px; font-weight:700; }
@@ -526,276 +531,256 @@
     <h2 class="section-title">Try the app</h2>
     <p class="section-sub">Same screens and demo data as the real app. No login required.</p>
 
-    <div class="demo-phone-wrap">
+    <div class="demo-wrap">
       <div class="demo-phone">
         <div class="demo-island"></div>
-        <div class="demo-screen">
 
-          <!-- DASHBOARD -->
-          <div class="demo-slide active" id="ds-0">
-            <div class="demo-slide-inner">
-              <div class="a-hdr">
+        <!-- DASHBOARD -->
+        <div class="demo-slide active" id="ds-0">
+          <div class="demo-slide-inner">
+            <div class="a-hdr">
+              <div>
+                <div class="a-hdr-title">Dashboard</div>
+                <div class="a-hdr-sub">Updated just now</div>
+              </div>
+            </div>
+            <div class="a-health">
+              <div class="a-dot dot-r"></div>
+              <div class="a-health-txt">1 issue detected</div>
+            </div>
+            <div class="a-sec-lbl">Proxmox</div>
+            <div class="a-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
                 <div>
-                  <div class="a-hdr-title">Dashboard</div>
-                  <div class="a-hdr-sub">Updated just now</div>
+                  <div class="a-card-title">homelab-pve</div>
+                  <div class="a-card-sub">192.168.1.38</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;">
+                  <div class="a-dot dot-g"></div>
+                  <span style="color:#4ade80;font-size:11px;font-weight:600;">Online</span>
                 </div>
               </div>
-              <div class="a-health">
+              <div class="a-metric">
+                <div class="a-metric-lbl">CPU</div>
+                <div class="a-bar-track"><div class="a-bar-fill" style="width:14%;background:#a5b4fc;"></div></div>
+                <div class="a-metric-pct">14%</div>
+              </div>
+              <div class="a-metric">
+                <div class="a-metric-lbl">RAM</div>
+                <div class="a-bar-track"><div class="a-bar-fill" style="width:41%;background:#a5b4fc;"></div></div>
+                <div class="a-metric-pct">41%</div>
+              </div>
+              <div class="a-metric">
+                <div class="a-metric-lbl">Swap</div>
+                <div class="a-bar-track"><div class="a-bar-fill" style="width:13%;background:#f59e0b;"></div></div>
+                <div class="a-metric-pct">13%</div>
+              </div>
+              <div class="a-stats-row">
+                <div class="a-stat"><div class="a-stat-val">8</div><div class="a-stat-lbl">VMs</div></div>
+                <div class="a-stat"><div class="a-stat-val">7</div><div class="a-stat-lbl">Online</div></div>
+                <div class="a-stat"><div class="a-stat-val">58 GB</div><div class="a-stat-lbl">RAM Free</div></div>
+              </div>
+            </div>
+            <div class="a-sec-lbl">Uptime Kuma</div>
+            <div class="a-card">
+              <div class="a-row">
                 <div class="a-dot dot-g"></div>
-                <div class="a-health-txt">1 issue detected</div>
+                <div style="flex:1;"><div class="a-row-name">Proxmox Web</div></div>
+                <div class="a-row-right">12 ms</div>
               </div>
-              <div class="a-sec-lbl">Proxmox</div>
-              <div class="a-card">
-                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
-                  <div>
-                    <div class="a-card-title">homelab-pve</div>
-                    <div class="a-card-sub">192.168.1.38</div>
-                  </div>
-                  <div style="display:flex;align-items:center;gap:5px;">
-                    <div class="a-dot dot-g"></div>
-                    <span style="color:#4ade80;font-size:11px;font-weight:600;">Online</span>
-                  </div>
-                </div>
-                <div class="a-metric">
-                  <div class="a-metric-lbl">CPU</div>
-                  <div class="a-bar-track"><div class="a-bar-fill" style="width:14%;background:#a5b4fc;"></div></div>
-                  <div class="a-metric-pct">14%</div>
-                </div>
-                <div class="a-metric">
-                  <div class="a-metric-lbl">RAM</div>
-                  <div class="a-bar-track"><div class="a-bar-fill" style="width:41%;background:#a5b4fc;"></div></div>
-                  <div class="a-metric-pct">41%</div>
-                </div>
-                <div class="a-metric">
-                  <div class="a-metric-lbl">Swap</div>
-                  <div class="a-bar-track"><div class="a-bar-fill" style="width:13%;background:#f59e0b;"></div></div>
-                  <div class="a-metric-pct">13%</div>
-                </div>
-                <div class="a-stats-row">
-                  <div class="a-stat"><div class="a-stat-val">8</div><div class="a-stat-lbl">VMs</div></div>
-                  <div class="a-stat"><div class="a-stat-val">7</div><div class="a-stat-lbl">Online</div></div>
-                  <div class="a-stat"><div class="a-stat-val">58 GB</div><div class="a-stat-lbl">RAM Free</div></div>
-                </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">Portainer</div></div>
+                <div class="a-row-right">8 ms</div>
               </div>
-              <div class="a-sec-lbl">Uptime Kuma</div>
-              <div class="a-card">
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;"><div class="a-row-name">Proxmox Web</div></div>
-                  <div class="a-row-right">12 ms</div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;"><div class="a-row-name">Portainer</div></div>
-                  <div class="a-row-right">8 ms</div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-r"></div>
-                  <div style="flex:1;"><div class="a-row-name">External DNS</div></div>
-                  <div style="color:#ef4444;font-size:11px;">Down</div>
-                </div>
+              <div class="a-row">
+                <div class="a-dot dot-r"></div>
+                <div style="flex:1;"><div class="a-row-name">External DNS</div></div>
+                <div style="color:#ef4444;font-size:11px;">Down</div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- VMs -->
-          <div class="demo-slide" id="ds-1">
-            <div class="demo-slide-inner">
-              <div class="a-hdr"><div class="a-hdr-title">Virtual Machines</div></div>
-              <div class="a-sec-lbl">homelab-pve &bull; 7 online / 8 total</div>
-              <div class="a-card">
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;"><div class="a-row-name">pihole</div><div class="a-row-sub">100</div></div>
-                  <div class="a-tag tag-lxc">LXC</div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;"><div class="a-row-name">homeassistant</div><div class="a-row-sub">101</div></div>
-                  <div class="a-tag tag-lxc">LXC</div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;"><div class="a-row-name">nginx-proxy</div><div class="a-row-sub">102</div></div>
-                  <div class="a-tag tag-lxc">LXC</div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;"><div class="a-row-name">plex</div><div class="a-row-sub">200 &bull; 22% CPU</div></div>
-                  <div class="a-tag tag-vm">VM</div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;"><div class="a-row-name">nextcloud</div><div class="a-row-sub">201</div></div>
-                  <div class="a-tag tag-vm">VM</div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-x"></div>
-                  <div style="flex:1;"><div class="a-row-name" style="color:#71717a;">dev-ubuntu</div><div class="a-row-sub">202 &bull; Stopped</div></div>
-                  <div class="a-tag tag-vm">VM</div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;"><div class="a-row-name">jellyfin</div><div class="a-row-sub">203</div></div>
-                  <div class="a-tag tag-vm">VM</div>
-                </div>
+        <!-- VMs -->
+        <div class="demo-slide" id="ds-1">
+          <div class="demo-slide-inner">
+            <div class="a-hdr"><div class="a-hdr-title">Virtual Machines</div></div>
+            <div class="a-sec-lbl">homelab-pve &bull; 7 online / 8 total</div>
+            <div class="a-card">
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">pihole</div><div class="a-row-sub">100</div></div>
+                <div class="a-tag tag-lxc">LXC</div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">homeassistant</div><div class="a-row-sub">101</div></div>
+                <div class="a-tag tag-lxc">LXC</div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">nginx-proxy</div><div class="a-row-sub">102</div></div>
+                <div class="a-tag tag-lxc">LXC</div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">plex</div><div class="a-row-sub">200 &bull; 22% CPU</div></div>
+                <div class="a-tag tag-vm">VM</div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">nextcloud</div><div class="a-row-sub">201</div></div>
+                <div class="a-tag tag-vm">VM</div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-x"></div>
+                <div style="flex:1;"><div class="a-row-name" style="color:#71717a;">dev-ubuntu</div><div class="a-row-sub">202 &bull; Stopped</div></div>
+                <div class="a-tag tag-vm">VM</div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">jellyfin</div><div class="a-row-sub">203</div></div>
+                <div class="a-tag tag-vm">VM</div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- CONTAINERS -->
-          <div class="demo-slide" id="ds-2">
-            <div class="demo-slide-inner">
-              <div class="a-hdr"><div class="a-hdr-title">Containers</div></div>
-              <div class="a-sec-lbl">Portainer &bull; 192.168.1.73</div>
-              <div class="a-card">
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;">
-                    <div class="a-row-name">nginx</div>
-                    <div class="a-row-sub a-mono">nginx:alpine</div>
-                  </div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;">
-                    <div class="a-row-name">portainer_agent</div>
-                    <div class="a-row-sub a-mono">portainer/agent:latest</div>
-                  </div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;">
-                    <div class="a-row-name">uptime-kuma</div>
-                    <div class="a-row-sub a-mono">louislam/uptime-kuma:1</div>
-                  </div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;">
-                    <div class="a-row-name">heimdall</div>
-                    <div class="a-row-sub a-mono">linuxserver/heimdall</div>
-                  </div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-a"></div>
-                  <div style="flex:1;">
-                    <div class="a-row-name">filebrowser</div>
-                    <div class="a-row-sub a-mono">filebrowser/filebrowser</div>
-                  </div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;">
-                    <div class="a-row-name">watchtower</div>
-                    <div class="a-row-sub a-mono">containrrr/watchtower</div>
-                  </div>
-                </div>
+        <!-- CONTAINERS -->
+        <div class="demo-slide" id="ds-2">
+          <div class="demo-slide-inner">
+            <div class="a-hdr"><div class="a-hdr-title">Containers</div></div>
+            <div class="a-sec-lbl">Portainer &bull; 192.168.1.73</div>
+            <div class="a-card">
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">nginx</div><div class="a-row-sub a-mono">nginx:alpine</div></div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">portainer_agent</div><div class="a-row-sub a-mono">portainer/agent:latest</div></div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">uptime-kuma</div><div class="a-row-sub a-mono">louislam/uptime-kuma:1</div></div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">heimdall</div><div class="a-row-sub a-mono">linuxserver/heimdall</div></div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-a"></div>
+                <div style="flex:1;"><div class="a-row-name">filebrowser</div><div class="a-row-sub a-mono">filebrowser/filebrowser</div></div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">watchtower</div><div class="a-row-sub a-mono">containrrr/watchtower</div></div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- SERVICES -->
-          <div class="demo-slide" id="ds-3">
-            <div class="demo-slide-inner">
-              <div class="a-hdr"><div class="a-hdr-title">Services</div></div>
-              <div class="a-sec-lbl">Uptime Kuma &bull; 5 monitors</div>
-              <div class="a-card">
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;">
-                    <div class="a-row-name">Proxmox Web</div>
-                    <div class="a-row-sub">Up 99.9%</div>
-                  </div>
-                  <div class="a-row-right">12 ms</div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;">
-                    <div class="a-row-name">Portainer</div>
-                    <div class="a-row-sub">Up 100%</div>
-                  </div>
-                  <div class="a-row-right">8 ms</div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;">
-                    <div class="a-row-name">Pi-hole</div>
-                    <div class="a-row-sub">Up 99.8%</div>
-                  </div>
-                  <div class="a-row-right">4 ms</div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-g"></div>
-                  <div style="flex:1;">
-                    <div class="a-row-name">Home Assistant</div>
-                    <div class="a-row-sub">Up 100%</div>
-                  </div>
-                  <div class="a-row-right">21 ms</div>
-                </div>
-                <div class="a-row">
-                  <div class="a-dot dot-r"></div>
-                  <div style="flex:1;">
-                    <div class="a-row-name">External DNS</div>
-                    <div style="color:#ef4444;font-size:10px;">Down 2m</div>
-                  </div>
-                  <div style="color:#ef4444;font-size:11px;">Timeout</div>
-                </div>
+        <!-- SERVICES -->
+        <div class="demo-slide" id="ds-3">
+          <div class="demo-slide-inner">
+            <div class="a-hdr"><div class="a-hdr-title">Services</div></div>
+            <div class="a-sec-lbl">Uptime Kuma &bull; 5 monitors</div>
+            <div class="a-card">
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">Proxmox Web</div><div class="a-row-sub">Up 99.9%</div></div>
+                <div class="a-row-right">12 ms</div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">Portainer</div><div class="a-row-sub">Up 100%</div></div>
+                <div class="a-row-right">8 ms</div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">Pi-hole</div><div class="a-row-sub">Up 99.8%</div></div>
+                <div class="a-row-right">4 ms</div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-g"></div>
+                <div style="flex:1;"><div class="a-row-name">Home Assistant</div><div class="a-row-sub">Up 100%</div></div>
+                <div class="a-row-right">21 ms</div>
+              </div>
+              <div class="a-row">
+                <div class="a-dot dot-r"></div>
+                <div style="flex:1;"><div class="a-row-name">External DNS</div><div style="color:#ef4444;font-size:10px;">Down 2m</div></div>
+                <div style="color:#ef4444;font-size:11px;">Timeout</div>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- iDRAC -->
-          <div class="demo-slide" id="ds-4">
-            <div class="demo-slide-inner">
-              <div class="a-hdr"><div class="a-hdr-title">iDRAC</div></div>
-              <div class="a-sec-lbl">Dell PowerEdge R730</div>
-              <div class="a-card" style="margin-bottom:8px;">
-                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
-                  <div>
-                    <div class="a-card-title">homelab-r730</div>
-                    <div class="a-card-sub">192.168.1.51</div>
-                  </div>
-                  <div style="display:flex;align-items:center;gap:5px;">
-                    <div class="a-dot dot-g"></div>
-                    <span style="color:#4ade80;font-size:11px;font-weight:600;">Online</span>
-                  </div>
+        <!-- iDRAC -->
+        <div class="demo-slide" id="ds-4">
+          <div class="demo-slide-inner">
+            <div class="a-hdr"><div class="a-hdr-title">iDRAC</div></div>
+            <div class="a-sec-lbl">Dell PowerEdge R730</div>
+            <div class="a-card" style="margin-bottom:8px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+                <div>
+                  <div class="a-card-title">homelab-r730</div>
+                  <div class="a-card-sub">192.168.1.51</div>
                 </div>
-                <div style="display:flex;gap:16px;">
-                  <div><div style="color:#a1a1aa;font-size:10px;">CPUs</div><div style="color:#f4f4f5;font-size:13px;font-weight:600;">28</div></div>
-                  <div><div style="color:#a1a1aa;font-size:10px;">RAM</div><div style="color:#f4f4f5;font-size:13px;font-weight:600;">128 GB</div></div>
-                  <div><div style="color:#a1a1aa;font-size:10px;">BIOS</div><div style="color:#f4f4f5;font-size:13px;font-weight:600;font-family:'Menlo',monospace;">2.86.86</div></div>
+                <div style="display:flex;align-items:center;gap:5px;">
+                  <div class="a-dot dot-g"></div>
+                  <span style="color:#4ade80;font-size:11px;font-weight:600;">Online</span>
                 </div>
               </div>
-              <div class="a-sec-lbl">Thermals</div>
-              <div class="a-card">
-                <div class="a-row"><div style="flex:1;color:#a1a1aa;font-size:12px;">CPU1 Temp</div><div style="color:#f4f4f5;font-size:12px;font-weight:600;" class="a-mono">44 C</div></div>
-                <div class="a-row"><div style="flex:1;color:#a1a1aa;font-size:12px;">CPU2 Temp</div><div style="color:#f4f4f5;font-size:12px;font-weight:600;" class="a-mono">41 C</div></div>
-                <div class="a-row"><div style="flex:1;color:#a1a1aa;font-size:12px;">Inlet Temp</div><div style="color:#f4f4f5;font-size:12px;font-weight:600;" class="a-mono">23 C</div></div>
-                <div class="a-row"><div style="flex:1;color:#a1a1aa;font-size:12px;">Exhaust Temp</div><div style="color:#f4f4f5;font-size:12px;font-weight:600;" class="a-mono">31 C</div></div>
-                <div class="a-row"><div style="flex:1;color:#a1a1aa;font-size:12px;">Fan1 Speed</div><div style="color:#f4f4f5;font-size:12px;font-weight:600;" class="a-mono">3960 RPM</div></div>
-                <div class="a-row"><div style="flex:1;color:#a1a1aa;font-size:12px;">Fan2 Speed</div><div style="color:#f4f4f5;font-size:12px;font-weight:600;" class="a-mono">3840 RPM</div></div>
+              <div style="display:flex;gap:16px;">
+                <div><div style="color:#a1a1aa;font-size:10px;">CPUs</div><div style="color:#f4f4f5;font-size:13px;font-weight:600;">28</div></div>
+                <div><div style="color:#a1a1aa;font-size:10px;">RAM</div><div style="color:#f4f4f5;font-size:13px;font-weight:600;">128 GB</div></div>
+                <div><div style="color:#a1a1aa;font-size:10px;">BIOS</div><div style="color:#f4f4f5;font-size:13px;font-weight:600;font-family:'Menlo',monospace;">2.86.86</div></div>
               </div>
             </div>
+            <div class="a-sec-lbl">Thermals</div>
+            <div class="a-card">
+              <div class="a-row"><div style="flex:1;color:#a1a1aa;font-size:12px;">CPU1 Temp</div><div style="color:#f4f4f5;font-size:12px;font-weight:600;" class="a-mono">44 C</div></div>
+              <div class="a-row"><div style="flex:1;color:#a1a1aa;font-size:12px;">CPU2 Temp</div><div style="color:#f4f4f5;font-size:12px;font-weight:600;" class="a-mono">41 C</div></div>
+              <div class="a-row"><div style="flex:1;color:#a1a1aa;font-size:12px;">Inlet Temp</div><div style="color:#f4f4f5;font-size:12px;font-weight:600;" class="a-mono">23 C</div></div>
+              <div class="a-row"><div style="flex:1;color:#a1a1aa;font-size:12px;">Exhaust Temp</div><div style="color:#f4f4f5;font-size:12px;font-weight:600;" class="a-mono">31 C</div></div>
+              <div class="a-row"><div style="flex:1;color:#a1a1aa;font-size:12px;">Fan1 Speed</div><div style="color:#f4f4f5;font-size:12px;font-weight:600;" class="a-mono">3960 RPM</div></div>
+              <div class="a-row"><div style="flex:1;color:#a1a1aa;font-size:12px;">Fan2 Speed</div><div style="color:#f4f4f5;font-size:12px;font-weight:600;" class="a-mono">3840 RPM</div></div>
+            </div>
           </div>
+        </div>
 
-        </div><!-- /demo-screen -->
-        <div class="demo-home-bar"></div>
+        <!-- Bottom tab bar (inside phone) -->
+        <div class="demo-tabbar">
+          <button class="demo-tab active" onclick="demoNav(0)">
+            <span class="demo-tab-icon">&#9783;</span>
+            <span class="demo-tab-lbl">Dashboard</span>
+          </button>
+          <button class="demo-tab" onclick="demoNav(1)">
+            <span class="demo-tab-icon">&#128421;</span>
+            <span class="demo-tab-lbl">VMs</span>
+          </button>
+          <button class="demo-tab" onclick="demoNav(2)">
+            <span class="demo-tab-icon">&#128230;</span>
+            <span class="demo-tab-lbl">Containers</span>
+          </button>
+          <button class="demo-tab" onclick="demoNav(3)">
+            <span class="demo-tab-icon">&#128308;</span>
+            <span class="demo-tab-lbl">Services</span>
+          </button>
+          <button class="demo-tab" onclick="demoNav(4)">
+            <span class="demo-tab-icon">&#127777;</span>
+            <span class="demo-tab-lbl">iDRAC</span>
+          </button>
+        </div>
+
       </div><!-- /demo-phone -->
-
-      <div class="demo-nav">
-        <button class="demo-nav-btn active" onclick="demoNav(0)">Dashboard</button>
-        <button class="demo-nav-btn" onclick="demoNav(1)">VMs</button>
-        <button class="demo-nav-btn" onclick="demoNav(2)">Containers</button>
-        <button class="demo-nav-btn" onclick="demoNav(3)">Services</button>
-        <button class="demo-nav-btn" onclick="demoNav(4)">iDRAC</button>
-      </div>
-    </div><!-- /demo-phone-wrap -->
+    </div><!-- /demo-wrap -->
 
     <script>
       function demoNav(idx) {
         document.querySelectorAll('.demo-slide').forEach(function(s,i){ s.classList.toggle('active', i===idx); });
-        document.querySelectorAll('.demo-nav-btn').forEach(function(b,i){ b.classList.toggle('active', i===idx); });
+        document.querySelectorAll('.demo-tab').forEach(function(b,i){ b.classList.toggle('active', i===idx); });
       }
     </script>
   </section>
