@@ -23,6 +23,7 @@
       --green: #22c55e;
       --red: #ef4444;
       --amber: #f59e0b;
+      --code-highlight: #a5f3fc;
     }
 
     html { scroll-behavior: smooth; }
@@ -61,21 +62,9 @@
     }
 
     .nav-logo .freak-word {
-      color: #f97316;
+      color: var(--orange);
       font-family: 'Permanent Marker', cursive;
       font-weight: 400;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
-    .nav-links a {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--muted);
     }
 
     .nav-cta {
@@ -83,7 +72,7 @@
       color: #fff !important;
       font-weight: 600;
       font-size: 14px;
-      padding: 8px 20px;
+      padding: 13px 20px;
       border-radius: 8px;
       transition: opacity 0.15s;
     }
@@ -263,6 +252,9 @@
       font-size: 12px;
       font-weight: 500;
       padding: 4px 10px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
       cursor: pointer;
       transition: color 0.15s, border-color 0.15s;
     }
@@ -275,7 +267,7 @@
       font-size: 12px;
       line-height: 1.7;
       overflow-x: auto;
-      color: #a5f3fc;
+      color: var(--code-highlight);
       font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
       white-space: pre;
       margin: 0;
@@ -337,11 +329,11 @@
   <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">Ctrl<span class="freak-word">Freak</span></a>
-    <div class="nav-links">
-      <a href="index.html#features">Features</a>
-      <a href="faq.html" style="color:var(--text);">FAQ</a>
-      <a href="index.html#waitlist" class="nav-cta">Get Early Access</a>
+    <div style="display:flex;align-items:center;gap:28px;position:absolute;left:50%;transform:translateX(-50%);">
+      <a href="index.html#features" style="font-size:14px;font-weight:500;color:var(--muted);">Features</a>
+      <a href="faq.html" style="font-size:14px;font-weight:500;color:var(--text);">FAQ</a>
     </div>
+    <a href="index.html#waitlist" class="nav-cta">Download</a>
   </nav>
 
   <!-- PAGE HEADER -->
@@ -706,11 +698,10 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2026 GOW Studios. <a href="https://virtualfrancis.github.io/ctrlfreak-legal/privacy/" style="color:var(--dim);">Privacy Policy</a></p>
+    <p>© 2026 GOW Studios. <a href="https://virtualfrancis.github.io/ctrlfreak-legal/privacy/" style="color:var(--dim);">Privacy Policy</a> &middot; <a href="https://virtualfrancis.github.io/ctrlfreak-legal/terms/" style="color:var(--dim);">Terms of Service</a></p>
     <div class="platform-badges">
-      <span class="platform-badge">Android</span>
       <span class="platform-badge">iOS</span>
-      <span class="platform-badge">Coming Soon</span>
+      <span class="platform-badge">Android</span>
     </div>
   </footer>
 
@@ -724,6 +715,9 @@
           btn.textContent = 'Copy';
           btn.classList.remove('copied');
         }, 2000);
+      }).catch(() => {
+        btn.textContent = 'Failed';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
       });
     }
   </script>
