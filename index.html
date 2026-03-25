@@ -24,6 +24,12 @@
       --green: #22c55e;
       --red: #ef4444;
       --amber: #f59e0b;
+      --white: #ffffff;
+      --bg-nav: rgba(10,10,15,0.92);
+      --fs-display: 48px;
+      --fs-heading: 32px;
+      --fs-body: 15px;
+      --fs-caption: 12px;
     }
 
     html { scroll-behavior: smooth; }
@@ -47,7 +53,7 @@
       border-bottom: 1px solid var(--bg3);
       position: sticky;
       top: 0;
-      background: rgba(10,10,15,0.92);
+      background: var(--bg-nav);
       backdrop-filter: blur(12px);
       z-index: 100;
     }
@@ -65,12 +71,27 @@
       font-weight: 400;
     }
 
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .nav-link {
+      font-size: var(--fs-body);
+      font-weight: 500;
+      color: var(--muted);
+    }
+
     .nav-cta {
       background: var(--blue);
-      color: #fff;
+      color: var(--white);
       font-weight: 600;
-      font-size: 14px;
-      padding: 15px 20px;
+      font-size: var(--fs-body);
+      padding: 12px 20px;
       border-radius: 8px;
       transition: opacity 0.15s;
     }
@@ -96,7 +117,7 @@
       border: 1px solid var(--bg3);
       border-radius: 100px;
       padding: 6px 14px;
-      font-size: 12px;
+      font-size: var(--fs-caption);
       color: var(--muted);
       margin-bottom: 24px;
     }
@@ -106,16 +127,18 @@
       height: 7px;
       border-radius: 50%;
       background: var(--green);
-      animation: pulse 2s infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-badge .dot { animation: pulse 2s infinite; }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.4; }
+      }
     }
 
     .hero h1 {
-      font-size: 48px;
+      font-size: var(--fs-display);
       font-weight: 800;
       line-height: 1.1;
       letter-spacing: -1px;
@@ -124,10 +147,10 @@
 
     .hero h1 span { color: var(--orange); }
 
-    .hero p {
-      font-size: 18px;
+    .hero-lead {
+      font-size: 16px;
       color: var(--muted);
-      margin-bottom: 36px;
+      margin-bottom: 32px;
       line-height: 1.7;
     }
 
@@ -139,9 +162,9 @@
 
     .btn-primary {
       background: var(--blue);
-      color: #fff;
+      color: var(--white);
       font-weight: 600;
-      font-size: 15px;
+      font-size: var(--fs-body);
       padding: 14px 28px;
       border-radius: 10px;
       transition: opacity 0.15s;
@@ -153,7 +176,7 @@
       background: var(--bg2);
       color: var(--text);
       font-weight: 600;
-      font-size: 15px;
+      font-size: var(--fs-body);
       padding: 14px 28px;
       border-radius: 10px;
       border: 1px solid var(--bg3);
@@ -161,6 +184,12 @@
     }
 
     .btn-secondary:hover { border-color: var(--dim); }
+
+    .hero-note {
+      font-size: var(--fs-caption);
+      color: var(--dim);
+      margin-top: 16px;
+    }
 
     .hero-screenshots {
       display: grid;
@@ -177,16 +206,11 @@
       border: 1px solid var(--bg3);
     }
 
-    .hero-screenshots .screenshot-item:nth-child(2) {
-      margin-top: 24px;
-    }
-
-    .hero-screenshots .screenshot-item:nth-child(4) {
-      margin-top: 24px;
-    }
+    .hero-screenshots .screenshot-item:nth-child(2) { margin-top: 24px; }
+    .hero-screenshots .screenshot-item:nth-child(4) { margin-top: 24px; }
 
     .screenshot-caption {
-      font-size: 12px;
+      font-size: var(--fs-caption);
       color: var(--dim);
       text-align: center;
       margin-top: 8px;
@@ -200,7 +224,7 @@
     }
 
     .section-label {
-      font-size: 12px;
+      font-size: var(--fs-caption);
       font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
@@ -209,14 +233,14 @@
     }
 
     .section-title {
-      font-size: 36px;
+      font-size: var(--fs-heading);
       font-weight: 700;
       letter-spacing: -0.5px;
       margin-bottom: 16px;
     }
 
     .section-sub {
-      font-size: 17px;
+      font-size: var(--fs-body);
       color: var(--muted);
       max-width: 540px;
       line-height: 1.7;
@@ -225,7 +249,7 @@
     /* FEATURES */
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
       margin-top: 48px;
     }
@@ -237,19 +261,14 @@
       padding: 24px;
     }
 
-    .feature-icon {
-      font-size: 24px;
-      margin-bottom: 14px;
-    }
-
     .feature-title {
-      font-size: 16px;
+      font-size: var(--fs-body);
       font-weight: 600;
       margin-bottom: 8px;
     }
 
     .feature-desc {
-      font-size: 15px;
+      font-size: var(--fs-body);
       color: var(--muted);
       line-height: 1.6;
     }
@@ -268,7 +287,6 @@
     }
 
     .integrations-left { min-width: 280px; }
-    .integrations-left .section-title { font-size: 28px; }
 
     .integrations-list {
       display: flex;
@@ -281,7 +299,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
       width: 82px;
       padding: 14px 8px 10px;
       background: var(--bg);
@@ -290,9 +308,7 @@
       transition: border-color 0.15s;
     }
 
-    .integration-logo:hover {
-      border-color: #3b82f6;
-    }
+    .integration-logo:hover { border-color: var(--blue); }
 
     .integration-logo img {
       width: 44px;
@@ -302,7 +318,7 @@
     }
 
     .integration-logo span {
-      font-size: 11px;
+      font-size: var(--fs-caption);
       color: var(--muted);
       text-align: center;
       font-weight: 500;
@@ -314,9 +330,11 @@
       border: 1px solid var(--bg3);
       border-radius: 100px;
       padding: 8px 18px;
-      font-size: 14px;
+      font-size: var(--fs-body);
       font-weight: 500;
       color: var(--muted);
+      display: flex;
+      align-items: center;
     }
 
     /* PRIVACY */
@@ -343,18 +361,18 @@
     }
 
     .privacy-title {
-      font-size: 15px;
+      font-size: var(--fs-body);
       font-weight: 600;
       margin-bottom: 6px;
     }
 
     .privacy-desc {
-      font-size: 15px;
+      font-size: var(--fs-body);
       color: var(--muted);
       line-height: 1.6;
     }
 
-    /* WAITLIST */
+    /* DOWNLOAD */
     .waitlist-section {
       background: var(--bg2);
       border-top: 1px solid var(--bg3);
@@ -367,6 +385,11 @@
       padding: 80px 40px;
     }
 
+    .waitlist-inner .section-sub {
+      max-width: 100%;
+      margin: 0 auto 32px;
+    }
+
     .beta-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -374,15 +397,20 @@
       text-align: left;
     }
 
-    .waitlist-inner .section-sub {
-      max-width: 100%;
-      margin: 0 auto 40px;
+    .download-card {
+      background: var(--bg);
+      border: 1px solid var(--bg3);
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .waitlist-note {
-      font-size: 13px;
-      color: var(--dim);
-      margin-top: 14px;
+    .download-desc {
+      font-size: var(--fs-body);
+      color: var(--muted);
+      line-height: 1.6;
     }
 
     /* FOOTER */
@@ -397,21 +425,18 @@
     }
 
     footer p {
-      font-size: 13px;
+      font-size: var(--fs-caption);
       color: var(--dim);
     }
 
-    .platform-badges {
-      display: flex;
-      gap: 10px;
-    }
+    .platform-badges { display: flex; gap: 10px; }
 
     .platform-badge {
       background: var(--bg2);
       border: 1px solid var(--bg3);
       border-radius: 100px;
       padding: 5px 14px;
-      font-size: 12px;
+      font-size: var(--fs-caption);
       color: var(--muted);
       font-weight: 500;
     }
@@ -419,6 +444,7 @@
     /* RESPONSIVE */
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
+      .nav-links { display: none; }
 
       .hero {
         grid-template-columns: 1fr;
@@ -459,10 +485,10 @@
 
   <!-- NAV -->
   <nav>
-    <div class="nav-logo"><img src="images/icon.png" alt="" style="width:32px;height:32px;border-radius:7px;margin-right:10px;vertical-align:middle;" />Ctrl<span class="freak-word">Freak</span>™</div>
-    <div style="display:flex;align-items:center;gap:28px;position:absolute;left:50%;transform:translateX(-50%);">
-      <a href="#features" style="font-size:14px;font-weight:500;color:var(--muted);">Features</a>
-      <a href="faq.html" style="font-size:14px;font-weight:500;color:var(--muted);">FAQ</a>
+    <div class="nav-logo"><img src="images/icon.png" alt="" style="width:32px;height:32px;border-radius:7px;margin-right:10px;vertical-align:middle;" />Ctrl<span class="freak-word">Freak</span>&#x2122;</div>
+    <div class="nav-links">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="faq.html" class="nav-link">FAQ</a>
     </div>
     <a href="#waitlist" class="nav-cta">Download</a>
   </nav>
@@ -475,16 +501,12 @@
         iOS &amp; Android Beta now available
       </div>
       <h1>Your homelab.<br /><span>In your pocket.</span></h1>
-      <p>CtrlFreak is a native iOS and Android app that gives you a real-time view of your infrastructure and the ability to act on it from wherever you are. Built because the tab explosion is real.</p>
-      <div class="hero-badge" style="margin-bottom:16px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);color:#22c55e;">
-        <span class="dot"></span>
-        All features free during beta
-      </div>
+      <p class="hero-lead">CtrlFreak is a native iOS and Android app that gives you a real-time view of your infrastructure and the ability to act on it from wherever you are. Built because the tab explosion is real.</p>
       <div class="hero-actions">
         <a href="https://testflight.apple.com/join/KFxjM2ez" target="_blank" rel="noopener" class="btn-primary">Download for iOS (TestFlight)</a>
         <a href="https://play.google.com/store/apps/details?id=com.gowstudios.ctrlfreak" target="_blank" rel="noopener" class="btn-secondary">Download for Android</a>
       </div>
-      <p style="font-size:13px;color:var(--dim);margin-top:16px;">No subscription. Pro features will unlock for $7.99, one time.</p>
+      <p class="hero-note">All features free during beta. Pro features will unlock for $7.99, one time.</p>
     </div>
     <div class="hero-screenshots">
       <div class="screenshot-item">
@@ -506,81 +528,43 @@
     </div>
   </div>
 
-    <!-- FEATURES -->
+  <!-- FEATURES -->
   <section id="features">
     <h2 class="section-title">Everything in one place</h2>
-    <p class="section-sub">No browser, no VPN to a web UI, no switching between apps. Everything you need to monitor and control your lab is one tap away.</p>
+    <p class="section-sub">No browser, no switching between apps. Everything you need to monitor and control your lab is one tap away.</p>
 
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon">&#128202;</div>
         <div class="feature-title">Dashboard</div>
-        <div class="feature-desc">Node-level CPU and RAM utilization, VM and container counts, and a live down-alerts section. Pull to refresh or let notifications find you first.</div>
+        <div class="feature-desc">Node-level CPU and RAM, VM and container counts, and a live down-alerts section. See what needs attention the moment you open the app. Pull to refresh or let notifications find you first.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">&#9881;&#65039;</div>
-        <div class="feature-title">Virtual Machines</div>
-        <div class="feature-desc">All Proxmox VMs and LXC containers across every node. Start, reboot, and stop with confirmation prompts. Backup status visible at a glance.</div>
+        <div class="feature-title">Virtual Machines &amp; Containers</div>
+        <div class="feature-desc">All Proxmox VMs, LXC containers, and Docker stacks across every node. Start, stop, reboot, and recreate with confirmation. Live log viewer built in.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">&#128051;</div>
-        <div class="feature-title">Docker Containers</div>
-        <div class="feature-desc">All containers from Portainer and Dockge in one list. Start, restart, stop, and recreate with a tap. Live log viewer built in.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#128994;</div>
-        <div class="feature-title">Services</div>
-        <div class="feature-desc">Uptime Kuma monitor status pulled directly from your self-hosted instance. See what's degraded or down without opening another tab.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#128421;&#65039;</div>
         <div class="feature-title">Server Hardware</div>
-        <div class="feature-desc">Dell iDRAC and HP iLO support. Live temperature sensors, fan speeds, power state, and remote power control from your phone without opening a browser.</div>
+        <div class="feature-desc">Live temperature sensors, fan speeds, and power state for Dell iDRAC and HP iLO servers. Remote power control from your phone.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">&#128187;</div>
         <div class="feature-title">SSH Terminal</div>
-        <div class="feature-desc">Tap into any machine directly from the app. Full interactive shell without reaching for a laptop.</div>
+        <div class="feature-desc">Full interactive shell into any machine in your lab. No laptop, no separate app. Just tap and type.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">&#128737;&#65039;</div>
-        <div class="feature-title">DNS Filtering</div>
-        <div class="feature-desc">Query counts, block rate, and blocklist size for Pi-hole and AdGuard Home. Enable or disable blocking without opening either web UI.</div>
+        <div class="feature-title">DNS &amp; Firewall</div>
+        <div class="feature-desc">Pi-hole and AdGuard query stats and blocking controls in one view. OPNsense interface status and gateway health alongside. Manage your network layer from your phone.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">&#128274;</div>
-        <div class="feature-title">Tailscale</div>
-        <div class="feature-desc">See which devices on your tailnet are online, their IPs, and last seen times. Know your VPN is healthy before you need it.</div>
+        <div class="feature-title">Storage &amp; Backups</div>
+        <div class="feature-desc">Array state, volume usage, disk health, and SMART status across Unraid, TrueNAS, and Synology. Proxmox Backup Server task history and job status in the same screen.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">&#128451;&#65039;</div>
-        <div class="feature-title">Storage</div>
-        <div class="feature-desc">NAS and storage health across Unraid, TrueNAS, and Synology DSM. Array state, volume usage, disk health, and SMART status without a browser tab.</div>
+        <div class="feature-title">Monitoring</div>
+        <div class="feature-desc">Uptime Kuma service status, Beszel agent metrics, and Tailscale device health. Know what's degraded before a user notices.</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">&#127760;</div>
-        <div class="feature-title">Nginx Proxy Manager</div>
-        <div class="feature-desc">See all your reverse proxy hosts in one view. Active proxies, SSL status, and disabled entries without touching the web UI.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#128295;</div>
         <div class="feature-title">Network Tools</div>
-        <div class="feature-desc">Know what's reachable before you SSH in. Ping, port checks, DNS tests, SSL scans, and Wake-on-LAN in one place.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#128190;</div>
-        <div class="feature-title">Backup Server</div>
-        <div class="feature-desc">Proxmox Backup Server datastore usage, task history, and job status at a glance. Know your backups are running before you need them.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#128200;</div>
-        <div class="feature-title">Infrastructure Monitoring</div>
-        <div class="feature-desc">Beszel agent metrics across every machine in your lab. CPU, RAM, disk, and network in one view without spinning up a full observability stack.</div>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">&#128282;</div>
-        <div class="feature-title">Firewall</div>
-        <div class="feature-desc">OPNsense interface status, gateway health, and active rules from your phone. Know your network security posture without logging into the web UI.</div>
+        <div class="feature-desc">Ping, port checks, DNS resolution tests, SSL certificate scans, and Wake-on-LAN. Know what's reachable before you SSH in.</div>
       </div>
     </div>
   </section>
@@ -591,7 +575,7 @@
       <div class="integrations-left">
         <div class="section-label">Integrations</div>
         <h2 class="section-title">Works with your stack</h2>
-        <p class="section-sub" style="font-size: 15px;">Built for the tools homelabbers actually run.</p>
+        <p class="section-sub">Built for the tools homelabbers actually run.</p>
       </div>
       <div class="integrations-list">
         <div class="integration-logo"><img src="images/integrations/proxmox.png" alt="Proxmox"><span>Proxmox VE</span></div>
@@ -654,26 +638,24 @@
     </div>
   </section>
 
-  <!-- WAITLIST -->
+  <!-- DOWNLOAD -->
   <div class="waitlist-section" id="waitlist">
     <div class="waitlist-inner">
       <h2 class="section-title">Try it now</h2>
-      <p class="section-sub" style="margin: 0 auto 16px;">Beta is live on both platforms.</p>
-      <p style="font-size:14px;color:var(--muted);margin-bottom:32px;">All features are free during beta. Pro features will unlock for $7.99 one time after launch. No subscription, no renewal, no tricks.</p>
+      <p class="section-sub">Beta is live on both platforms. All features free during beta. Pro features unlock for $7.99 one time after launch. No subscription, no renewal, no tricks.</p>
       <div class="beta-grid">
         <!-- iOS -->
-        <div style="background:var(--bg);border:1px solid var(--bg3);border-radius:14px;padding:24px;display:flex;flex-direction:column;justify-content:center;gap:16px;">
-          <p style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);">iOS</p>
-          <p style="font-size:14px;color:var(--muted);line-height:1.6;">Beta is open on TestFlight. Download now with any Apple ID.</p>
+        <div class="download-card">
+          <p class="section-label">iOS</p>
+          <p class="download-desc">Beta is open on TestFlight. Download now with any Apple ID.</p>
           <a href="https://testflight.apple.com/join/KFxjM2ez" target="_blank" rel="noopener" class="btn-primary" style="text-align:center;display:block;">Download on TestFlight</a>
         </div>
         <!-- Android -->
-        <div style="background:var(--bg);border:1px solid var(--bg3);border-radius:14px;padding:24px;">
-          <p style="font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange);margin-bottom:10px;">Android</p>
+        <div class="download-card">
+          <p class="section-label">Android</p>
           <iframe data-tally-src="https://tally.so/embed/9q1LW4?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="200" frameborder="0" marginheight="0" marginwidth="0" title="CtrlFreak Android Beta"></iframe>
         </div>
       </div>
-      <p class="waitlist-note">All features free during beta.</p>
     </div>
   </div>
   <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e["src"]=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s);}</script>
