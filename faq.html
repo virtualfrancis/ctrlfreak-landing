@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CtrlFreak: FAQ and Setup Guide</title>
-  <meta name="description" content="How to configure CtrlFreak with your homelab. Setup guides for Proxmox, Portainer, Pi-hole, Tailscale, iDRAC, Uptime Kuma, Unraid, and Nginx Proxy Manager." />
+  <meta name="description" content="How to configure CtrlFreak with your homelab. Setup guides for Proxmox, Portainer, Pi-hole, AdGuard Home, Tailscale, OPNsense, iDRAC, HP iLO, Uptime Kuma, Beszel, Unraid, TrueNAS, Synology DSM, Dockge, and Nginx Proxy Manager." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -348,12 +348,20 @@
     <div class="toc-grid">
       <a href="#general" class="toc-link">General</a>
       <a href="#proxmox" class="toc-link">Proxmox VE</a>
+      <a href="#pbs" class="toc-link">Proxmox Backup Server</a>
       <a href="#portainer" class="toc-link">Portainer</a>
+      <a href="#dockge" class="toc-link">Dockge</a>
       <a href="#uptimekuma" class="toc-link">Uptime Kuma</a>
+      <a href="#beszel" class="toc-link">Beszel</a>
       <a href="#idrac" class="toc-link">Dell iDRAC</a>
+      <a href="#hpilo" class="toc-link">HP iLO</a>
       <a href="#pihole" class="toc-link">Pi-hole</a>
+      <a href="#adguard" class="toc-link">AdGuard Home</a>
       <a href="#tailscale" class="toc-link">Tailscale</a>
+      <a href="#opnsense" class="toc-link">OPNsense</a>
       <a href="#unraid" class="toc-link">Unraid</a>
+      <a href="#truenas" class="toc-link">TrueNAS</a>
+      <a href="#synology" class="toc-link">Synology DSM</a>
       <a href="#npm" class="toc-link">Nginx Proxy Manager</a>
       <a href="#ssl" class="toc-link">SSL and Certificates</a>
     </div>
@@ -440,6 +448,76 @@
       "password": "your-npm-password"
     }
   ],
+  "adGuardServers": [
+    {
+      "id": "adguard-1",
+      "label": "AdGuard Home",
+      "host": "http://192.168.1.53:3000",
+      "username": "admin",
+      "password": "your-adguard-password"
+    }
+  ],
+  "pbsServers": [
+    {
+      "id": "pbs-1",
+      "label": "Proxmox Backup Server",
+      "host": "https://192.168.1.38:8007",
+      "token": "user@realm!tokenname=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+    }
+  ],
+  "dockgeServers": [
+    {
+      "id": "dockge-1",
+      "label": "Dockge",
+      "host": "http://192.168.1.73:5001",
+      "username": "admin",
+      "password": "your-dockge-password"
+    }
+  ],
+  "beszelServers": [
+    {
+      "id": "beszel-1",
+      "label": "Beszel",
+      "host": "http://192.168.1.73:8090",
+      "username": "you@example.com",
+      "password": "your-beszel-password"
+    }
+  ],
+  "trueNASServers": [
+    {
+      "id": "truenas-1",
+      "label": "TrueNAS",
+      "host": "http://192.168.1.52",
+      "apiKey": "your-truenas-api-key"
+    }
+  ],
+  "opnsenseServers": [
+    {
+      "id": "opnsense-1",
+      "label": "OPNsense",
+      "host": "https://192.168.1.1",
+      "apiKey": "your-api-key",
+      "apiSecret": "your-api-secret"
+    }
+  ],
+  "hpiloServers": [
+    {
+      "id": "hpilo-1",
+      "label": "HP iLO",
+      "host": "https://192.168.1.51",
+      "username": "Administrator",
+      "password": "your-ilo-password"
+    }
+  ],
+  "synologyServers": [
+    {
+      "id": "synology-1",
+      "label": "Synology NAS",
+      "host": "http://192.168.1.54:5000",
+      "username": "admin",
+      "password": "your-dsm-password"
+    }
+  ],
   "wolDevices": [
     {
       "id": "wol-1",
@@ -457,7 +535,15 @@
     "pihole": true,
     "tailscale": true,
     "unraid": true,
-    "nginxProxyManager": true
+    "nginxProxyManager": true,
+    "adGuardHome": false,
+    "proxmoxBackupServer": false,
+    "dockge": false,
+    "beszel": false,
+    "truenas": false,
+    "opnsense": false,
+    "hpilo": false,
+    "synology": false
   },
   "demoMode": false
 }</pre>
@@ -470,7 +556,7 @@
       <summary>What is included in the free tier vs Pro?</summary>
       <div class="faq-body">
         <p><strong>Free:</strong> Dashboard, Proxmox VMs and containers, Uptime Kuma, Unraid basic status.</p>
-        <p><strong>Pro ($7.99 one-time):</strong> Dell iDRAC, SSH terminal, Pi-hole, Tailscale, Nginx Proxy Manager, network topology, Wake on LAN, diagnostics, and notifications.</p>
+        <p><strong>Pro ($7.99 one-time):</strong> Dell iDRAC, HP iLO, SSH terminal, Pi-hole, AdGuard Home, Tailscale, OPNsense, TrueNAS, Synology DSM, Dockge, Beszel, Proxmox Backup Server, Nginx Proxy Manager, network topology, Wake on LAN, diagnostics, and notifications.</p>
         <p>Pro is a one-time purchase with no subscription.</p>
       </div>
     </details>
@@ -652,6 +738,40 @@
     </details>
   </div>
 
+  <!-- SYNOLOGY -->
+  <div class="faq-section" id="synology">
+    <div class="faq-section-title">Synology DSM</div>
+
+    <details>
+      <summary>How do I connect to Synology DSM?</summary>
+      <div class="faq-body">
+        <p>CtrlFreak connects to Synology DSM using your admin username and password. The app authenticates via the Synology WebAPI and caches the session for 20 minutes per device.</p>
+        <p>The host should include the DSM port. Synology defaults to port 5000 for HTTP and port 5001 for HTTPS, e.g. <code>http://192.168.1.54:5000</code> or <code>https://192.168.1.54:5001</code></p>
+        <div class="note">You can use your <code>admin</code> account or create a separate user with limited permissions. For read-only access, the user needs the <strong>Monitoring</strong> and <strong>Storage Manager</strong> read permissions.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>What does the Synology integration show?</summary>
+      <div class="faq-body">
+        <p>The Synology screen shows:</p>
+        <ul>
+          <li>System info: model, DSM version, serial number, uptime, and CPU core count</li>
+          <li>Resource utilization: CPU percentage, memory usage, and network throughput (download and upload)</li>
+          <li>Volumes: usage bars, free/total space, and health status for each volume</li>
+          <li>Drives: per-disk status, model, temperature, and SMART health status</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I add multiple Synology devices?</summary>
+      <div class="faq-body">
+        <p>Yes. You can add multiple Synology servers in Settings. The screen shows a tab picker at the top when more than one device is configured.</p>
+      </div>
+    </details>
+  </div>
+
   <!-- NPM -->
   <div class="faq-section" id="npm">
     <div class="faq-section-title">Nginx Proxy Manager</div>
@@ -662,6 +782,107 @@
         <p>CtrlFreak connects using your NPM admin email and password. It authenticates via the NPM API and caches the session token for 23 hours.</p>
         <p>The host should be your NPM instance including the port, e.g. <code>http://192.168.1.73:81</code></p>
         <p>NPM defaults to port 81 for the admin interface.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- PBS -->
+  <div class="faq-section" id="pbs">
+    <div class="faq-section-title">Proxmox Backup Server</div>
+
+    <details>
+      <summary>How do I connect to Proxmox Backup Server?</summary>
+      <div class="faq-body">
+        <p>CtrlFreak uses API token authentication. In the PBS web UI, go to <strong>Configuration &gt; Access &gt; API Tokens</strong> and create a token for a user that has Datastore.Audit permissions.</p>
+        <p>The token format is: <code>user@realm!tokenname=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code></p>
+        <p>The host should include the port, e.g. <code>https://192.168.1.38:8007</code></p>
+      </div>
+    </details>
+  </div>
+
+  <!-- DOCKGE -->
+  <div class="faq-section" id="dockge">
+    <div class="faq-section-title">Dockge</div>
+
+    <details>
+      <summary>How do I connect to Dockge?</summary>
+      <div class="faq-body">
+        <p>CtrlFreak connects using your Dockge admin username and password. Dockge defaults to port 5001, so the host should be: <code>http://192.168.1.73:5001</code></p>
+        <p>The app authenticates and caches the session token automatically. If the token expires, it re-authenticates on the next request.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- BESZEL -->
+  <div class="faq-section" id="beszel">
+    <div class="faq-section-title">Beszel</div>
+
+    <details>
+      <summary>How do I connect to Beszel?</summary>
+      <div class="faq-body">
+        <p>CtrlFreak connects to Beszel using your account email address and password. Beszel defaults to port 8090, so the host should be: <code>http://192.168.1.73:8090</code></p>
+        <p>The app uses the PocketBase authentication API that Beszel is built on.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- HP iLO -->
+  <div class="faq-section" id="hpilo">
+    <div class="faq-section-title">HP iLO</div>
+
+    <details>
+      <summary>How do I connect to HP iLO?</summary>
+      <div class="faq-body">
+        <p>CtrlFreak connects to HP iLO 4 and iLO 5 via the Redfish API using Basic authentication. Enter the iLO IP address, your username (default is <code>Administrator</code>), and password in Settings.</p>
+        <p>The host should be the iLO management IP, e.g. <code>https://192.168.1.51</code></p>
+      </div>
+    </details>
+  </div>
+
+  <!-- ADGUARD -->
+  <div class="faq-section" id="adguard">
+    <div class="faq-section-title">AdGuard Home</div>
+
+    <details>
+      <summary>How do I connect to AdGuard Home?</summary>
+      <div class="faq-body">
+        <p>CtrlFreak connects using your AdGuard Home admin username and password. The default port is 3000, so the host should be: <code>http://192.168.1.53:3000</code></p>
+        <p>If you have changed AdGuard's port in its settings, use that port instead.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- OPNSENSE -->
+  <div class="faq-section" id="opnsense">
+    <div class="faq-section-title">OPNsense</div>
+
+    <details>
+      <summary>How do I create an OPNsense API key?</summary>
+      <div class="faq-body">
+        <ol>
+          <li>Log into your OPNsense web UI</li>
+          <li>Go to <strong>System &gt; Access &gt; Users</strong></li>
+          <li>Edit your user and scroll to <strong>API keys</strong></li>
+          <li>Click <strong>+</strong> to generate a new key/secret pair</li>
+          <li>Copy both the key and the secret before closing the dialog</li>
+        </ol>
+        <p>The host should be your OPNsense LAN IP, e.g. <code>https://192.168.1.1</code></p>
+        <div class="note warning">OPNsense uses a self-signed certificate by default. CtrlFreak accepts self-signed certs, so HTTPS will work without additional setup.</div>
+      </div>
+    </details>
+  </div>
+
+  <!-- TRUENAS -->
+  <div class="faq-section" id="truenas">
+    <div class="faq-section-title">TrueNAS</div>
+
+    <details>
+      <summary>How do I create a TrueNAS API key?</summary>
+      <div class="faq-body">
+        <p>In TrueNAS SCALE: go to <strong>Credentials &gt; API Keys</strong> and click <strong>Add</strong>. Give it a name and copy the key.</p>
+        <p>In TrueNAS CORE: go to <strong>Accounts &gt; Users</strong>, edit your admin user, and look for <strong>API Keys</strong> at the bottom of the page.</p>
+        <p>The host should be your NAS IP, e.g. <code>http://192.168.1.52</code></p>
+        <div class="note">CtrlFreak works with both TrueNAS SCALE and TrueNAS CORE.</div>
       </div>
     </details>
   </div>
