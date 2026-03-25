@@ -329,12 +329,33 @@
       background: var(--bg);
       border: 1px solid var(--bg3);
       border-radius: 100px;
-      padding: 8px 18px;
-      font-size: var(--fs-body);
+      padding: 6px 14px;
+      font-size: var(--fs-caption);
       font-weight: 500;
-      color: var(--muted);
+      color: var(--dim);
       display: flex;
       align-items: center;
+    }
+
+    .built-in-tools {
+      width: 100%;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--bg3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .built-in-label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-right: 4px;
+      white-space: nowrap;
     }
 
     /* PRIVACY */
@@ -594,8 +615,15 @@
         <div class="integration-logo"><img src="images/integrations/truenas.png" alt="TrueNAS"><span>TrueNAS</span></div>
         <div class="integration-logo"><img src="images/integrations/npm.png" alt="Nginx Proxy Manager"><span>Nginx Proxy Manager</span></div>
         <div class="integration-logo"><img src="images/integrations/synology.png" alt="Synology DSM"><span>Synology DSM</span></div>
-        <span class="integration-pill">SSH</span>
-        <span class="integration-pill">Wake on LAN</span>
+        <div class="built-in-tools">
+          <span class="built-in-label">Built-in</span>
+          <span class="integration-pill">SSH</span>
+          <span class="integration-pill">Wake on LAN</span>
+          <span class="integration-pill">Ping</span>
+          <span class="integration-pill">Port Check</span>
+          <span class="integration-pill">DNS Lookup</span>
+          <span class="integration-pill">SSL Scan</span>
+        </div>
       </div>
     </section>
   </div>
