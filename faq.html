@@ -553,11 +553,11 @@
     </details>
 
     <details>
-      <summary>What is included in the free tier vs Pro?</summary>
+      <summary>What is free vs Pro?</summary>
       <div class="faq-body">
-        <p><strong>Free:</strong> Dashboard, Proxmox VMs and containers, Uptime Kuma, Unraid basic status.</p>
-        <p><strong>Pro ($7.99 one-time):</strong> Dell iDRAC, HP iLO, SSH terminal, Pi-hole, AdGuard Home, Tailscale, OPNsense, TrueNAS, Synology DSM, Dockge, Beszel, Proxmox Backup Server, Nginx Proxy Manager, network topology, Wake on LAN, diagnostics, and notifications.</p>
-        <p>Pro is a one-time purchase with no subscription.</p>
+        <p><strong>Demo mode (always free):</strong> Explore all 16 integrations with realistic sample data. No account or server required, no time limit.</p>
+        <p><strong>7-day free trial:</strong> Connect your real servers and use everything. Starts automatically when you add your first integration.</p>
+        <p><strong>Pro ($9.99 one-time):</strong> Full access to all 16 integrations with your real infrastructure after the trial ends. No subscription, no renewal, no tricks.</p>
       </div>
     </details>
 
@@ -895,7 +895,7 @@
       <summary>Does CtrlFreak work with self-signed certificates?</summary>
       <div class="faq-body">
         <p>Yes. CtrlFreak accepts self-signed and untrusted SSL certificates by design. Homelab servers commonly run with self-signed certs and the app is built to connect to them directly without requiring a trusted CA chain.</p>
-        <div class="note warning">This means the app does not perform standard SSL certificate validation. Connections are still encrypted, but the identity of the server is not verified against a trusted certificate authority. This is an intentional trade-off for local homelab use where you control and trust your own servers.</div>
+        <div class="note warning">Connections are fully encrypted. Certificate authority validation is skipped by design - in a local homelab, you control the servers you're connecting to, so a CA chain is unnecessary. This is an intentional decision for the homelab use case, not a limitation.</div>
         <p>A per-server SSL verification toggle is on the roadmap for users who want stricter control.</p>
       </div>
     </details>
