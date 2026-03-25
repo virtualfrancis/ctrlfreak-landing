@@ -306,9 +306,34 @@
       border: 1px solid var(--bg3);
       border-radius: 14px;
       transition: border-color 0.15s;
+      position: relative;
     }
 
     .integration-logo:hover { border-color: var(--blue); }
+
+    .integration-logo[data-tooltip]::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg3);
+      color: var(--muted);
+      font-size: var(--fs-caption);
+      line-height: 1.5;
+      padding: 8px 10px;
+      border-radius: 8px;
+      width: 160px;
+      text-align: center;
+      white-space: normal;
+      pointer-events: none;
+      z-index: 20;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .integration-logo[data-tooltip]:hover::after { opacity: 1; }
 
     .integration-logo img {
       width: 44px;
@@ -599,22 +624,22 @@
         <p class="section-sub">Built for the tools homelabbers actually run.</p>
       </div>
       <div class="integrations-list">
-        <div class="integration-logo"><img src="images/integrations/proxmox.png" alt="Proxmox"><span>Proxmox VE</span></div>
-        <div class="integration-logo"><img src="images/integrations/pbs.png" alt="PBS"><span>Proxmox Backup Server</span></div>
-        <div class="integration-logo"><img src="images/integrations/portainer.png" alt="Portainer"><span>Portainer</span></div>
-        <div class="integration-logo"><img src="images/integrations/dockge.png" alt="Dockge"><span>Dockge</span></div>
-        <div class="integration-logo"><img src="images/integrations/uptime-kuma.png" alt="Uptime Kuma"><span>Uptime Kuma</span></div>
-        <div class="integration-logo"><img src="images/integrations/beszel.png" alt="Beszel"><span>Beszel</span></div>
-        <div class="integration-logo"><img src="images/integrations/idrac.png" alt="Dell iDRAC"><span>Dell iDRAC</span></div>
-        <div class="integration-logo"><img src="images/integrations/hpilo.png" alt="HP iLO"><span>HP iLO</span></div>
-        <div class="integration-logo"><img src="images/integrations/pihole.png" alt="Pi-hole"><span>Pi-hole</span></div>
-        <div class="integration-logo"><img src="images/integrations/adguard.png" alt="AdGuard Home"><span>AdGuard Home</span></div>
-        <div class="integration-logo"><img src="images/integrations/tailscale.png" alt="Tailscale"><span>Tailscale</span></div>
-        <div class="integration-logo"><img src="images/integrations/opnsense.png" alt="OPNsense"><span>OPNsense</span></div>
-        <div class="integration-logo"><img src="images/integrations/unraid.png" alt="Unraid"><span>Unraid</span></div>
-        <div class="integration-logo"><img src="images/integrations/truenas.png" alt="TrueNAS"><span>TrueNAS</span></div>
-        <div class="integration-logo"><img src="images/integrations/npm.png" alt="Nginx Proxy Manager"><span>Nginx Proxy Manager</span></div>
-        <div class="integration-logo"><img src="images/integrations/synology.png" alt="Synology DSM"><span>Synology DSM</span></div>
+        <div class="integration-logo" data-tooltip="Open-source VM and container virtualization platform"><img src="images/integrations/proxmox.png" alt="Proxmox"><span>Proxmox VE</span></div>
+        <div class="integration-logo" data-tooltip="Backup server for Proxmox VMs and containers"><img src="images/integrations/pbs.png" alt="PBS"><span>Proxmox Backup Server</span></div>
+        <div class="integration-logo" data-tooltip="Container management UI for Docker and Kubernetes"><img src="images/integrations/portainer.png" alt="Portainer"><span>Portainer</span></div>
+        <div class="integration-logo" data-tooltip="Self-hosted Docker Compose stack manager"><img src="images/integrations/dockge.png" alt="Dockge"><span>Dockge</span></div>
+        <div class="integration-logo" data-tooltip="Self-hosted uptime and service monitoring"><img src="images/integrations/uptime-kuma.png" alt="Uptime Kuma"><span>Uptime Kuma</span></div>
+        <div class="integration-logo" data-tooltip="Lightweight server monitoring with historical metrics and Docker stats"><img src="images/integrations/beszel.png" alt="Beszel"><span>Beszel</span></div>
+        <div class="integration-logo" data-tooltip="Integrated remote access controller for Dell PowerEdge servers"><img src="images/integrations/idrac.png" alt="Dell iDRAC"><span>Dell iDRAC</span></div>
+        <div class="integration-logo" data-tooltip="Integrated Lights-Out remote management for HP ProLiant servers"><img src="images/integrations/hpilo.png" alt="HP iLO"><span>HP iLO</span></div>
+        <div class="integration-logo" data-tooltip="Network-wide ad and tracker blocking via DNS sinkhole"><img src="images/integrations/pihole.png" alt="Pi-hole"><span>Pi-hole</span></div>
+        <div class="integration-logo" data-tooltip="DNS-based ad and tracker blocking for your whole network"><img src="images/integrations/adguard.png" alt="AdGuard Home"><span>AdGuard Home</span></div>
+        <div class="integration-logo" data-tooltip="Zero-config mesh VPN built on WireGuard"><img src="images/integrations/tailscale.png" alt="Tailscale"><span>Tailscale</span></div>
+        <div class="integration-logo" data-tooltip="Open-source firewall and routing platform based on FreeBSD"><img src="images/integrations/opnsense.png" alt="OPNsense"><span>OPNsense</span></div>
+        <div class="integration-logo" data-tooltip="NAS and virtualization OS designed for home servers and storage arrays"><img src="images/integrations/unraid.png" alt="Unraid"><span>Unraid</span></div>
+        <div class="integration-logo" data-tooltip="Open-source network attached storage platform from iXsystems"><img src="images/integrations/truenas.png" alt="TrueNAS"><span>TrueNAS</span></div>
+        <div class="integration-logo" data-tooltip="Web-based reverse proxy manager with free SSL certificate automation"><img src="images/integrations/npm.png" alt="Nginx Proxy Manager"><span>Nginx Proxy Manager</span></div>
+        <div class="integration-logo" data-tooltip="DiskStation Manager NAS operating system by Synology"><img src="images/integrations/synology.png" alt="Synology DSM"><span>Synology DSM</span></div>
         <div class="built-in-tools">
           <span class="built-in-label">Built-in</span>
           <span class="integration-pill">SSH</span>
