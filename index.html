@@ -277,6 +277,38 @@
       flex: 1;
     }
 
+    .integration-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      width: 82px;
+      padding: 14px 8px 10px;
+      background: var(--bg);
+      border: 1px solid var(--bg3);
+      border-radius: 14px;
+      transition: border-color 0.15s;
+    }
+
+    .integration-logo:hover {
+      border-color: #3b82f6;
+    }
+
+    .integration-logo img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .integration-logo span {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
     .integration-pill {
       background: var(--bg);
       border: 1px solid var(--bg3);
@@ -562,22 +594,22 @@
         <p class="section-sub" style="font-size: 15px;">Built for the tools homelabbers actually run.</p>
       </div>
       <div class="integrations-list">
-        <span class="integration-pill">Proxmox VE</span>
-        <span class="integration-pill">Proxmox Backup Server</span>
-        <span class="integration-pill">Portainer</span>
-        <span class="integration-pill">Dockge</span>
-        <span class="integration-pill">Uptime Kuma</span>
-        <span class="integration-pill">Beszel</span>
-        <span class="integration-pill">Dell iDRAC</span>
-        <span class="integration-pill">HP iLO</span>
-        <span class="integration-pill">Pi-hole</span>
-        <span class="integration-pill">AdGuard Home</span>
-        <span class="integration-pill">Tailscale</span>
-        <span class="integration-pill">OPNsense</span>
-        <span class="integration-pill">Unraid</span>
-        <span class="integration-pill">TrueNAS</span>
-        <span class="integration-pill">Nginx Proxy Manager</span>
-        <span class="integration-pill">Synology DSM</span>
+        <div class="integration-logo"><img src="images/integrations/proxmox.png" alt="Proxmox"><span>Proxmox VE</span></div>
+        <div class="integration-logo"><img src="images/integrations/pbs.png" alt="PBS"><span>Proxmox Backup Server</span></div>
+        <div class="integration-logo"><img src="images/integrations/portainer.png" alt="Portainer"><span>Portainer</span></div>
+        <div class="integration-logo"><img src="images/integrations/dockge.png" alt="Dockge"><span>Dockge</span></div>
+        <div class="integration-logo"><img src="images/integrations/uptime-kuma.png" alt="Uptime Kuma"><span>Uptime Kuma</span></div>
+        <div class="integration-logo"><img src="images/integrations/beszel.png" alt="Beszel"><span>Beszel</span></div>
+        <div class="integration-logo"><img src="images/integrations/idrac.png" alt="Dell iDRAC"><span>Dell iDRAC</span></div>
+        <div class="integration-logo"><img src="images/integrations/hpilo.png" alt="HP iLO"><span>HP iLO</span></div>
+        <div class="integration-logo"><img src="images/integrations/pihole.png" alt="Pi-hole"><span>Pi-hole</span></div>
+        <div class="integration-logo"><img src="images/integrations/adguard.png" alt="AdGuard Home"><span>AdGuard Home</span></div>
+        <div class="integration-logo"><img src="images/integrations/tailscale.png" alt="Tailscale"><span>Tailscale</span></div>
+        <div class="integration-logo"><img src="images/integrations/opnsense.png" alt="OPNsense"><span>OPNsense</span></div>
+        <div class="integration-logo"><img src="images/integrations/unraid.png" alt="Unraid"><span>Unraid</span></div>
+        <div class="integration-logo"><img src="images/integrations/truenas.png" alt="TrueNAS"><span>TrueNAS</span></div>
+        <div class="integration-logo"><img src="images/integrations/npm.png" alt="Nginx Proxy Manager"><span>Nginx Proxy Manager</span></div>
+        <div class="integration-logo"><img src="images/integrations/synology.png" alt="Synology DSM"><span>Synology DSM</span></div>
         <span class="integration-pill">SSH</span>
         <span class="integration-pill">Wake on LAN</span>
       </div>
