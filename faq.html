@@ -357,6 +357,9 @@
       <a href="#hpilo" class="toc-link">HP iLO</a>
       <a href="#pihole" class="toc-link">Pi-hole</a>
       <a href="#adguard" class="toc-link">AdGuard Home</a>
+      <a href="#remote-access" class="toc-link">Remote Access</a>
+      <a href="#discovery" class="toc-link">Local Network Discovery</a>
+      <a href="#cloudflare-access" class="toc-link">Cloudflare Access</a>
       <a href="#tailscale" class="toc-link">Tailscale</a>
       <a href="#opnsense" class="toc-link">OPNsense</a>
       <a href="#unraid" class="toc-link">Unraid</a>
@@ -397,6 +400,7 @@
       <summary>What does the JSON config template look like?</summary>
       <div class="faq-body">
         <p>Copy the template below, fill in your server details, and import it in <strong>Settings &gt; Import JSON</strong>. Remove any integrations you don't use. The <code>id</code> fields can be any unique string.</p>
+        <p>If any of your services sit behind Cloudflare Access, add <code>cfAccessClientId</code> and <code>cfAccessClientSecret</code> to that server's entry (or <code>portainerCfAccessClientId</code> / <code>uptimeKumaCfAccessClientId</code> at the top level for those flat-keyed integrations). Both fields must be set together. See the <a href="#cloudflare-access">Cloudflare Access</a> section above for details.</p>
         <div class="code-block">
           <div class="code-block-header">
             <span class="code-block-label">ctrlfreak-config.json</span>
@@ -691,6 +695,70 @@
     </details>
   </div>
 
+  <!-- REMOTE ACCESS -->
+  <div class="faq-section" id="remote-access">
+    <div class="faq-section-title">Remote Access</div>
+
+    <details>
+      <summary>How do I use CtrlFreak when I'm away from home?</summary>
+      <div class="faq-body">
+        <p>Install Tailscale on your phone and on any always-on Linux box on your home network. Once both devices are signed into the same tailnet, CtrlFreak reaches your servers via MagicDNS hostnames (for example <code>pve1.tail-abc123.ts.net</code>) from anywhere with internet. No port forwards, no DDNS, no Cloudflare tunnel needed.</p>
+        <p>CtrlFreak does not bundle a VPN client. Tailscale runs as a separate app on your phone, governed by Tailscale's own privacy policy.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>My iDRAC or iLO can't run a VPN client. How do I reach it remotely?</summary>
+      <div class="faq-body">
+        <p>Set up a Tailscale subnet router on the same VLAN. Five-minute recipe on any always-on Linux box (Pi, NUC, existing VM):</p>
+        <div class="code-block"><pre>sudo sysctl -w net.ipv4.ip_forward=1
+echo 'net.ipv4.ip_forward = 1' | sudo tee /etc/sysctl.d/99-tailscale.conf
+sudo tailscale up --advertise-routes=192.168.1.0/24</pre></div>
+        <p>Then go to the Tailscale admin console and approve the advertised route. Your out-of-band management controllers are now reachable from any device on your tailnet.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Should I enter Tailscale IPs (100.x) or MagicDNS hostnames in CtrlFreak?</summary>
+      <div class="faq-body">
+        <p>MagicDNS hostnames. Tailnet IPs are in the CGNAT range (<code>100.64.0.0/10</code>), which iOS App Transport Security does not auto-allow without per-host configuration. MagicDNS hostnames (<code>pve1.tail-abc123.ts.net</code>) work out of the box and survive tailnet IP changes.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- DISCOVERY -->
+  <div class="faq-section" id="discovery">
+    <div class="faq-section-title">Local Network Discovery</div>
+
+    <details>
+      <summary>Why does CtrlFreak ask for Local Network permission?</summary>
+      <div class="faq-body">
+        <p>To scan your LAN via mDNS / Bonjour for servers advertising standard services. Found servers can be added with one tap instead of typing IP addresses by hand. The app works fully without granting this permission; manual entry is always available in each integration's settings screen.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is anything sent off-device when CtrlFreak scans my network?</summary>
+      <div class="faq-body">
+        <p>No. mDNS is broadcast-only on your LAN. Scan results never leave the device. GOW Studios has no access to your network topology.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- CLOUDFLARE ACCESS -->
+  <div class="faq-section" id="cloudflare-access">
+    <div class="faq-section-title">Cloudflare Access</div>
+
+    <details>
+      <summary>How do I use CtrlFreak with Cloudflare Access in front of my services?</summary>
+      <div class="faq-body">
+        <p>Each integration's settings screen has an Advanced section with two optional fields: Cloudflare Access Client-Id and Client-Secret. Paste your service token credentials there, and CtrlFreak will send them as <code>CF-Access-Client-Id</code> and <code>CF-Access-Client-Secret</code> headers on every request to that host.</p>
+        <p>Leave both fields blank if you're not using Cloudflare Access; the integration will use only the credentials you provide for the service itself.</p>
+        <p>To generate a service token: Cloudflare Zero Trust dashboard &gt; Access &gt; Service Auth &gt; Service Tokens &gt; Create Service Token. Copy the Client-Id and Client-Secret immediately; the secret is shown only once.</p>
+      </div>
+    </details>
+  </div>
+
   <!-- TAILSCALE -->
   <div class="faq-section" id="tailscale">
     <div class="faq-section-title">Tailscale</div>
@@ -892,11 +960,28 @@
     <div class="faq-section-title">SSL and Certificates</div>
 
     <details>
-      <summary>Does CtrlFreak work with self-signed certificates?</summary>
+      <summary>Does CtrlFreak support self-signed certificates?</summary>
       <div class="faq-body">
-        <p>Yes. CtrlFreak accepts self-signed and untrusted SSL certificates by design. Homelab servers commonly run with self-signed certs and the app is built to connect to them directly without requiring a trusted CA chain.</p>
-        <div class="note warning">Connections are fully encrypted. Certificate authority validation is skipped by design - in a local homelab, you control the servers you're connecting to, so a CA chain is unnecessary. This is an intentional decision for the homelab use case, not a limitation.</div>
-        <p>A per-server SSL verification toggle is on the roadmap for users who want stricter control.</p>
+        <p>Yes, with explicit per-host trust and SHA-256 fingerprint pinning. When you connect to a server with a self-signed certificate (typical for Proxmox, iDRAC, TrueNAS, and many homelab defaults), the app displays a one-time trust prompt showing the certificate's SHA-256 fingerprint.</p>
+        <p>Verify the fingerprint matches your server by running this on the server:</p>
+        <div class="code-block"><pre>openssl x509 -noout -fingerprint -sha256 -in /etc/your-cert.pem</pre></div>
+        <p>If the value matches, tap <strong>Trust</strong>. The fingerprint is pinned for that host in the device keychain. Subsequent connections compare the certificate against the pin. If the certificate later changes, the app blocks the connection and surfaces a re-trust prompt. This is the same security model SSH uses for host keys.</p>
+        <div class="note">Connections are TLS-encrypted in both directions. The certificate fingerprint is a separate authentication layer on top of TLS, not a replacement for it.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>I rotated my certificate and CtrlFreak is warning me. Is that normal?</summary>
+      <div class="faq-body">
+        <p>Yes. The app detected a fingerprint change. If you rotated the cert intentionally (manual rotation, Let's Encrypt renewal, internal CA reissue), tap <strong>Re-trust</strong> and verify the new fingerprint matches your server using the openssl command above.</p>
+        <p>If you didn't rotate the cert, investigate before tapping Trust. A fingerprint change you didn't expect can indicate a man-in-the-middle attack on your network.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I disable certificate verification globally for all servers?</summary>
+      <div class="faq-body">
+        <p>No, and we won't add that. Per-host opt-in via the verifySSL toggle in each integration's settings screen is the safe path. Each opted-in host gets its own fingerprint pin, so a future MITM against any single host is still detected even if you've opted multiple hosts out of strict TLS validation.</p>
       </div>
     </details>
 
