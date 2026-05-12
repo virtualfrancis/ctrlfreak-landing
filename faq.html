@@ -413,25 +413,41 @@
       "label": "My Proxmox",
       "host": "https://192.168.1.38:8006",
       "token": "user@pam!tokenname=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-      "verifySSL": false
+      "verifySSL": false,
+      "cfAccessClientId": "",
+      "cfAccessClientSecret": ""
     }
   ],
   "portainerHost": "http://192.168.1.73:9000",
   "portainerToken": "your-portainer-api-token",
+  "portainerVerifySSL": false,
+  "portainerCfAccessClientId": "",
+  "portainerCfAccessClientSecret": "",
   "uptimeKumaHost": "http://192.168.1.73:3001",
   "uptimeKumaUser": "",
   "uptimeKumaPass": "",
+  "uptimeKumaVerifySSL": false,
+  "uptimeKumaCfAccessClientId": "",
+  "uptimeKumaCfAccessClientSecret": "",
   "idracServers": [
     {
       "id": "idrac-1",
       "label": "My Server",
       "host": "https://192.168.1.51",
       "username": "root",
-      "password": "your-idrac-password"
+      "password": "your-idrac-password",
+      "verifySSL": false
     }
   ],
-  "piholeHost": "http://192.168.1.100",
-  "piholeToken": "your-pihole-api-token",
+  "piholeServers": [
+    {
+      "id": "pihole-1",
+      "label": "Pi-hole",
+      "host": "http://192.168.1.100",
+      "token": "your-pihole-api-token",
+      "verifySSL": false
+    }
+  ],
   "tailscaleTailnet": "your-tailnet-name",
   "tailscaleApiKey": "tskey-api-xxxxxxxxxxxx",
   "tailscaleApiUrl": "",
@@ -440,7 +456,8 @@
       "id": "unraid-1",
       "label": "Unraid Tower",
       "host": "http://192.168.1.52",
-      "apiKey": "your-unraid-api-key"
+      "apiKey": "your-unraid-api-key",
+      "verifySSL": false
     }
   ],
   "npmServers": [
@@ -449,7 +466,8 @@
       "label": "Nginx Proxy Manager",
       "host": "http://192.168.1.73:81",
       "email": "admin@example.com",
-      "password": "your-npm-password"
+      "password": "your-npm-password",
+      "verifySSL": false
     }
   ],
   "adGuardServers": [
@@ -458,7 +476,8 @@
       "label": "AdGuard Home",
       "host": "http://192.168.1.53:3000",
       "username": "admin",
-      "password": "your-adguard-password"
+      "password": "your-adguard-password",
+      "verifySSL": false
     }
   ],
   "pbsServers": [
@@ -466,7 +485,8 @@
       "id": "pbs-1",
       "label": "Proxmox Backup Server",
       "host": "https://192.168.1.38:8007",
-      "token": "user@realm!tokenname=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+      "token": "user@realm!tokenname=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "verifySSL": false
     }
   ],
   "dockgeServers": [
@@ -475,7 +495,8 @@
       "label": "Dockge",
       "host": "http://192.168.1.73:5001",
       "username": "admin",
-      "password": "your-dockge-password"
+      "password": "your-dockge-password",
+      "verifySSL": false
     }
   ],
   "beszelServers": [
@@ -484,7 +505,8 @@
       "label": "Beszel",
       "host": "http://192.168.1.73:8090",
       "username": "you@example.com",
-      "password": "your-beszel-password"
+      "password": "your-beszel-password",
+      "verifySSL": false
     }
   ],
   "trueNASServers": [
@@ -492,7 +514,8 @@
       "id": "truenas-1",
       "label": "TrueNAS",
       "host": "http://192.168.1.52",
-      "apiKey": "your-truenas-api-key"
+      "apiKey": "your-truenas-api-key",
+      "verifySSL": false
     }
   ],
   "opnsenseServers": [
@@ -501,7 +524,8 @@
       "label": "OPNsense",
       "host": "https://192.168.1.1",
       "apiKey": "your-api-key",
-      "apiSecret": "your-api-secret"
+      "apiSecret": "your-api-secret",
+      "verifySSL": false
     }
   ],
   "hpiloServers": [
@@ -510,7 +534,8 @@
       "label": "HP iLO",
       "host": "https://192.168.1.51",
       "username": "Administrator",
-      "password": "your-ilo-password"
+      "password": "your-ilo-password",
+      "verifySSL": false
     }
   ],
   "synologyServers": [
@@ -519,7 +544,8 @@
       "label": "Synology NAS",
       "host": "http://192.168.1.54:5000",
       "username": "admin",
-      "password": "your-dsm-password"
+      "password": "your-dsm-password",
+      "verifySSL": false
     }
   ],
   "wolDevices": [
@@ -531,6 +557,15 @@
     }
   ],
   "wolRelayUrl": "",
+  "notifications": {
+    "enabled": false,
+    "pollIntervalMinutes": 15,
+    "failureThreshold": 2,
+    "notifyVMDown": true,
+    "notifyContainerDown": true,
+    "notifyServiceDown": true,
+    "notifyIDRACCritical": true
+  },
   "enabledIntegrations": {
     "proxmox": true,
     "portainer": true,
@@ -549,6 +584,7 @@
     "hpilo": false,
     "synology": false
   },
+  "appLockTimeoutMinutes": 15,
   "demoMode": false
 }</pre>
         </div>
